@@ -1,0 +1,29 @@
+PODS:
+  - Bolts/Tasks (1.7.0)
+  - ChameleonFramework (2.1.0):
+    - ChameleonFramework/Default (= 2.1.0)
+  - ChameleonFramework/Default (2.1.0)
+  - ConvenienceKit (0.4.0)
+  - DZNEmptyDataSet (1.8.1)
+  - IQKeyboardManager (4.0.3)
+  - Parse (1.13.0):
+    - Bolts/Tasks (~> 1.6)
+
+DEPENDENCIES:
+  - ChameleonFramework
+  - ConvenienceKit
+  - DZNEmptyDataSet
+  - IQKeyboardManager
+  - Parse
+
+SPEC CHECKSUMS:
+  Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  ConvenienceKit: ba1ad8797897dc0d011676e961a2f3e9b270c841
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  IQKeyboardManager: be9695ffc5a52077deb4847608f338771022d6d1
+  Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
+
+PODFILE CHECKSUM: 0622c67a0cc28e4471795cc42553dc3e79670aca
+
+COCOAPODS: 1.0.1
