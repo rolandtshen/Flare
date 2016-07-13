@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+struct Categories {
+    var Travel: (String, [Question])?
+    var Entertainment: (String, [Question])?
+    var Sports: (String,[Question])?
+    var Listings: (String, [Question])?
+    var Recommendations: (String, [Question])
+}

@@ -14,16 +14,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ConvenienceKit-ConvenienceKit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>ConvenienceKit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>DZNEmptyDataSet.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -34,7 +24,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>KMPlaceholderTextView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Parse.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ParseUI.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -57,12 +57,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2C8DC467079441E807FB656A16F42213</key>
+		<key>37C76CD246D637B8E4C586284A0D96B2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>802D3B1C197FEA0861F5931F7ED43355</key>
+		<key>6EDB710DE7A0E76DD44EA84D9285B720</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7129FAB61478FA70223DADF4921468CD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,17 +77,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B272B33F162D6E5C3510BA50ECF2684B</key>
+		<key>E1F78B1C5F8F2CCD0E68552EAF2B9B52</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BA0ED018954B2E035A694BF72506145C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C3088D509DCC08B3E07004508CF0BCC0</key>
+		<key>EC25B770E2E786F47106EE8F013163EA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

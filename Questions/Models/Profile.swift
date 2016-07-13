@@ -8,7 +8,8 @@
 
 import Foundation
 import UIKit
+import Parse
 
 struct Profile {
-    
+    var profilePicture: PFFile
 }

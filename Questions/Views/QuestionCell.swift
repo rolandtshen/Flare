@@ -8,7 +8,14 @@
 
 import Foundation
 import UIKit
+import ParseUI
+import Parse
 
-class QuestionCell: UITableViewCell {
+class QuestionCell: PFTableViewCell {
     
+    @IBOutlet weak var cardView: UIView!
+    @IBOutlet weak var questionLabel: UILabel!
+    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var repliesLabel: UILabel!
 }

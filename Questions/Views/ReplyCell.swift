@@ -7,3 +7,13 @@
 //
 
 import Foundation
+import UIKit
+
+class ReplyCell: UITableViewCell {
+    
+    @IBOutlet weak var profilePic: UIImageView!
+    @IBOutlet weak var username: UILabel!
+    @IBOutlet weak var replyText: UILabel!
+    @IBOutlet weak var postTime: UILabel!
+}
+
