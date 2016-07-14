@@ -11,5 +11,7 @@
 
 #import <Parse/Parse.h>
 #import <Bolts/Bolts.h>
+#import <Parse/PFObject+Subclass.h>
+#import <Parse/PFGeoPoint.h> 
 
 #endif /* Questions_Bridging_Header_h */

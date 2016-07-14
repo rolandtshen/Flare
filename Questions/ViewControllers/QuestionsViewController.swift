@@ -23,12 +23,31 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     var reset: Bool = false
     let locationManager = CLLocationManager()
     
+    override func viewDidAppear(animated: Bool) {
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.backgroundColor = UIColor.flatWhiteColor()
         tableView.estimatedRowHeight = 125.0
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        self.pullToRefreshEnabled = true
+        self.objectsPerPage = 5
+        
+        self.writeQuestionTextView.selectedRange = NSMakeRange(0, 0);
+        self.writeQuestionTextView.becomeFirstResponder()
+        
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if (CLLocationManager.locationServicesEnabled()) {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        tableView.reloadData()
     }
     
     //MARK: Empty Data Set
@@ -50,20 +69,14 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     }
 
     //MARK: Table View Methods
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         let cell = tableView.dequeueReusableCellWithIdentifier("QuestionCell", forIndexPath: indexPath) as! QuestionCell
-        cell.questionLabel.text = "questionquestionquestionquestionquestionquestionquestionquestionquestionquestionquestionquestionquestionquestionquestionquestionquestionquestion"
+        cell.questionLabel.text = object!["question"] as? String
+        cell.timeLabel.text = object!.createdAt //fill in with datetools
         return cell
     }
     
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        cell.backgroundColor = UIColor.clearColor()
-    }
-
     //MARK: Universal Private Methods
     //Alert method
     private func alert(message : String) {
@@ -80,52 +93,25 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
-    //Limits amount of characters in post
-    private func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        let newText = (textView.text as NSString).stringByReplacingCharactersInRange(range, withString: text)
-        let numberOfChars = newText.characters.count
-        return numberOfChars < 100;
-    }
-    
-    @IBAction func postPressed(sender: AnyObject) {
-        
-    }
-    
     //MARK: Query for location
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        alert("Cannot fetch your location")
-    }
     
-    override func queryForTable() -> PFQuery {
-        let query = PFQuery(className: "Post")
-        if let queryLoc = currLocation {
-            query.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: queryLoc.latitude, longitude: queryLoc.longitude), withinMiles: 10)
-            query.limit = 200;
-            query.orderByDescending("createdAt")
-        }
-        else {
-            // Decide on how the application should react if there is no location available
-            query.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: 0, longitude: 0), withinMiles: 10)
-            query.limit = 200;
-            query.orderByDescending("createdAt")
-        }
-        
-        return query
-    }
-
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         locationManager.stopUpdatingLocation()
         if(locations.count > 0){
-            let location = locations[0]
-            print(location.coordinate)
+            let location = locations[locations.count - 1]
             currLocation = location.coordinate
-        } 
-        else {
-            alert("There was an error fetching your location.")
+            self.loadObjects()
+        } else {
+            alert("Couldn't update location")
         }
     }
     
-
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        alert("Cannot fetch your location")
+        print("DIDN'T GET LOCATION")
+    }
+    
     override func objectAtIndexPath(indexPath: NSIndexPath!) -> PFObject? {
         var obj: PFObject? = nil
         if(indexPath.row < self.objects!.count){
@@ -134,8 +120,33 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         
         return obj
     }
-
-    //MARK: UPVOTE/DOWNVOTES
+    
+    //Limits amount of characters in post
+    private func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        let newText = (textView.text as NSString).stringByReplacingCharactersInRange(range, withString: text)
+        let numberOfChars = newText.characters.count
+        return numberOfChars < 100;
+    }
+    
+    override func queryForTable() -> PFQuery {
+        let query = PFQuery(className: "Post")
+        if let queryLoc = currLocation {
+            query.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: queryLoc.latitude, longitude: queryLoc.longitude), withinMiles: 10)
+            query.limit = 100;
+            query.orderByDescending("createdAt")
+            print("location found")
+        }
+        else {
+            //Decide on how the application should react if there is no location available
+            query.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: 0, longitude: 0), withinMiles: 10)
+            query.limit = 100;
+            query.orderByDescending("createdAt")
+            print("no location")
+        }
+        return query
+    }
+    
+      //MARK: UPVOTE/DOWNVOTES
 //    @IBAction func topButton(sender: AnyObject) {
 //        let hitPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
 //        let hitIndex = self.tableView.indexPathForRowAtPoint(hitPoint)
@@ -155,18 +166,30 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
 //        self.tableView.reloadData()
 //        NSLog("Bottom Index Path \(hitIndex?.row)")
 //    }
-//    
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
             if identifier == "questionDetail" {
                 print("Cell tapped")
-                let indexPath = tableView.indexPathForSelectedRow!
-                let question = questions![indexPath.row]
-                let displayQuestion = segue.destinationViewController as! DetailViewController
-                displayQuestion.question = question
+//                let indexPath = tableView.indexPathForSelectedRow!
+//                let question = questions![indexPath.row]
+//                let displayQuestion = segue.destinationViewController as! DetailViewController
+//                displayQuestion.question = question
             }
         }
     }
+    
+    func getStringFromDate(date: NSDate) -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy, H:mm"
+        return dateFormatter.stringFromDate(date) // yourDate is your parse date
+    }
+    
+    //When user posts something
+    @IBAction func postPressed(sender: AnyObject) {
+        let question = Question(category: "Category", question: writeQuestionTextView.text, location: currLocation!)
+        question.uploadPost()
+        self.loadObjects()
+    }
 }
-
 
