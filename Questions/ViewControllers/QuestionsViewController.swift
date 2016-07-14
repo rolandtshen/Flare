@@ -6,17 +6,18 @@
 //  Copyright © 2016 Roland Shen. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import CoreLocation
-import ChameleonFramework
 import Parse
 import ParseUI
+import DateTools
+import ChameleonFramework
 
 class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var writeQuestionPic: UIImageView!
     @IBOutlet weak var writeQuestionTextView: UITextView!
+    @IBOutlet weak var cameraButton: UIImageView!
     
     var questions: [Question]?
     var currLocation: CLLocationCoordinate2D?
@@ -38,6 +39,9 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         
         self.writeQuestionTextView.selectedRange = NSMakeRange(0, 0);
         self.writeQuestionTextView.becomeFirstResponder()
+        
+        let gradientColors = [UIColor.flatMintColor(), UIColor.flatSkyBlueColor()]
+        tableView.backgroundColor = GradientColor(UIGradientStyle.TopToBottom, frame: view.frame, colors: gradientColors)
         
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
@@ -73,43 +77,27 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         let cell = tableView.dequeueReusableCellWithIdentifier("QuestionCell", forIndexPath: indexPath) as! QuestionCell
         cell.questionLabel.text = object!["question"] as? String
-        cell.timeLabel.text = object!.createdAt //fill in with datetools
+        cell.timeLabel.text = object!.createdAt?.shortTimeAgoSinceDate(NSDate())
         return cell
     }
-    
-    //MARK: Universal Private Methods
-    //Alert method
-    private func alert(message : String) {
-        let alert = UIAlertController(title: "Oops something went wrong.", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        let action = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil)
-        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
-        let settings = UIAlertAction(title: "Settings", style: UIAlertActionStyle.Default) { (action) -> Void in
-            UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
-            return
-        }
-        alert.addAction(settings)
-        alert.addAction(action)
-        alert.addAction(cancel)
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
-    
+       
     //MARK: Query for location
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         locationManager.stopUpdatingLocation()
-        if(locations.count > 0){
+        if(locations.count > 0) {
             let location = locations[locations.count - 1]
             currLocation = location.coordinate
             self.loadObjects()
-        } else {
-            alert("Couldn't update location")
+        }
+        else {
+            alert("Please enable location services in settings!")
         }
     }
     
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        alert("Cannot fetch your location")
-        print("DIDN'T GET LOCATION")
+        alert("Please enable location services in settings!")
     }
     
     override func objectAtIndexPath(indexPath: NSIndexPath!) -> PFObject? {
@@ -134,14 +122,12 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             query.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: queryLoc.latitude, longitude: queryLoc.longitude), withinMiles: 10)
             query.limit = 100;
             query.orderByDescending("createdAt")
-            print("location found")
         }
         else {
             //Decide on how the application should react if there is no location available
             query.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: 0, longitude: 0), withinMiles: 10)
             query.limit = 100;
             query.orderByDescending("createdAt")
-            print("no location")
         }
         return query
     }
@@ -190,6 +176,21 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         let question = Question(category: "Category", question: writeQuestionTextView.text, location: currLocation!)
         question.uploadPost()
         self.loadObjects()
+        tableView.reloadData()
+    }
+}
+
+extension QuestionsViewController {
+    func alert(message : String) {
+        let alert = UIAlertController(title: "We couldn't fetch your location.", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        let settings = UIAlertAction(title: "Settings", style: UIAlertActionStyle.Default) { (action) -> Void in
+            UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+            return
+        }
+        alert.addAction(settings)
+        alert.addAction(cancel)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 }
 

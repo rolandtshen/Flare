@@ -12,6 +12,8 @@
 #import <Parse/Parse.h>
 #import <Bolts/Bolts.h>
 #import <Parse/PFObject+Subclass.h>
-#import <Parse/PFGeoPoint.h> 
+#import <Parse/PFGeoPoint.h>
+#import "NSDate+DateTools.h"
+#import <DateTools/DateTools.h>
 
 #endif /* Questions_Bridging_Header_h */

@@ -1,8 +1,9 @@
 PODS:
-  - Bolts/Tasks (1.8.3)
-  - ChameleonFramework (2.1.0):
-    - ChameleonFramework/Default (= 2.1.0)
+  - Bolts/Tasks (1.8.4)
   - ChameleonFramework/Default (2.1.0)
+  - ChameleonFramework/Swift (2.1.0):
+    - ChameleonFramework/Default
+  - DateTools (1.7.0)
   - DZNEmptyDataSet (1.8.1)
   - IQKeyboardManager (4.0.4)
   - KMPlaceholderTextView (1.2.2)
@@ -13,7 +14,8 @@ PODS:
     - Parse (~> 1.9)
 
 DEPENDENCIES:
-  - ChameleonFramework
+  - ChameleonFramework/Swift
+  - DateTools
   - DZNEmptyDataSet
   - IQKeyboardManager
   - KMPlaceholderTextView
@@ -21,14 +23,15 @@ DEPENDENCIES:
   - ParseUI
 
 SPEC CHECKSUMS:
-  Bolts: 52551f96df2f8aac6b4414347f3f8353a39f1966
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   IQKeyboardManager: 4a6f83b540283c2645aaeba2bd8dc0f09b5c77f8
   KMPlaceholderTextView: bbff031935d84f7eedb585e7f77120020fbae9e8
   Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
   ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e
 
-PODFILE CHECKSUM: b9cb973a598dc57b367dd65be0688609899e084c
+PODFILE CHECKSUM: e1becf85bc9c631042cfc62dd83a1c6ebcda2cdb
 
 COCOAPODS: 1.0.1

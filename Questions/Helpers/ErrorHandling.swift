@@ -10,7 +10,8 @@ import UIKit
 /**
  This struct provides basic Error handling functionality.
  */
-struct ErrorHandling {
+
+class ErrorHandling: UIViewController {
     
     static let ErrorTitle           = "Error"
     static let ErrorOKButtonTitle   = "Ok"

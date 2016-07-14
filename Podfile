@@ -8,7 +8,7 @@ target 'Questions' do
   # Pods for Questions
   
 pod 'DZNEmptyDataSet'
-pod 'ChameleonFramework'
+pod 'ChameleonFramework/Swift'
 pod 'IQKeyboardManager'
 pod 'KMPlaceholderTextView'
 pod 'Parse'
