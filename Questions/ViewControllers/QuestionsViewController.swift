@@ -13,7 +13,7 @@ import ParseUI
 import DateTools
 import ChameleonFramework
 
-class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDelegate {
+class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDelegate, UITextViewDelegate {
     
     @IBOutlet weak var writeQuestionPic: UIImageView!
     @IBOutlet weak var writeQuestionTextView: UITextView!
@@ -30,6 +30,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        writeQuestionTextView.delegate = self
         self.tableView.backgroundColor = UIColor.flatWhiteColor()
         tableView.estimatedRowHeight = 125.0
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -37,10 +38,9 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         self.pullToRefreshEnabled = true
         self.objectsPerPage = 5
         
-        self.writeQuestionTextView.selectedRange = NSMakeRange(0, 0);
-        self.writeQuestionTextView.becomeFirstResponder()
+        self.writeQuestionTextView.selectedRange = NSMakeRange(0, 200);
         
-        let gradientColors = [UIColor.flatMintColor(), UIColor.flatSkyBlueColor()]
+        let gradientColors: [UIColor] = [UIColor.flatMintColor(), UIColor.flatSkyBlueColor()]
         tableView.backgroundColor = GradientColor(UIGradientStyle.TopToBottom, frame: view.frame, colors: gradientColors)
         
         self.locationManager.requestAlwaysAuthorization()
@@ -52,6 +52,11 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             locationManager.startUpdatingLocation()
         }
         tableView.reloadData()
+    }
+    
+    func textFieldShouldReturn(textField: UITextView!) -> Bool {
+        textField.resignFirstResponder()
+        return true;
     }
     
     //MARK: Empty Data Set
@@ -78,6 +83,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         let cell = tableView.dequeueReusableCellWithIdentifier("QuestionCell", forIndexPath: indexPath) as! QuestionCell
         cell.questionLabel.text = object!["question"] as? String
         cell.timeLabel.text = object!.createdAt?.shortTimeAgoSinceDate(NSDate())
+        cell.backgroundColor = UIColor.clearColor()
         return cell
     }
        
@@ -177,6 +183,8 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         question.uploadPost()
         self.loadObjects()
         tableView.reloadData()
+        print("posted at lat: \(currLocation!.latitude), long \(currLocation!.longitude)")
+        textFieldShouldReturn(writeQuestionTextView)
     }
 }
 
