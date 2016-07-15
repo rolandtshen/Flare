@@ -13,7 +13,6 @@ import CoreLocation
 
 class Question: PFObject, PFSubclassing {
    
-    @NSManaged var imageFile: PFFile?
     @NSManaged var user: PFUser?
     
     var location: CLLocationCoordinate2D?
@@ -46,11 +45,10 @@ class Question: PFObject, PFSubclassing {
         let post = PFObject(className: "Post")
         post["question"] = question
         if(image != nil) {
-            post["imageFile"] = imageFile
+            post["imageFile"] = image
         }
         post["location"] = PFGeoPoint(latitude: location!.latitude, longitude: location!.longitude)
-       // post["user"] = PFUser.currentUser()
-        
+        post["user"] = PFUser.currentUser()
         post.saveInBackgroundWithBlock {
             (success: Bool, error: NSError?) -> Void in
             if (success) {

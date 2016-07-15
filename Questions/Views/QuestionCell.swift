@@ -18,4 +18,5 @@ class QuestionCell: PFTableViewCell {
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var repliesLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
 }

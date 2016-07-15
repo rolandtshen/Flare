@@ -8,27 +8,38 @@
 
 import Foundation
 import UIKit
+import Parse
+import ParseUI
 
-class DetailViewController: UIViewController {
-    
-    @IBOutlet weak var originalQuestionView: UIView!
-    @IBOutlet weak var posterQuestion: UILabel!
-    @IBOutlet weak var posterName: UILabel!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var posterTime: UILabel!
+class DetailViewController: PFQueryTableViewController, UINavigationControllerDelegate {
     
     var numReplies: Int?
-    var question: Question? {
-        didSet {
-            //nothing for now
-        }
-    }
+    var question: PFObject?
+    
+    @IBOutlet weak var originalQuestionView: UIView!
+    @IBOutlet weak var posterNameLabel: UILabel!
+    @IBOutlet weak var questionTextLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     
     override func viewDidLoad() {
-        originalQuestionView.layer.cornerRadius = 10
-        originalQuestionView.layer.masksToBounds = true
         
+        //allows all reply cells to change dynamically based on answer length
         tableView.estimatedRowHeight = 125.0
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+       // posterNameLabel.text = question!["user"].username
+        questionTextLabel.text = question!["question"] as? String
+        timeLabel.text = question!.createdAt?.shortTimeAgoSinceDate(NSDate())
+    }
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
+        let cell = tableView.dequeueReusableCellWithIdentifier("ReplyCell", forIndexPath: indexPath) as! ReplyCell
+        cell.postTime.text = object!.createdAt?.shortTimeAgoSinceDate(NSDate())
+        cell.replyText.text = object!["reply"] as? String
+        return cell
+    }
+
+    override func queryForTable() -> PFQuery {
+        let query = PFQuery(className: "Reply")
+        return query
     }
 }

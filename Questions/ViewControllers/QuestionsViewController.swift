@@ -19,7 +19,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     @IBOutlet weak var writeQuestionTextView: UITextView!
     @IBOutlet weak var cameraButton: UIImageView!
     
-    var questions: [Question]?
     var currLocation: CLLocationCoordinate2D?
     var reset: Bool = false
     let locationManager = CLLocationManager()
@@ -56,13 +55,14 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     
     func textFieldShouldReturn(textField: UITextView!) -> Bool {
         textField.resignFirstResponder()
+        textField.text = ""
         return true;
     }
     
     //MARK: Empty Data Set
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
         let str = "There haven't been any questions posted near you."
-        let changes = [NSForegroundColorAttributeName : UIColor.blackColor()]
+        let changes = [NSForegroundColorAttributeName: UIColor.blackColor()]
         
         return NSAttributedString(string: str, attributes: changes)
     }
@@ -83,6 +83,13 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         let cell = tableView.dequeueReusableCellWithIdentifier("QuestionCell", forIndexPath: indexPath) as! QuestionCell
         cell.questionLabel.text = object!["question"] as? String
         cell.timeLabel.text = object!.createdAt?.shortTimeAgoSinceDate(NSDate())
+
+//        var question: Question? {
+//            didSet {
+//                cell.usernameLabel.text = question!.user?.username
+//            }
+//        }
+        
         cell.backgroundColor = UIColor.clearColor()
         return cell
     }
@@ -116,7 +123,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     }
     
     //Limits amount of characters in post
-    private func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    @objc internal func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         let newText = (textView.text as NSString).stringByReplacingCharactersInRange(range, withString: text)
         let numberOfChars = newText.characters.count
         return numberOfChars < 100;
@@ -162,11 +169,10 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
             if identifier == "questionDetail" {
-                print("Cell tapped")
-//                let indexPath = tableView.indexPathForSelectedRow!
-//                let question = questions![indexPath.row]
-//                let displayQuestion = segue.destinationViewController as! DetailViewController
-//                displayQuestion.question = question
+                let indexPath = self.tableView.indexPathForSelectedRow
+                let obj = self.objects![indexPath!.row]
+                let detail = segue.destinationViewController as! DetailViewController
+                detail.question = obj
             }
         }
     }
