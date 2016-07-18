@@ -11,16 +11,14 @@ import UIKit
 import Parse
 import CoreLocation
 
-class Question: PFObject, PFSubclassing {
-   
+class Reply: PFObject, PFSubclassing {
+    
     @NSManaged var user: PFUser?
-    @NSManaged var location: PFGeoPoint?
-    @NSManaged var category: String?
-    @NSManaged var question: String?
+    @NSManaged var reply: String?
     @NSManaged var imageFile: PFFile
-
+    
     class func parseClassName() -> String {
-        return "Post"
+        return "Reply"
     }
     
     override class func initialize() {

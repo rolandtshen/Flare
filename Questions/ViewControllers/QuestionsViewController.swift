@@ -81,15 +81,10 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         let cell = tableView.dequeueReusableCellWithIdentifier("QuestionCell", forIndexPath: indexPath) as! QuestionCell
-        cell.questionLabel.text = object!["question"] as? String
-        cell.timeLabel.text = object!.createdAt?.shortTimeAgoSinceDate(NSDate())
-
-//        var question: Question? {
-//            didSet {
-//                cell.usernameLabel.text = question!.user?.username
-//            }
-//        }
-        
+        let question = object as! Question
+        cell.questionLabel.text = question.question
+        cell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
+        cell.usernameLabel.text = question.user?.username
         cell.backgroundColor = UIColor.clearColor()
         return cell
     }
@@ -130,11 +125,12 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     }
     
     override func queryForTable() -> PFQuery {
-        let query = PFQuery(className: "Post")
+        let query = Question.query()!
         if let queryLoc = currLocation {
-            query.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: queryLoc.latitude, longitude: queryLoc.longitude), withinMiles: 10)
+            query.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: queryLoc.latitude, longitude: queryLoc.longitude), withinMiles: 5)
             query.limit = 100;
             query.orderByDescending("createdAt")
+            query.includeKey("user")
         }
         else {
             //Decide on how the application should react if there is no location available
@@ -145,32 +141,11 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         return query
     }
     
-      //MARK: UPVOTE/DOWNVOTES
-//    @IBAction func topButton(sender: AnyObject) {
-//        let hitPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
-//        let hitIndex = self.tableView.indexPathForRowAtPoint(hitPoint)
-//        let object = objectAtIndexPath(hitIndex)
-//        object.incrementKey("count")
-//        object.saveInBackground()
-//        self.tableView.reloadData()
-//        NSLog("Top Index Path \(hitIndex?.row)")
-//    }
-//    
-//    @IBAction func bottomButton(sender: AnyObject) {
-//        let hitPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
-//        let hitIndex = self.tableView.indexPathForRowAtPoint(hitPoint)
-//        let object = objectAtIndexPath(hitIndex)
-//        object.incrementKey("count", byAmount: -1)
-//        object.saveInBackground()
-//        self.tableView.reloadData()
-//        NSLog("Bottom Index Path \(hitIndex?.row)")
-//    }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
             if identifier == "questionDetail" {
                 let indexPath = self.tableView.indexPathForSelectedRow
-                let obj = self.objects![indexPath!.row]
+                let obj = self.objects![indexPath!.row] as? Question
                 let detail = segue.destinationViewController as! DetailViewController
                 detail.question = obj
             }
@@ -185,8 +160,12 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     
     //When user posts something
     @IBAction func postPressed(sender: AnyObject) {
-        let question = Question(category: "Category", question: writeQuestionTextView.text, location: currLocation!)
-        question.uploadPost()
+        let question = Question()
+        question.category = "temp category"
+        question.question = writeQuestionTextView.text
+        question.location = PFGeoPoint(latitude: currLocation!.latitude, longitude: currLocation!.longitude)
+        question.user = PFUser.currentUser()
+        question.saveInBackground()
         self.loadObjects()
         tableView.reloadData()
         print("posted at lat: \(currLocation!.latitude), long \(currLocation!.longitude)")

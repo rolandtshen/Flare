@@ -13,8 +13,8 @@ import ParseUI
 
 class DetailViewController: PFQueryTableViewController, UINavigationControllerDelegate {
     
-    var numReplies: Int?
     var question: PFObject?
+    var numReplies: Int?
     
     @IBOutlet weak var originalQuestionView: UIView!
     @IBOutlet weak var posterNameLabel: UILabel!
@@ -22,15 +22,16 @@ class DetailViewController: PFQueryTableViewController, UINavigationControllerDe
     @IBOutlet weak var timeLabel: UILabel!
     
     override func viewDidLoad() {
-        
         //allows all reply cells to change dynamically based on answer length
         tableView.estimatedRowHeight = 125.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
-       // posterNameLabel.text = question!["user"].username
-        questionTextLabel.text = question!["question"] as? String
-        timeLabel.text = question!.createdAt?.shortTimeAgoSinceDate(NSDate())
+        let user = question?.objectForKey("user") as? PFUser
+        posterNameLabel.text = user?.username
+        questionTextLabel.text = question?.objectForKey("question") as? String
+        timeLabel.text = question?.createdAt?.shortTimeAgoSinceDate(NSDate())
     }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         let cell = tableView.dequeueReusableCellWithIdentifier("ReplyCell", forIndexPath: indexPath) as! ReplyCell
         cell.postTime.text = object!.createdAt?.shortTimeAgoSinceDate(NSDate())

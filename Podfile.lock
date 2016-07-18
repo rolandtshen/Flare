@@ -12,6 +12,7 @@ PODS:
   - ParseUI (1.2.0):
     - Bolts/Tasks (~> 1.3)
     - Parse (~> 1.9)
+  - SlackTextViewController (1.9.3)
 
 DEPENDENCIES:
   - ChameleonFramework/Swift
@@ -21,6 +22,7 @@ DEPENDENCIES:
   - KMPlaceholderTextView
   - Parse
   - ParseUI
+  - SlackTextViewController
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -31,7 +33,8 @@ SPEC CHECKSUMS:
   KMPlaceholderTextView: bbff031935d84f7eedb585e7f77120020fbae9e8
   Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
   ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e
+  SlackTextViewController: bd2a34c188d4f7dec93cf42388f38551263fac82
 
-PODFILE CHECKSUM: e1becf85bc9c631042cfc62dd83a1c6ebcda2cdb
+PODFILE CHECKSUM: 2c5e352bed9a4c2145494ea4776b96872b28edd8
 
 COCOAPODS: 1.0.1

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		108A4B29AAEF965660C14BB2 /* Pods_Questions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877CDF84E4142BB7C982F804 /* Pods_Questions.framework */; };
+		2A364C931D3D44E1004F59EC /* Reply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A364C921D3D44E1004F59EC /* Reply.swift */; };
 		2A3822D41D356ADE00BC6D02 /* ParseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3822D31D356ADE00BC6D02 /* ParseHelper.swift */; };
 		2A3822D61D356CFD00BC6D02 /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3822D51D356CFD00BC6D02 /* ErrorHandling.swift */; };
 		2A6546FC1D3853CC00A234A1 /* PhotoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6546FB1D3853CC00A234A1 /* PhotoHelper.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A364C921D3D44E1004F59EC /* Reply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reply.swift; sourceTree = "<group>"; };
 		2A3822D31D356ADE00BC6D02 /* ParseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseHelper.swift; sourceTree = "<group>"; };
 		2A3822D51D356CFD00BC6D02 /* ErrorHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		2A6546FB1D3853CC00A234A1 /* PhotoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoHelper.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				2AE71C231D343C0700CB7B62 /* Question.swift */,
 				2AE71C251D343C1100CB7B62 /* Profile.swift */,
 				2AE71C2B1D346BFE00CB7B62 /* Categories.swift */,
+				2A364C921D3D44E1004F59EC /* Reply.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2AE71C1E1D343A6D00CB7B62 /* MessagesViewController.swift in Sources */,
+				2A364C931D3D44E1004F59EC /* Reply.swift in Sources */,
 				2AE71C241D343C0700CB7B62 /* Question.swift in Sources */,
 				2AE71C161D34349800CB7B62 /* QuestionsViewController.swift in Sources */,
 				2AE71C201D343B9A00CB7B62 /* QuestionCell.swift in Sources */,

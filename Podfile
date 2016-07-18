@@ -14,5 +14,6 @@ pod 'KMPlaceholderTextView'
 pod 'Parse'
 pod 'ParseUI'
 pod 'DateTools'
+pod 'SlackTextViewController'
 
 end
