@@ -39,13 +39,13 @@ class DetailViewController: PFQueryTableViewController, UINavigationControllerDe
                 (imageData: NSData?, error: NSError?) -> Void in
                 if error == nil {
                     let image = UIImage(data: imageData!)
-                    self.postImage.image = image
+              //      self.postImage.image = image
                 }
                 else {
                     print("Error: \(error)")
                 }
             }
-            postImage.sizeToFit()
+            //postImage.sizeToFit()
         }
     }
 

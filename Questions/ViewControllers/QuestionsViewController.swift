@@ -19,6 +19,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     @IBOutlet weak var writeQuestionTextView: UITextView!
     @IBOutlet weak var cameraButton: UIImageView!
     var image: UIImage?
+    var downloadedImage: UIImage?
     
     var currLocation: CLLocationCoordinate2D?
     var reset: Bool = false
@@ -34,7 +35,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         super.viewDidLoad()
         writeQuestionTextView.delegate = self
         self.tableView.backgroundColor = UIColor.flatWhiteColor()
-        tableView.estimatedRowHeight = 125.0
+        tableView.estimatedRowHeight = 200
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         self.pullToRefreshEnabled = true
@@ -61,6 +62,19 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         tableView.reloadData()
     }
 
+    func getImage(object: PFObject) {
+        let question = object as! Question
+        if let picture = question.imageFile {
+            picture.getDataInBackgroundWithBlock({
+                (imageData: NSData?, error: NSError?) -> Void in
+                if (error == nil) {
+                    self.downloadedImage = UIImage(data: imageData!)
+                }
+            })
+        }
+        //self.tableView.reloadData()
+    }
+    
     //MARK: Image Picker Methods
     func imageTapped(gesture: UIGestureRecognizer) {
         if (gesture.view as? UIImageView) != nil {
@@ -129,27 +143,26 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         let question = object as! Question
         var pickedCell = PFTableViewCell()
         
-        question.imageFile.getDataInBackgroundWithBlock({(imageData: NSData?, error: NSError?) -> Void in
-            if error == nil {
-                let cell = tableView.dequeueReusableCellWithIdentifier("QuestionCell", forIndexPath: indexPath) as! QuestionCell
-                cell.questionLabel.text = question.question
-                cell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
-                cell.usernameLabel.text = question.user?.username
-                pickedCell = cell
-            }
-            else {
-                let imageCell = tableView.dequeueReusableCellWithIdentifier("QuestionImageCell", forIndexPath: indexPath) as! QuestionImageCell
-                imageCell.questionLabel.text = question.question
-                imageCell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
-                imageCell.usernameLabel.text = question.user?.username
-                imageCell.postImage.image = UIImage(data: imageData!)
-                pickedCell = imageCell
-            }
-        })
+        if question.hasImage == true {
+            getImage(object!)
+            let imageCell = tableView.dequeueReusableCellWithIdentifier("QuestionImageCell", forIndexPath: indexPath) as! QuestionImageCell
+            imageCell.questionLabel.text = question.question
+            imageCell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
+            imageCell.usernameLabel.text = question.user?.username
+            imageCell.postImage.image = downloadedImage
+            pickedCell = imageCell
+        }
+        else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("QuestionCell", forIndexPath: indexPath) as! QuestionCell
+            cell.questionLabel.text = question.question
+            cell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
+            cell.usernameLabel.text = question.user?.username
+            pickedCell = cell
+        }
         return pickedCell
     }
     //MARK: Query for location
-    
+
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         locationManager.stopUpdatingLocation()
         if(locations.count > 0) {
@@ -221,6 +234,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {return}
             guard let imageFile = PFFile(name: "image.jpg", data: imageData) else {return}
             question.imageFile = imageFile
+            question.hasImage = true
         }
         question.saveInBackground()
         self.loadObjects()

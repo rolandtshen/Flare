@@ -656,6 +656,7 @@
                                                     </constraints>
                                                     <variation key="default">
                                                         <mask key="constraints">
+                                                            <exclude reference="ImD-4d-uEc"/>
                                                             <exclude reference="bmz-M8-ivN"/>
                                                         </mask>
                                                     </variation>

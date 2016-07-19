@@ -17,7 +17,8 @@ class Question: PFObject, PFSubclassing {
     @NSManaged var location: PFGeoPoint?
     @NSManaged var category: String?
     @NSManaged var question: String?
-    @NSManaged var imageFile: PFFile
+    @NSManaged var imageFile: PFFile?
+    @NSManaged var hasImage: Bool
 
     class func parseClassName() -> String {
         return "Post"
