@@ -10,10 +10,10 @@ target 'Questions' do
 pod 'DZNEmptyDataSet'
 pod 'ChameleonFramework/Swift'
 pod 'IQKeyboardManager'
-pod 'KMPlaceholderTextView'
 pod 'Parse'
 pod 'ParseUI'
 pod 'DateTools'
-pod 'SlackTextViewController'
+pod 'XLActionController'
+pod 'XLActionController/Twitter'
 
 end

@@ -13,6 +13,8 @@ import ParseUI
 class ReplyCell: PFTableViewCell {
     
     @IBOutlet weak var replyText: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var postTime: UILabel!
+    @IBOutlet weak var replyProfilePic: UIImageView!
 }
 

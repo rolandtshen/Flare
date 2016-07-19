@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="419"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUq-QY-8FG">
+                    <rect key="frame" x="549" y="12" width="31" height="17"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEu-bJ-L1w">
+                    <rect key="frame" x="20" y="383" width="24" height="24"/>
+                    <state key="normal" image="ic_question_answer"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pqr-vA-1E2">
+                    <rect key="frame" x="556" y="383" width="24" height="24"/>
+                    <state key="normal" image="ic_reply"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="POSTER NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LKl-vd-Jpz">
+                    <rect key="frame" x="20" y="12" width="103" height="17"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zcK-hf-XBC">
+                    <rect key="frame" x="20" y="67" width="560" height="308"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QUESTION TEXT HERE" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o8U-vd-rjf">
+                    <rect key="frame" x="20" y="37" width="193" height="22"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="zcK-hf-XBC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="2aA-qN-fWQ"/>
+                <constraint firstItem="LKl-vd-Jpz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="38O-sI-y5U"/>
+                <constraint firstItem="o8U-vd-rjf" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="AR9-4e-3MH"/>
+                <constraint firstAttribute="trailing" secondItem="zcK-hf-XBC" secondAttribute="trailing" constant="20" id="DKL-09-8ZS"/>
+                <constraint firstItem="zcK-hf-XBC" firstAttribute="top" secondItem="o8U-vd-rjf" secondAttribute="bottom" constant="8" id="FoX-PO-m7E"/>
+                <constraint firstAttribute="trailing" secondItem="fUq-QY-8FG" secondAttribute="trailing" constant="20" id="OZl-1P-G1D"/>
+                <constraint firstAttribute="bottom" secondItem="Pqr-vA-1E2" secondAttribute="bottom" constant="12" id="QIS-y7-rwv"/>
+                <constraint firstAttribute="bottom" secondItem="zEu-bJ-L1w" secondAttribute="bottom" constant="12" id="VBg-8T-Yr9"/>
+                <constraint firstItem="fUq-QY-8FG" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="Zjv-fU-IbX"/>
+                <constraint firstAttribute="trailing" secondItem="Pqr-vA-1E2" secondAttribute="trailing" constant="20" id="Zne-VD-4XI"/>
+                <constraint firstItem="o8U-vd-rjf" firstAttribute="top" secondItem="LKl-vd-Jpz" secondAttribute="bottom" constant="8" id="fYl-cf-it0"/>
+                <constraint firstItem="zEu-bJ-L1w" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="mr2-ki-FPz"/>
+                <constraint firstItem="Pqr-vA-1E2" firstAttribute="top" secondItem="zcK-hf-XBC" secondAttribute="bottom" constant="8" id="oST-yl-use"/>
+                <constraint firstItem="LKl-vd-Jpz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="uNt-BS-StO"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="394" y="190.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_question_answer" width="24" height="24"/>
+        <image name="ic_reply" width="24" height="24"/>
+    </resources>
+</document>

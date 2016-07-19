@@ -13,7 +13,6 @@ import Parse
 
 class QuestionCell: PFTableViewCell {
     
-    @IBOutlet weak var cardView: UIView!
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!

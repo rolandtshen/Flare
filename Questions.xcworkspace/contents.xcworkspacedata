@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Questions/MakeSchool.gpx">
+   </FileRef>
+   <FileRef
       location = "group:Questions.xcodeproj">
    </FileRef>
    <FileRef

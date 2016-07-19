@@ -13,15 +13,18 @@ import ParseUI
 import DateTools
 import ChameleonFramework
 
-class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDelegate, UITextViewDelegate {
+class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var writeQuestionPic: UIImageView!
     @IBOutlet weak var writeQuestionTextView: UITextView!
     @IBOutlet weak var cameraButton: UIImageView!
+    var image: UIImage?
     
     var currLocation: CLLocationCoordinate2D?
     var reset: Bool = false
     let locationManager = CLLocationManager()
+    
+    var imagePickerController: UIImagePickerController?
     
     override func viewDidAppear(animated: Bool) {
         tableView.reloadData()
@@ -50,13 +53,56 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
+        
+        cameraButton.userInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(QuestionsViewController.imageTapped(_:)))
+        cameraButton.addGestureRecognizer(tapGesture)
+        
         tableView.reloadData()
     }
+
+    //MARK: Image Picker Methods
+    func imageTapped(gesture: UIGestureRecognizer) {
+        if (gesture.view as? UIImageView) != nil {
+            print("Image Tapped")
+            // Allow user to choose between photo library and camera
+            let alertController = UIAlertController(title: nil, message: "Where do you want to get your picture from?", preferredStyle: .ActionSheet)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            
+            alertController.addAction(cancelAction)
+            
+            let photoLibraryAction = UIAlertAction(title: "Photo from Library", style: .Default) { (action) in
+                self.showImagePickerController(.PhotoLibrary)
+            }
+            
+            alertController.addAction(photoLibraryAction)
+            
+            // Only show camera option if rear camera is available
+            if (UIImagePickerController.isCameraDeviceAvailable(.Rear)) {
+                let cameraAction = UIAlertAction(title: "Photo from Camera", style: .Default) { (action) in
+                    self.showImagePickerController(.Camera)
+                }
+                alertController.addAction(cameraAction)
+            }
+            presentViewController(alertController, animated: true, completion: nil)
+        }
+    }
     
-    func textFieldShouldReturn(textField: UITextView!) -> Bool {
-        textField.resignFirstResponder()
-        textField.text = ""
-        return true;
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            image = pickedImage
+        }
+        
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func showImagePickerController(sourceType: UIImagePickerControllerSourceType) {
+        imagePickerController = UIImagePickerController()
+        imagePickerController!.sourceType = sourceType
+        imagePickerController!.delegate = self
+        
+        presentViewController(imagePickerController!, animated: true, completion: nil)
     }
     
     //MARK: Empty Data Set
@@ -80,15 +126,28 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     //MARK: Table View Methods
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
-        let cell = tableView.dequeueReusableCellWithIdentifier("QuestionCell", forIndexPath: indexPath) as! QuestionCell
         let question = object as! Question
-        cell.questionLabel.text = question.question
-        cell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
-        cell.usernameLabel.text = question.user?.username
-        cell.backgroundColor = UIColor.clearColor()
-        return cell
+        var pickedCell = PFTableViewCell()
+        
+        question.imageFile.getDataInBackgroundWithBlock({(imageData: NSData?, error: NSError?) -> Void in
+            if error == nil {
+                let cell = tableView.dequeueReusableCellWithIdentifier("QuestionCell", forIndexPath: indexPath) as! QuestionCell
+                cell.questionLabel.text = question.question
+                cell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
+                cell.usernameLabel.text = question.user?.username
+                pickedCell = cell
+            }
+            else {
+                let imageCell = tableView.dequeueReusableCellWithIdentifier("QuestionImageCell", forIndexPath: indexPath) as! QuestionImageCell
+                imageCell.questionLabel.text = question.question
+                imageCell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
+                imageCell.usernameLabel.text = question.user?.username
+                imageCell.postImage.image = UIImage(data: imageData!)
+                pickedCell = imageCell
+            }
+        })
+        return pickedCell
     }
-       
     //MARK: Query for location
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -128,16 +187,15 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         let query = Question.query()!
         if let queryLoc = currLocation {
             query.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: queryLoc.latitude, longitude: queryLoc.longitude), withinMiles: 5)
-            query.limit = 100;
-            query.orderByDescending("createdAt")
-            query.includeKey("user")
         }
         else {
             //Decide on how the application should react if there is no location available
-            query.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: 0, longitude: 0), withinMiles: 10)
-            query.limit = 100;
-            query.orderByDescending("createdAt")
+            
+            //IMPLEMENT LATER: IMAGE ON SCREEN SAYING CAN'T GET LOCATION
         }
+        query.limit = 100;
+        query.orderByDescending("createdAt")
+        query.includeKey("user")
         return query
     }
     
@@ -152,12 +210,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         }
     }
     
-    func getStringFromDate(date: NSDate) -> String {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yy, H:mm"
-        return dateFormatter.stringFromDate(date) // yourDate is your parse date
-    }
-    
     //When user posts something
     @IBAction func postPressed(sender: AnyObject) {
         let question = Question()
@@ -165,6 +217,11 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         question.question = writeQuestionTextView.text
         question.location = PFGeoPoint(latitude: currLocation!.latitude, longitude: currLocation!.longitude)
         question.user = PFUser.currentUser()
+        if let image = image {
+            guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {return}
+            guard let imageFile = PFFile(name: "image.jpg", data: imageData) else {return}
+            question.imageFile = imageFile
+        }
         question.saveInBackground()
         self.loadObjects()
         tableView.reloadData()
@@ -173,7 +230,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     }
 }
 
-extension QuestionsViewController {
+extension QuestionsViewController: UITextViewDelegate {
     func alert(message : String) {
         let alert = UIAlertController(title: "We couldn't fetch your location.", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
@@ -184,6 +241,13 @@ extension QuestionsViewController {
         alert.addAction(settings)
         alert.addAction(cancel)
         self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    //Turn off text field when post is pressed
+    func textFieldShouldReturn(textField: UITextView!) -> Bool {
+        textField.resignFirstResponder()
+        textField.text = ""
+        return true;
     }
 }
 

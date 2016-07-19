@@ -8,12 +8,14 @@
 
 import Foundation
 import UIKit
+import ParseUI
 
-class QuestionImageCell: UITableViewCell {
+class QuestionImageCell: PFTableViewCell {
     
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var questionLabel: UILabel!
-    @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var repliesLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var postImage: UIImageView!
 }

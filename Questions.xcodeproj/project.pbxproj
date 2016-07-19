@@ -12,7 +12,10 @@
 		2A3822D41D356ADE00BC6D02 /* ParseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3822D31D356ADE00BC6D02 /* ParseHelper.swift */; };
 		2A3822D61D356CFD00BC6D02 /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3822D51D356CFD00BC6D02 /* ErrorHandling.swift */; };
 		2A6546FC1D3853CC00A234A1 /* PhotoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6546FB1D3853CC00A234A1 /* PhotoHelper.swift */; };
+		2A7C0CDB1D3D8E35006FC5EC /* ActionSheetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A7C0CDA1D3D8E35006FC5EC /* ActionSheetCell.xib */; };
 		2A9193C81D36A99D00A9905E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9193C71D36A99D00A9905E /* DetailViewController.swift */; };
+		2AC024231D3E9D0000CDF938 /* QuestionHeaderImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC024221D3E9D0000CDF938 /* QuestionHeaderImageView.xib */; };
+		2AC6D81B1D3D9B1D0054BCDC /* QuestionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC6D81A1D3D9B1D0054BCDC /* QuestionHeaderView.xib */; };
 		2AD19F071D394AC0002C0BD3 /* SanFranciscoDisplay-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2AD19EF21D394AC0002C0BD3 /* SanFranciscoDisplay-Black.otf */; };
 		2AD19F081D394AC0002C0BD3 /* SanFranciscoDisplay-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2AD19EF31D394AC0002C0BD3 /* SanFranciscoDisplay-Bold.otf */; };
 		2AD19F091D394AC0002C0BD3 /* SanFranciscoDisplay-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2AD19EF41D394AC0002C0BD3 /* SanFranciscoDisplay-Heavy.otf */; };
@@ -56,8 +59,11 @@
 		2A3822D31D356ADE00BC6D02 /* ParseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseHelper.swift; sourceTree = "<group>"; };
 		2A3822D51D356CFD00BC6D02 /* ErrorHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		2A6546FB1D3853CC00A234A1 /* PhotoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoHelper.swift; sourceTree = "<group>"; };
+		2A7C0CDA1D3D8E35006FC5EC /* ActionSheetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionSheetCell.xib; sourceTree = "<group>"; };
 		2A9193C71D36A99D00A9905E /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		2AB207291D36B30900B4A930 /* Questions-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Questions-Bridging-Header.h"; sourceTree = "<group>"; };
+		2AC024221D3E9D0000CDF938 /* QuestionHeaderImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionHeaderImageView.xib; sourceTree = "<group>"; };
+		2AC6D81A1D3D9B1D0054BCDC /* QuestionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionHeaderView.xib; sourceTree = "<group>"; };
 		2AD19EF21D394AC0002C0BD3 /* SanFranciscoDisplay-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Black.otf"; sourceTree = "<group>"; };
 		2AD19EF31D394AC0002C0BD3 /* SanFranciscoDisplay-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Bold.otf"; sourceTree = "<group>"; };
 		2AD19EF41D394AC0002C0BD3 /* SanFranciscoDisplay-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Heavy.otf"; sourceTree = "<group>"; };
@@ -116,6 +122,7 @@
 		2A3822D21D356AC600BC6D02 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				2A7C0CDA1D3D8E35006FC5EC /* ActionSheetCell.xib */,
 				2A3822D31D356ADE00BC6D02 /* ParseHelper.swift */,
 				2A3822D51D356CFD00BC6D02 /* ErrorHandling.swift */,
 				2A6546FB1D3853CC00A234A1 /* PhotoHelper.swift */,
@@ -179,6 +186,8 @@
 				2AE71C141D34342000CB7B62 /* Views */,
 				2AE71BFA1D341F3E00CB7B62 /* AppDelegate.swift */,
 				2AE71BFE1D341F3E00CB7B62 /* Main.storyboard */,
+				2AC024221D3E9D0000CDF938 /* QuestionHeaderImageView.xib */,
+				2AC6D81A1D3D9B1D0054BCDC /* QuestionHeaderView.xib */,
 				2AE71C011D341F3E00CB7B62 /* Assets.xcassets */,
 				2AE71C031D341F3E00CB7B62 /* LaunchScreen.storyboard */,
 				2AE71C061D341F3E00CB7B62 /* Info.plist */,
@@ -300,7 +309,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AC024231D3E9D0000CDF938 /* QuestionHeaderImageView.xib in Resources */,
 				2AD19F121D394AC0002C0BD3 /* SanFranciscoText-Heavy.otf in Resources */,
+				2AC6D81B1D3D9B1D0054BCDC /* QuestionHeaderView.xib in Resources */,
 				2AD19F141D394AC0002C0BD3 /* SanFranciscoText-Light.otf in Resources */,
 				2AD19F0D1D394AC0002C0BD3 /* SanFranciscoDisplay-Semibold.otf in Resources */,
 				2AE71C051D341F3E00CB7B62 /* LaunchScreen.storyboard in Resources */,
@@ -308,6 +319,7 @@
 				2AD19F191D394AC0002C0BD3 /* SanFranciscoText-RegularItalic.otf in Resources */,
 				2AD19F071D394AC0002C0BD3 /* SanFranciscoDisplay-Black.otf in Resources */,
 				2AD19F0B1D394AC0002C0BD3 /* SanFranciscoDisplay-Medium.otf in Resources */,
+				2A7C0CDB1D3D8E35006FC5EC /* ActionSheetCell.xib in Resources */,
 				2AD19F101D394AC0002C0BD3 /* SanFranciscoText-Bold.otf in Resources */,
 				2AD19F0E1D394AC0002C0BD3 /* SanFranciscoDisplay-Thin.otf in Resources */,
 				2AD19F171D394AC0002C0BD3 /* SanFranciscoText-MediumItalic.otf in Resources */,
@@ -512,10 +524,13 @@
 			baseConfigurationReference = D7C5A4176CD319493A331262 /* Pods-Questions.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Questions/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rolandshen.Questions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Questions/Questions-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -524,10 +539,12 @@
 			baseConfigurationReference = A1A695A7CA19657754306990 /* Pods-Questions.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Questions/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rolandshen.Questions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Questions/Questions-Bridging-Header.h";
 			};
 			name = Release;
 		};
