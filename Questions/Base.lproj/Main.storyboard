@@ -732,6 +732,7 @@
                                     <outlet property="repliesLabel" destination="He3-fX-DRG" id="gGa-Fx-NjQ"/>
                                     <outlet property="timeLabel" destination="ghe-yB-GFr" id="hGY-bz-SBS"/>
                                     <outlet property="usernameLabel" destination="0vY-Fo-Gg0" id="82U-q4-IwU"/>
+                                    <segue destination="l68-bx-zt7" kind="show" id="y1c-T9-1Yw"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -830,4 +831,7 @@
         <image name="ic_question_answer" width="24" height="24"/>
         <image name="ic_reply" width="24" height="24"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="y1c-T9-1Yw"/>
+    </inferredMetricsTieBreakers>
 </document>

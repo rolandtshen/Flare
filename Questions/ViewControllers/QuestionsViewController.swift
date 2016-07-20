@@ -21,7 +21,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     @IBOutlet weak var cameraButton: UIImageView!
     var image: UIImage?
     var downloadedImage: UIImage?
-    
+    var selectedCategory: String?
     var currLocation: CLLocationCoordinate2D?
     var reset: Bool = false
     let locationManager = CLLocationManager()
@@ -67,20 +67,26 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         let alertView = SCLAlertView()
         
         alertView.addButton("Travel", backgroundColor: UIColor.flatRedColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+            self.selectedCategory = "Travel"
         }
 
         alertView.addButton("Entertainment", backgroundColor: UIColor.flatOrangeColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+            self.selectedCategory = "Entertainment"
         }
 
         alertView.addButton("Meetup", backgroundColor: UIColor.flatYellowColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+            self.selectedCategory = "Meetup"
         }
 
         alertView.addButton("Listings", backgroundColor: UIColor.flatGreenColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+            self.selectedCategory = "Listings"
         }
 
         alertView.addButton("Recommendations", backgroundColor: UIColor.flatSkyBlueColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+            self.selectedCategory = "Listings"
         }
         alertView.addButton("Other", backgroundColor: UIColor.flatMagentaColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+            self.selectedCategory = "Other"
         }
         alertView.showNotice("Categories", subTitle: "")
     }
@@ -166,6 +172,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         let question = object as! Question
         var pickedCell = PFTableViewCell()
+        let colorPicker = CategoryHelper()
         
         if question.hasImage == true {
             getImage(object!)
@@ -173,6 +180,9 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             imageCell.questionLabel.text = question.question
             imageCell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
             imageCell.usernameLabel.text = question.user?.username
+            imageCell.categoryLabel.textColor = UIColor.whiteColor()
+            imageCell.categoryLabel.text = question.category
+            imageCell.categoryLabel.backgroundColor = colorPicker.colorChooser(question.category!)
             imageCell.postImage.clipsToBounds = true
             imageCell.postImage.image = downloadedImage
             pickedCell = imageCell
@@ -182,6 +192,9 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             cell.questionLabel.text = question.question
             cell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
             cell.usernameLabel.text = question.user?.username
+            cell.categoryLabel.textColor = UIColor.whiteColor()
+            cell.categoryLabel.text = question.category
+            cell.categoryLabel.backgroundColor = colorPicker.colorChooser("Entertainment")
             pickedCell = cell
         }
         return pickedCell
@@ -250,14 +263,23 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     
     //When user posts something
     @IBAction func postPressed(sender: AnyObject) {
+        let alert = SCLAlertView()
         let question = Question()
-        question.category = "temp category"
-        question.question = writeQuestionTextView.text
+        if(selectedCategory != nil) {
+            question.category = selectedCategory
+        }
+        else {
+            alert.showError("Error", subTitle: "Please select a category")
+        }
+        if(writeQuestionTextView.text != "") {
+            question.question = writeQuestionTextView.text
+            alert.showError("Error", subTitle: "You haven't written a question!")
+        }
         question.location = PFGeoPoint(latitude: currLocation!.latitude, longitude: currLocation!.longitude)
         question.user = PFUser.currentUser()
         if let image = image {
             guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {return}
-            guard let imageFile = PFFile(name: "image.jpg", data: imageData) else {return}
+            guard let imageFile = PFFile(name: "\(question.objectId).jpg", data: imageData) else {return}
             question.imageFile = imageFile
             question.hasImage = true
         }
@@ -270,7 +292,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
 }
 
 extension QuestionsViewController: UITextViewDelegate {
-    func alert(message : String) {
+    func alert(message: String) {
         let alert = UIAlertController(title: "We couldn't fetch your location.", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
         let settings = UIAlertAction(title: "Settings", style: UIAlertActionStyle.Default) { (action) -> Void in
@@ -288,9 +310,4 @@ extension QuestionsViewController: UITextViewDelegate {
         textField.text = ""
         return true;
     }
-}
-
-//MARK: Category Picker Alert
-extension QuestionsViewController {
-
 }

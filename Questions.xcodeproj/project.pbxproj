@@ -35,6 +35,7 @@
 		2AD19F191D394AC0002C0BD3 /* SanFranciscoText-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2AD19F041D394AC0002C0BD3 /* SanFranciscoText-RegularItalic.otf */; };
 		2AD19F1A1D394AC0002C0BD3 /* SanFranciscoText-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2AD19F051D394AC0002C0BD3 /* SanFranciscoText-Semibold.otf */; };
 		2AD19F1B1D394AC0002C0BD3 /* SanFranciscoText-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2AD19F061D394AC0002C0BD3 /* SanFranciscoText-SemiboldItalic.otf */; };
+		2AD3F3B11D3FE580000626E5 /* CategoryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD3F3B01D3FE580000626E5 /* CategoryHelper.swift */; };
 		2ADD468E1D3561D400D23352 /* ReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD468D1D3561D400D23352 /* ReplyCell.swift */; };
 		2AE71BFB1D341F3E00CB7B62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE71BFA1D341F3E00CB7B62 /* AppDelegate.swift */; };
 		2AE71C001D341F3E00CB7B62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2AE71BFE1D341F3E00CB7B62 /* Main.storyboard */; };
@@ -48,7 +49,6 @@
 		2AE71C241D343C0700CB7B62 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE71C231D343C0700CB7B62 /* Question.swift */; };
 		2AE71C261D343C1100CB7B62 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE71C251D343C1100CB7B62 /* Profile.swift */; };
 		2AE71C281D3456B100CB7B62 /* MessagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE71C271D3456B100CB7B62 /* MessagesCell.swift */; };
-		2AE71C2C1D346BFE00CB7B62 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE71C2B1D346BFE00CB7B62 /* Categories.swift */; };
 		2AE71C301D35582400CB7B62 /* QuestionImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE71C2F1D35582400CB7B62 /* QuestionImageCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +81,7 @@
 		2AD19F041D394AC0002C0BD3 /* SanFranciscoText-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoText-RegularItalic.otf"; sourceTree = "<group>"; };
 		2AD19F051D394AC0002C0BD3 /* SanFranciscoText-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoText-Semibold.otf"; sourceTree = "<group>"; };
 		2AD19F061D394AC0002C0BD3 /* SanFranciscoText-SemiboldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoText-SemiboldItalic.otf"; sourceTree = "<group>"; };
+		2AD3F3B01D3FE580000626E5 /* CategoryHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryHelper.swift; sourceTree = "<group>"; };
 		2ADD468D1D3561D400D23352 /* ReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyCell.swift; sourceTree = "<group>"; };
 		2AE71BF71D341F3E00CB7B62 /* Questions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Questions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AE71BFA1D341F3E00CB7B62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,7 +97,6 @@
 		2AE71C231D343C0700CB7B62 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		2AE71C251D343C1100CB7B62 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		2AE71C271D3456B100CB7B62 /* MessagesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesCell.swift; sourceTree = "<group>"; };
-		2AE71C2B1D346BFE00CB7B62 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		2AE71C2F1D35582400CB7B62 /* QuestionImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionImageCell.swift; sourceTree = "<group>"; };
 		877CDF84E4142BB7C982F804 /* Pods_Questions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Questions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A695A7CA19657754306990 /* Pods-Questions.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Questions.release.xcconfig"; path = "Pods/Target Support Files/Pods-Questions/Pods-Questions.release.xcconfig"; sourceTree = "<group>"; };
@@ -120,6 +120,7 @@
 			children = (
 				2A3822D51D356CFD00BC6D02 /* ErrorHandling.swift */,
 				2A6546FB1D3853CC00A234A1 /* PhotoHelper.swift */,
+				2AD3F3B01D3FE580000626E5 /* CategoryHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -195,7 +196,6 @@
 			children = (
 				2AE71C231D343C0700CB7B62 /* Question.swift */,
 				2AE71C251D343C1100CB7B62 /* Profile.swift */,
-				2AE71C2B1D346BFE00CB7B62 /* Categories.swift */,
 				2A364C921D3D44E1004F59EC /* Reply.swift */,
 			);
 			path = Models;
@@ -393,7 +393,6 @@
 				2AE71C161D34349800CB7B62 /* QuestionsViewController.swift in Sources */,
 				2AE71C201D343B9A00CB7B62 /* QuestionCell.swift in Sources */,
 				2AE71C1A1D34352100CB7B62 /* ProfileViewController.swift in Sources */,
-				2AE71C2C1D346BFE00CB7B62 /* Categories.swift in Sources */,
 				2A6546FC1D3853CC00A234A1 /* PhotoHelper.swift in Sources */,
 				2A9193C81D36A99D00A9905E /* DetailViewController.swift in Sources */,
 				2AE71C221D343BFB00CB7B62 /* ProfileView.swift in Sources */,
@@ -401,6 +400,7 @@
 				2AE71C301D35582400CB7B62 /* QuestionImageCell.swift in Sources */,
 				2AE71BFB1D341F3E00CB7B62 /* AppDelegate.swift in Sources */,
 				2ADD468E1D3561D400D23352 /* ReplyCell.swift in Sources */,
+				2AD3F3B11D3FE580000626E5 /* CategoryHelper.swift in Sources */,
 				2AE71C281D3456B100CB7B62 /* MessagesCell.swift in Sources */,
 				2A3822D61D356CFD00BC6D02 /* ErrorHandling.swift in Sources */,
 			);
