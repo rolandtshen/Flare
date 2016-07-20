@@ -9,10 +9,8 @@
 /* Begin PBXBuildFile section */
 		108A4B29AAEF965660C14BB2 /* Pods_Questions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877CDF84E4142BB7C982F804 /* Pods_Questions.framework */; };
 		2A364C931D3D44E1004F59EC /* Reply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A364C921D3D44E1004F59EC /* Reply.swift */; };
-		2A3822D41D356ADE00BC6D02 /* ParseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3822D31D356ADE00BC6D02 /* ParseHelper.swift */; };
 		2A3822D61D356CFD00BC6D02 /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3822D51D356CFD00BC6D02 /* ErrorHandling.swift */; };
 		2A6546FC1D3853CC00A234A1 /* PhotoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6546FB1D3853CC00A234A1 /* PhotoHelper.swift */; };
-		2A7C0CDB1D3D8E35006FC5EC /* ActionSheetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A7C0CDA1D3D8E35006FC5EC /* ActionSheetCell.xib */; };
 		2A9193C81D36A99D00A9905E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9193C71D36A99D00A9905E /* DetailViewController.swift */; };
 		2AC024231D3E9D0000CDF938 /* QuestionHeaderImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC024221D3E9D0000CDF938 /* QuestionHeaderImageView.xib */; };
 		2AC6D81B1D3D9B1D0054BCDC /* QuestionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC6D81A1D3D9B1D0054BCDC /* QuestionHeaderView.xib */; };
@@ -56,10 +54,8 @@
 
 /* Begin PBXFileReference section */
 		2A364C921D3D44E1004F59EC /* Reply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reply.swift; sourceTree = "<group>"; };
-		2A3822D31D356ADE00BC6D02 /* ParseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseHelper.swift; sourceTree = "<group>"; };
 		2A3822D51D356CFD00BC6D02 /* ErrorHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		2A6546FB1D3853CC00A234A1 /* PhotoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoHelper.swift; sourceTree = "<group>"; };
-		2A7C0CDA1D3D8E35006FC5EC /* ActionSheetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionSheetCell.xib; sourceTree = "<group>"; };
 		2A9193C71D36A99D00A9905E /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		2AB207291D36B30900B4A930 /* Questions-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Questions-Bridging-Header.h"; sourceTree = "<group>"; };
 		2AC024221D3E9D0000CDF938 /* QuestionHeaderImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionHeaderImageView.xib; sourceTree = "<group>"; };
@@ -122,8 +118,6 @@
 		2A3822D21D356AC600BC6D02 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				2A7C0CDA1D3D8E35006FC5EC /* ActionSheetCell.xib */,
-				2A3822D31D356ADE00BC6D02 /* ParseHelper.swift */,
 				2A3822D51D356CFD00BC6D02 /* ErrorHandling.swift */,
 				2A6546FB1D3853CC00A234A1 /* PhotoHelper.swift */,
 			);
@@ -319,7 +313,6 @@
 				2AD19F191D394AC0002C0BD3 /* SanFranciscoText-RegularItalic.otf in Resources */,
 				2AD19F071D394AC0002C0BD3 /* SanFranciscoDisplay-Black.otf in Resources */,
 				2AD19F0B1D394AC0002C0BD3 /* SanFranciscoDisplay-Medium.otf in Resources */,
-				2A7C0CDB1D3D8E35006FC5EC /* ActionSheetCell.xib in Resources */,
 				2AD19F101D394AC0002C0BD3 /* SanFranciscoText-Bold.otf in Resources */,
 				2AD19F0E1D394AC0002C0BD3 /* SanFranciscoDisplay-Thin.otf in Resources */,
 				2AD19F171D394AC0002C0BD3 /* SanFranciscoText-MediumItalic.otf in Resources */,
@@ -410,7 +403,6 @@
 				2ADD468E1D3561D400D23352 /* ReplyCell.swift in Sources */,
 				2AE71C281D3456B100CB7B62 /* MessagesCell.swift in Sources */,
 				2A3822D61D356CFD00BC6D02 /* ErrorHandling.swift in Sources */,
-				2A3822D41D356ADE00BC6D02 /* ParseHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -44,7 +44,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>XLActionController.xcscheme</key>
+		<key>SCLAlertView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -52,11 +52,6 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0A230C9C0C68CBF4251559CB4D203A74</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>16FB872D0D2D4BA0F378AB34D47CF95F</key>
 		<dict>
 			<key>primary</key>
@@ -72,12 +67,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3AA3723F13813F2B1E09871742F117FF</key>
+		<key>3B48AEF4B0141A7443F073250DC24CFD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>5172ACAB7FEA22813859DC97CA0AA16F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>59DBB74AD2A427D95AE053BFF0359257</key>
 		<dict>
 			<key>primary</key>
 			<true/>

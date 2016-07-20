@@ -13,7 +13,5 @@ pod 'IQKeyboardManager'
 pod 'Parse'
 pod 'ParseUI'
 pod 'DateTools'
-pod 'XLActionController'
-pod 'XLActionController/Twitter'
-
+pod 'SCLAlertView'
 end

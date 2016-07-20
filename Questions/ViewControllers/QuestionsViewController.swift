@@ -12,6 +12,7 @@ import Parse
 import ParseUI
 import DateTools
 import ChameleonFramework
+import SCLAlertView
 
 class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -62,6 +63,29 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         tableView.reloadData()
     }
 
+    @IBAction func categoryButton(sender: AnyObject) {
+        let alertView = SCLAlertView()
+        
+        alertView.addButton("Travel", backgroundColor: UIColor.flatRedColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+        }
+
+        alertView.addButton("Entertainment", backgroundColor: UIColor.flatOrangeColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+        }
+
+        alertView.addButton("Meetup", backgroundColor: UIColor.flatYellowColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+        }
+
+        alertView.addButton("Listings", backgroundColor: UIColor.flatGreenColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+        }
+
+        alertView.addButton("Recommendations", backgroundColor: UIColor.flatSkyBlueColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+        }
+        alertView.addButton("Other", backgroundColor: UIColor.flatMagentaColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+        }
+        alertView.showNotice("Categories", subTitle: "")
+    }
+    
+    
     func getImage(object: PFObject) {
         let question = object as! Question
         if let picture = question.imageFile {
@@ -149,6 +173,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             imageCell.questionLabel.text = question.question
             imageCell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
             imageCell.usernameLabel.text = question.user?.username
+            imageCell.postImage.clipsToBounds = true
             imageCell.postImage.image = downloadedImage
             pickedCell = imageCell
         }
@@ -265,3 +290,7 @@ extension QuestionsViewController: UITextViewDelegate {
     }
 }
 
+//MARK: Category Picker Alert
+extension QuestionsViewController {
+
+}

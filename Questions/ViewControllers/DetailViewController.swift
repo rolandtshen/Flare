@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Parse
 import ParseUI
+import SCLAlertView
 
 class DetailViewController: PFQueryTableViewController, UINavigationControllerDelegate {
     
