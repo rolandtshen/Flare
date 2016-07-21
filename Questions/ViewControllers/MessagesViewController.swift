@@ -8,18 +8,8 @@
 
 import Foundation
 import UIKit
+import SlackTextViewController
 
-class MessagesViewController: UITableViewController {
+class MessagesViewController: SLKTextViewController {
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as! MessagesCell
-        
-        cell.profilePic.layer.cornerRadius = cell.profilePic.frame.width / 2
-        cell.profilePic.layer.masksToBounds = true
-        return cell
-    }
 }

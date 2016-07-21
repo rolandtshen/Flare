@@ -19,8 +19,8 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     @IBOutlet weak var writeQuestionPic: UIImageView!
     @IBOutlet weak var writeQuestionTextView: UITextView!
     @IBOutlet weak var cameraButton: UIImageView!
+    
     var image: UIImage?
-    var downloadedImage: UIImage?
     var selectedCategory: String?
     var currLocation: CLLocationCoordinate2D?
     var reset: Bool = false
@@ -92,17 +92,16 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     }
     
     
-    func getImage(object: PFObject) {
+    func getImage(object: PFObject, completionHandler: (UIImage) -> Void) {
         let question = object as! Question
         if let picture = question.imageFile {
             picture.getDataInBackgroundWithBlock({
                 (imageData: NSData?, error: NSError?) -> Void in
                 if (error == nil) {
-                    self.downloadedImage = UIImage(data: imageData!)
+                    completionHandler(UIImage(data: imageData!)!)
                 }
             })
         }
-        //self.tableView.reloadData()
     }
     
     //MARK: Image Picker Methods
@@ -175,16 +174,17 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         let colorPicker = CategoryHelper()
         
         if question.hasImage == true {
-            getImage(object!)
             let imageCell = tableView.dequeueReusableCellWithIdentifier("QuestionImageCell", forIndexPath: indexPath) as! QuestionImageCell
             imageCell.questionLabel.text = question.question
             imageCell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
             imageCell.usernameLabel.text = question.user?.username
-            imageCell.categoryLabel.textColor = UIColor.whiteColor()
             imageCell.categoryLabel.text = question.category
-            imageCell.categoryLabel.backgroundColor = colorPicker.colorChooser(question.category!)
+            imageCell.backgroundColor = colorPicker.colorChooser(question.category!)
             imageCell.postImage.clipsToBounds = true
-            imageCell.postImage.image = downloadedImage
+            imageCell.imageView?.image = nil
+            getImage(object!, completionHandler: { (image) in
+                imageCell.postImage.image = image
+            })
             pickedCell = imageCell
         }
         else {
@@ -192,9 +192,8 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             cell.questionLabel.text = question.question
             cell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
             cell.usernameLabel.text = question.user?.username
-            cell.categoryLabel.textColor = UIColor.whiteColor()
             cell.categoryLabel.text = question.category
-            cell.categoryLabel.backgroundColor = colorPicker.colorChooser("Entertainment")
+            cell.categoryFlag.backgroundColor = colorPicker.colorChooser(question.category!)
             pickedCell = cell
         }
         return pickedCell
@@ -273,6 +272,8 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         }
         if(writeQuestionTextView.text != "") {
             question.question = writeQuestionTextView.text
+        }
+        else {
             alert.showError("Error", subTitle: "You haven't written a question!")
         }
         question.location = PFGeoPoint(latitude: currLocation!.latitude, longitude: currLocation!.longitude)
@@ -288,6 +289,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         tableView.reloadData()
         print("posted at lat: \(currLocation!.latitude), long \(currLocation!.longitude)")
         textFieldShouldReturn(writeQuestionTextView)
+        image = nil
     }
 }
 

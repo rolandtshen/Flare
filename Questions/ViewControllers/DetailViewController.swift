@@ -11,8 +11,9 @@ import UIKit
 import Parse
 import ParseUI
 import SCLAlertView
+import SlackTextViewController
 
-class DetailViewController: PFQueryTableViewController, UINavigationControllerDelegate {
+class DetailViewController: SLKTextViewController, UINavigationControllerDelegate {
     
     var question: PFObject?
     var numReplies: Int?
@@ -21,14 +22,11 @@ class DetailViewController: PFQueryTableViewController, UINavigationControllerDe
     @IBOutlet weak var posterNameLabel: UILabel!
     @IBOutlet weak var questionTextLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var replyField: UITextField!
 
-    @IBAction func sendButton(sender: AnyObject) {
-    }
+    
     override func viewDidLoad() {
-        //allows all reply cells to change dynamically based on answer length
-        tableView.estimatedRowHeight = 125.0
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView!.estimatedRowHeight = 125.0
+        tableView!.rowHeight = UITableViewAutomaticDimension
         
         let user = question?.objectForKey("user") as? PFUser
         posterNameLabel.text = user?.username
@@ -48,6 +46,11 @@ class DetailViewController: PFQueryTableViewController, UINavigationControllerDe
             }
             //postImage.sizeToFit()
         }
+        
+        let questionHeaderView = UINib(nibName: "QuestionHeaderView", bundle: NSBundle.mainBundle()).instantiateWithOwner(nil, options: nil).first as! QuestionHeaderView
+        
+        tableView?.tableHeaderView = questionHeaderView
+        
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -59,10 +62,5 @@ class DetailViewController: PFQueryTableViewController, UINavigationControllerDe
             
             return cell
     }
-
-//    override func queryForTable() -> PFQuery {
-//        let query = PFQuery(className: "Reply")
-//        return query
-//    }
 }
 
