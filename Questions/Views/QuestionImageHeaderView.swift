@@ -8,9 +8,11 @@
 
 import UIKit
 
-class QuestionHeaderView: UITableViewHeaderFooterView {
-
-    @IBOutlet weak var usernameLabel: UILabel!
+class QuestionImageHeaderView: UITableViewHeaderFooterView {
+    
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var questionLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    
 }

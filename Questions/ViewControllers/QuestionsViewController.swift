@@ -83,7 +83,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         }
 
         alertView.addButton("Recommendations", backgroundColor: UIColor.flatSkyBlueColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
-            self.selectedCategory = "Listings"
+            self.selectedCategory = "Recommendations"
         }
         alertView.addButton("Other", backgroundColor: UIColor.flatMagentaColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
             self.selectedCategory = "Other"
@@ -179,7 +179,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             imageCell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
             imageCell.usernameLabel.text = question.user?.username
             imageCell.categoryLabel.text = question.category
-            imageCell.backgroundColor = colorPicker.colorChooser(question.category!)
+            imageCell.categoryFlag.backgroundColor = colorPicker.colorChooser(question.category!)
             imageCell.postImage.clipsToBounds = true
             imageCell.imageView?.image = nil
             getImage(object!, completionHandler: { (image) in
@@ -252,6 +252,12 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
             if identifier == "questionDetail" {
+                let indexPath = self.tableView.indexPathForSelectedRow
+                let obj = self.objects![indexPath!.row] as? Question
+                let detail = segue.destinationViewController as! DetailViewController
+                detail.question = obj
+            }
+            else if identifier == "questionImageDetail" {
                 let indexPath = self.tableView.indexPathForSelectedRow
                 let obj = self.objects![indexPath!.row] as? Question
                 let detail = segue.destinationViewController as! DetailViewController
