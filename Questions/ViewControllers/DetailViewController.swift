@@ -40,11 +40,6 @@ class DetailViewController: PFQueryTableViewController {
         }
     }
     
-    func getReplies() {
-        let query = PFQuery(className: "Reply")
-        query.whereKey("toPost", equalTo: question!)
-    }
-    
     func getImage(object: PFObject, completionHandler: (UIImage) -> Void) {
         let question = object as! Question
         if let picture = question.imageFile {
@@ -57,6 +52,14 @@ class DetailViewController: PFQueryTableViewController {
         }
     }
     
+    override func queryForTable() -> PFQuery {
+        let query = Question.query()!
+        ///query.whereKey("toPost", equalTo: question!)
+        query.limit = 100;
+        query.orderByDescending("createdAt")
+        query.includeKey("user")
+        return query
+    }
 
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if(questionHeaderView != nil) {
@@ -65,12 +68,22 @@ class DetailViewController: PFQueryTableViewController {
         return 349.0
     }
 
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if(questionHeaderView != nil) {
+            return questionHeaderView
+        }
+        return questionImageHeaderView
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         let reply = object as! Reply
         let cell = tableView.dequeueReusableCellWithIdentifier("replyCell", forIndexPath: indexPath) as! ReplyCell
-        cell.postTime.text = reply.createdAt?.shortTimeAgoSinceDate(NSDate())
-        cell.replyText.text = reply.reply
-        cell.usernameLabel.text = reply.fromUser?.username
+        cell.postTime.text = "time"
+        cell.replyText.text = "reply"
+        cell.usernameLabel.text = "username"
+//        cell.postTime.text = reply.createdAt?.shortTimeAgoSinceDate(NSDate())
+//        cell.replyText.text = reply.reply
+//        cell.usernameLabel.text = reply.fromUser?.username
         return cell
     }
     
@@ -83,19 +96,6 @@ class DetailViewController: PFQueryTableViewController {
                 detail.question = obj
             }
         }
-    }
-    
-    @IBAction func sendPressed(sender: AnyObject) {
-//        let reply = Reply()
-//        if(replyTextView.text != "") {
-//            reply.reply = replyTextView.text
-//        }
-//        else {
-//            ErrorHandling.ErrorDefaultMessage
-//        }
-//        reply.fromUser = PFUser.currentUser()
-//        reply.toPost = question!
-//        reply.saveInBackground()
     }
 }
 

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Parse
 
 class DetailContainerViewController: UIViewController {
     
@@ -15,8 +16,24 @@ class DetailContainerViewController: UIViewController {
     
     @IBOutlet weak var replyTextView: UITextView!
     
+    func textViewShouldReturn(textView: UITextView!) -> Bool {
+        textView.resignFirstResponder()
+        textView.text = ""
+        return true;
+    }
+    
     @IBAction func sendPressed(sender: AnyObject) {
-        
+        let reply = Reply()
+        if(replyTextView.text != "") {
+            reply.reply = replyTextView.text
+            reply.fromUser = PFUser.currentUser()
+            reply.toPost = question!
+            reply.saveInBackground()
+        }
+        else {
+            ErrorHandling.ErrorDefaultMessage
+        }
+        textViewShouldReturn(replyTextView)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -27,4 +44,5 @@ class DetailContainerViewController: UIViewController {
             }
         }
     }
+    
 }
