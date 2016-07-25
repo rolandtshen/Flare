@@ -13,9 +13,10 @@ import CoreLocation
 
 class Reply: PFObject, PFSubclassing {
     
-    @NSManaged var user: PFUser?
+    @NSManaged var fromUser: PFUser?
     @NSManaged var reply: String?
     @NSManaged var imageFile: PFFile
+    @NSManaged var toPost: PFObject?
     
     class func parseClassName() -> String {
         return "Reply"

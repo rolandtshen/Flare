@@ -14,6 +14,6 @@ pod 'Parse'
 pod 'ParseUI'
 pod 'DateTools'
 pod 'SCLAlertView'
-pod "SlackTextViewController"
+pod 'JSQMessagesViewController'
 
 end

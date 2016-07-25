@@ -254,14 +254,13 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             if identifier == "questionDetail" {
                 let indexPath = self.tableView.indexPathForSelectedRow
                 let obj = self.objects![indexPath!.row] as? Question
-                let detail = segue.destinationViewController as! DetailViewController
+                let detail = segue.destinationViewController as! DetailContainerViewController
                 detail.question = obj
-            }
-            else if identifier == "questionImageDetail" {
+            } else if identifier == "questionImageDetail" {
                 let indexPath = self.tableView.indexPathForSelectedRow
                 let obj = self.objects![indexPath!.row] as? Question
-                let detail = segue.destinationViewController as! DetailViewController
-                detail.question = obj
+                let detailContainer = segue.destinationViewController as! DetailContainerViewController
+                detailContainer.question = obj
             }
         }
     }

@@ -15,6 +15,7 @@
 		2A6546FC1D3853CC00A234A1 /* PhotoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6546FB1D3853CC00A234A1 /* PhotoHelper.swift */; };
 		2A9193C81D36A99D00A9905E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9193C71D36A99D00A9905E /* DetailViewController.swift */; };
 		2AC024231D3E9D0000CDF938 /* QuestionHeaderImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC024221D3E9D0000CDF938 /* QuestionHeaderImageView.xib */; };
+		2AC677C41D46AD990038BAF6 /* DetailContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC677C31D46AD990038BAF6 /* DetailContainerViewController.swift */; };
 		2AC6D81B1D3D9B1D0054BCDC /* QuestionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC6D81A1D3D9B1D0054BCDC /* QuestionHeaderView.xib */; };
 		2AD19F071D394AC0002C0BD3 /* SanFranciscoDisplay-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2AD19EF21D394AC0002C0BD3 /* SanFranciscoDisplay-Black.otf */; };
 		2AD19F081D394AC0002C0BD3 /* SanFranciscoDisplay-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2AD19EF31D394AC0002C0BD3 /* SanFranciscoDisplay-Bold.otf */; };
@@ -63,6 +64,7 @@
 		2A9193C71D36A99D00A9905E /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		2AB207291D36B30900B4A930 /* Questions-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Questions-Bridging-Header.h"; sourceTree = "<group>"; };
 		2AC024221D3E9D0000CDF938 /* QuestionHeaderImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionHeaderImageView.xib; sourceTree = "<group>"; };
+		2AC677C31D46AD990038BAF6 /* DetailContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailContainerViewController.swift; sourceTree = "<group>"; };
 		2AC6D81A1D3D9B1D0054BCDC /* QuestionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionHeaderView.xib; sourceTree = "<group>"; };
 		2AD19EF21D394AC0002C0BD3 /* SanFranciscoDisplay-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Black.otf"; sourceTree = "<group>"; };
 		2AD19EF31D394AC0002C0BD3 /* SanFranciscoDisplay-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Bold.otf"; sourceTree = "<group>"; };
@@ -209,9 +211,10 @@
 			isa = PBXGroup;
 			children = (
 				2AE71C151D34349800CB7B62 /* QuestionsViewController.swift */,
+				2AC677C31D46AD990038BAF6 /* DetailContainerViewController.swift */,
 				2A9193C71D36A99D00A9905E /* DetailViewController.swift */,
-				2AE71C191D34352100CB7B62 /* ProfileViewController.swift */,
 				2AE71C1D1D343A6D00CB7B62 /* MessagesViewController.swift */,
+				2AE71C191D34352100CB7B62 /* ProfileViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 				2AE71C201D343B9A00CB7B62 /* QuestionCell.swift in Sources */,
 				2A34A4041D41981600519B63 /* QuestionImageHeaderView.swift in Sources */,
 				2A163EFB1D4047EC00FC8FE1 /* QuestionHeaderView.swift in Sources */,
+				2AC677C41D46AD990038BAF6 /* DetailContainerViewController.swift in Sources */,
 				2AE71C1A1D34352100CB7B62 /* ProfileViewController.swift in Sources */,
 				2A6546FC1D3853CC00A234A1 /* PhotoHelper.swift in Sources */,
 				2A9193C81D36A99D00A9905E /* DetailViewController.swift in Sources */,
