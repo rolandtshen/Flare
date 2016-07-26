@@ -56,7 +56,7 @@ class DetailViewController: PFQueryTableViewController {
         let query = PFQuery(className: "Reply")
         query.whereKey("toPost", equalTo: question!)
         query.limit = 100;
-        query.orderByDescending("createdAt")
+        query.orderByAscending("createdAt")
         query.includeKey("fromUser")
         return query
     }

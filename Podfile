@@ -16,6 +16,5 @@ pod 'DateTools'
 pod 'SCLAlertView'
 pod 'JSQMessagesViewController'
 pod 'MBProgressHUD'
-pod 'SlackTextViewController'
-
+pod 'ParseFacebookUtilsV4'
 end

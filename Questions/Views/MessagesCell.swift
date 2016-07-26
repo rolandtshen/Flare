@@ -8,8 +8,9 @@
 
 import Foundation
 import UIKit
+import ParseUI
 
-class MessagesCell: UITableViewCell {
+class MessagesCell: PFTableViewCell {
     
     @IBOutlet weak var profilePic: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
