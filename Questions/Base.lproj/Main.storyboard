@@ -515,9 +515,8 @@
         <!--Detail View Controller-->
         <scene sceneID="RWp-R9-9Fy">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5qG-rf-voQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="xiv-cn-ARc" customClass="DetailViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="MrD-Fp-2O2">
+                <tableViewController storyboardIdentifier="DetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xiv-cn-ARc" customClass="DetailViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="MrD-Fp-2O2">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="448"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -572,9 +571,9 @@
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
-                                            <exclude reference="BJv-c7-WWq"/>
                                             <exclude reference="5Tv-tj-5pl"/>
                                             <exclude reference="6OQ-b0-NV5"/>
+                                            <exclude reference="BJv-c7-WWq"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -592,13 +591,14 @@
                         </connections>
                     </tableView>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5qG-rf-voQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3808" y="1.5"/>
         </scene>
         <!--Detail Container View Controller-->
         <scene sceneID="A7p-se-a52">
             <objects>
-                <viewController storyboardIdentifier="Table View Container" id="Aj6-4d-Kkm" customClass="DetailContainerViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailContainerViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Aj6-4d-Kkm" customClass="DetailContainerViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xAD-gZ-PiZ"/>
                         <viewControllerLayoutGuide type="bottom" id="WHb-I8-taT"/>

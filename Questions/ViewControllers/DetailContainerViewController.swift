@@ -16,6 +16,9 @@ class DetailContainerViewController: UIViewController {
     
     @IBOutlet weak var replyTextView: UITextView!
     
+    override func viewDidLoad() {
+    }
+    
     func textViewShouldReturn(textView: UITextView!) -> Bool {
         textView.resignFirstResponder()
         textView.text = ""

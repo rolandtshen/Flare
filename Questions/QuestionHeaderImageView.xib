@@ -11,6 +11,10 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="349"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Of-X0-3B7">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="349"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUq-QY-8FG">
                     <rect key="frame" x="549" y="12" width="31" height="17"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -45,8 +49,10 @@
             <constraints>
                 <constraint firstItem="zcK-hf-XBC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="2aA-qN-fWQ"/>
                 <constraint firstItem="LKl-vd-Jpz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="38O-sI-y5U"/>
+                <constraint firstItem="5Of-X0-3B7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="9SX-kx-1s3"/>
                 <constraint firstItem="o8U-vd-rjf" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="AR9-4e-3MH"/>
                 <constraint firstAttribute="trailing" secondItem="zcK-hf-XBC" secondAttribute="trailing" id="DKL-09-8ZS"/>
+                <constraint firstAttribute="bottom" secondItem="5Of-X0-3B7" secondAttribute="bottom" id="EE1-X7-BzO"/>
                 <constraint firstItem="zcK-hf-XBC" firstAttribute="top" secondItem="o8U-vd-rjf" secondAttribute="bottom" constant="8" id="FoX-PO-m7E"/>
                 <constraint firstAttribute="trailing" secondItem="fUq-QY-8FG" secondAttribute="trailing" constant="20" id="OZl-1P-G1D"/>
                 <constraint firstAttribute="bottom" secondItem="Pqr-vA-1E2" secondAttribute="bottom" constant="12" id="QIS-y7-rwv"/>
@@ -54,9 +60,11 @@
                 <constraint firstItem="fUq-QY-8FG" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="Zjv-fU-IbX"/>
                 <constraint firstAttribute="trailing" secondItem="Pqr-vA-1E2" secondAttribute="trailing" constant="20" id="Zne-VD-4XI"/>
                 <constraint firstItem="o8U-vd-rjf" firstAttribute="top" secondItem="LKl-vd-Jpz" secondAttribute="bottom" constant="8" id="fYl-cf-it0"/>
+                <constraint firstAttribute="trailing" secondItem="5Of-X0-3B7" secondAttribute="trailing" id="jx9-Ct-2q2"/>
                 <constraint firstItem="zEu-bJ-L1w" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="mr2-ki-FPz"/>
                 <constraint firstItem="Pqr-vA-1E2" firstAttribute="top" secondItem="zcK-hf-XBC" secondAttribute="bottom" constant="8" id="oST-yl-use"/>
                 <constraint firstItem="LKl-vd-Jpz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="uNt-BS-StO"/>
+                <constraint firstItem="5Of-X0-3B7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="zsL-hP-cYR"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">

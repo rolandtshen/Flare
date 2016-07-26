@@ -16,15 +16,5 @@ class ReplyCell: PFTableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var postTime: UILabel!
     @IBOutlet weak var replyProfilePic: UIImageView!
-    
-    var reply: Reply? {
-        didSet {
-            if reply != nil {
-                self.postTime.text = reply?.createdAt?.shortTimeAgoSinceDate(NSDate())
-                self.replyText.text = reply?.reply
-                self.usernameLabel.text = reply!.fromUser?.username
-            }
-        }
-    }
 }
 

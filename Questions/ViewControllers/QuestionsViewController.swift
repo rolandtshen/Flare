@@ -13,6 +13,7 @@ import ParseUI
 import DateTools
 import ChameleonFramework
 import SCLAlertView
+import MBProgressHUD
 
 class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -91,7 +92,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         alertView.showNotice("Categories", subTitle: "")
     }
     
-    
     func getImage(object: PFObject, completionHandler: (UIImage) -> Void) {
         let question = object as! Question
         if let picture = question.imageFile {
@@ -102,6 +102,38 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
                 }
             })
         }
+    }
+    
+    func uploadPost(completionHandler: () -> Void) {
+        let question = Question()
+        let progressHUD = MBProgressHUD()
+        let alert = SCLAlertView()
+        if(selectedCategory != nil) {
+            question.category = selectedCategory
+        } else {
+            alert.showError("Error", subTitle: "Please select a category")
+        }
+        if(writeQuestionTextView.text != "") {
+            question.question = writeQuestionTextView.text
+        } else {
+            alert.showError("Error", subTitle: "You haven't written a question!")
+        }
+        question.location = PFGeoPoint(latitude: currLocation!.latitude, longitude: currLocation!.longitude)
+        question.user = PFUser.currentUser()
+        if let image = image {
+            guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {return}
+            guard let imageFile = PFFile(name: "\(question.objectId).jpg", data: imageData) else {return}
+            question.imageFile = imageFile
+            question.hasImage = true
+        }
+        question.saveInBackground()
+        self.loadObjects()
+        tableView.reloadData()
+        print("posted at lat: \(currLocation!.latitude), long \(currLocation!.longitude)")
+        textFieldShouldReturn(writeQuestionTextView)
+        image = nil
+        progressHUD.show(true)
+        print("posting")
     }
     
     //MARK: Image Picker Methods
@@ -186,8 +218,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
                 imageCell.postImage.image = image
             })
             pickedCell = imageCell
-        }
-        else {
+        } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("QuestionCell", forIndexPath: indexPath) as! QuestionCell
             cell.questionLabel.text = question.question
             cell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
@@ -211,7 +242,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             alert("Please enable location services in settings!")
         }
     }
-    
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         alert("Please enable location services in settings!")
@@ -259,42 +289,21 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             } else if identifier == "questionImageDetail" {
                 let indexPath = self.tableView.indexPathForSelectedRow
                 let obj = self.objects![indexPath!.row] as? Question
-                let detailContainer = segue.destinationViewController as! DetailContainerViewController
-                detailContainer.question = obj
+                let detail = segue.destinationViewController as! DetailContainerViewController
+                detail.question = obj
             }
         }
     }
     
     //When user posts something
     @IBAction func postPressed(sender: AnyObject) {
-        let alert = SCLAlertView()
-        let question = Question()
-        if(selectedCategory != nil) {
-            question.category = selectedCategory
-        }
-        else {
-            alert.showError("Error", subTitle: "Please select a category")
-        }
-        if(writeQuestionTextView.text != "") {
-            question.question = writeQuestionTextView.text
-        }
-        else {
-            alert.showError("Error", subTitle: "You haven't written a question!")
-        }
-        question.location = PFGeoPoint(latitude: currLocation!.latitude, longitude: currLocation!.longitude)
-        question.user = PFUser.currentUser()
-        if let image = image {
-            guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {return}
-            guard let imageFile = PFFile(name: "\(question.objectId).jpg", data: imageData) else {return}
-            question.imageFile = imageFile
-            question.hasImage = true
-        }
-        question.saveInBackground()
-        self.loadObjects()
-        tableView.reloadData()
-        print("posted at lat: \(currLocation!.latitude), long \(currLocation!.longitude)")
-        textFieldShouldReturn(writeQuestionTextView)
-        image = nil
+        let progressHUD = MBProgressHUD()
+        uploadPost({ () in
+            progressHUD.hide(true)
+            print("post done")
+            self.tableView.reloadData()
+            self.loadObjects()
+        })
     }
 }
 

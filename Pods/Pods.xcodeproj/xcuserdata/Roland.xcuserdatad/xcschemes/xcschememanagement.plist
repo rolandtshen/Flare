@@ -39,6 +39,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Parse.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -59,15 +64,15 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SlackTextViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>16FB872D0D2D4BA0F378AB34D47CF95F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>19FFBD5D80732ECB857841B6445DA1B7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,6 +92,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>44FCFAFD9947109181197EDE283922F2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5172ACAB7FEA22813859DC97CA0AA16F</key>
 		<dict>
 			<key>primary</key>
@@ -102,7 +112,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A4A5AA401037AF5716E9B390B4CF53C2</key>
+		<key>73FB1CFB47DD72B42CF8A641EB365451</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,7 +122,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>BF2BA2F484812BAB72F7C034F9BEBD77</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E1F78B1C5F8F2CCD0E68552EAF2B9B52</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E61CE3B6DFA1FE6B3E296965C76C0E10</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -14,5 +14,6 @@
 #import <Parse/PFObject+Subclass.h>
 #import <Parse/PFGeoPoint.h>
 #import <DateTools/DateTools.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 
 #endif /* Questions_Bridging_Header_h */

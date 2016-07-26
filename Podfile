@@ -15,5 +15,7 @@ pod 'ParseUI'
 pod 'DateTools'
 pod 'SCLAlertView'
 pod 'JSQMessagesViewController'
+pod 'MBProgressHUD'
+pod 'SlackTextViewController'
 
 end

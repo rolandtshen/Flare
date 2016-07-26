@@ -17,6 +17,7 @@ class Reply: PFObject, PFSubclassing {
     @NSManaged var reply: String?
     @NSManaged var imageFile: PFFile
     @NSManaged var toPost: PFObject?
+    @NSManaged var username: String?
     
     class func parseClassName() -> String {
         return "Reply"

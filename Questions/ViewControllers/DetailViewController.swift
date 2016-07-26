@@ -21,7 +21,8 @@ class DetailViewController: PFQueryTableViewController {
     var questionImageHeaderView: QuestionImageHeaderView?
 
     override func viewDidLoad() {
-    
+        super.viewDidLoad()
+        tableView.reloadData()
         if question!.hasImage == true {
             questionImageHeaderView = UINib(nibName: "QuestionHeaderImageView", bundle: NSBundle.mainBundle()).instantiateWithOwner(nil, options: nil).first as? QuestionImageHeaderView
             questionImageHeaderView?.questionLabel.text = question?.question
@@ -31,8 +32,7 @@ class DetailViewController: PFQueryTableViewController {
             getImage(question!, completionHandler: {(image) in
                 self.questionImageHeaderView?.imageView.image = image
             })
-        }
-        else {
+        } else {
             questionHeaderView = UINib(nibName: "QuestionHeaderView", bundle: NSBundle.mainBundle()).instantiateWithOwner(nil, options: nil).first as? QuestionHeaderView
             questionHeaderView?.questionLabel.text = question?.question
             questionHeaderView?.timeLabel.text = question?.createdAt?.shortTimeAgoSinceDate(NSDate())
@@ -53,14 +53,14 @@ class DetailViewController: PFQueryTableViewController {
     }
     
     override func queryForTable() -> PFQuery {
-        let query = Question.query()!
-        ///query.whereKey("toPost", equalTo: question!)
+        let query = PFQuery(className: "Reply")
+        query.whereKey("toPost", equalTo: question!)
         query.limit = 100;
         query.orderByDescending("createdAt")
-        query.includeKey("user")
+        query.includeKey("fromUser")
         return query
     }
-
+    
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if(questionHeaderView != nil) {
             return 125.0
@@ -76,26 +76,12 @@ class DetailViewController: PFQueryTableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
-        let reply = object as! Reply
         let cell = tableView.dequeueReusableCellWithIdentifier("replyCell", forIndexPath: indexPath) as! ReplyCell
-        cell.postTime.text = "time"
-        cell.replyText.text = "reply"
-        cell.usernameLabel.text = "username"
-//        cell.postTime.text = reply.createdAt?.shortTimeAgoSinceDate(NSDate())
-//        cell.replyText.text = reply.reply
-//        cell.usernameLabel.text = reply.fromUser?.username
+        cell.postTime.text = object!.createdAt?.shortTimeAgoSinceDate(NSDate())
+        cell.replyText.text = object!.valueForKey("reply") as? String
+        let user = object!.valueForKey("fromUser") as? PFUser
+        cell.usernameLabel.text = user?.username
         return cell
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let identifier = segue.identifier {
-            if identifier == "repliesTableView" {
-                let indexPath = self.tableView.indexPathForSelectedRow
-                let obj = self.objects![indexPath!.row] as? Question
-                let detail = segue.destinationViewController as! DetailViewController
-                detail.question = obj
-            }
-        }
     }
 }
 
