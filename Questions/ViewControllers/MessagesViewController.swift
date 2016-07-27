@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import ParseUI
+import JSQMessagesViewController
 
 class MessagesViewController: PFQueryTableViewController {
     
@@ -34,10 +35,9 @@ class MessagesViewController: PFQueryTableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
             if identifier == "chatSegue" {
-                let navVc = segue.destinationViewController as! UINavigationController
-                let chatVc = navVc.viewControllers.first as! ChatViewController
-                chatVc.senderId = PFUser.currentUser()?.objectId
-                chatVc.senderDisplayName = PFUser.currentUser()?.username
+                let navVc = segue.destinationViewController as! ChatViewController
+                navVc.senderId = PFUser.currentUser()?.objectId
+                navVc.senderDisplayName = PFUser.currentUser()?.username
             }
         }
     }

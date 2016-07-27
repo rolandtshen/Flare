@@ -3,6 +3,7 @@ import Foundation
 import UIKit
 import JSQMessagesViewController
 import Parse
+import ChameleonFramework
 
 class ChatViewController: JSQMessagesViewController {
     
@@ -13,6 +14,7 @@ class ChatViewController: JSQMessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        title = "Chat"
         self.setup()
         self.downloadMessages()
     }
@@ -29,8 +31,8 @@ class ChatViewController: JSQMessagesViewController {
 
 extension ChatViewController {
     func setup() {
-        self.senderId = UIDevice.currentDevice().identifierForVendor?.UUIDString
-        self.senderDisplayName = UIDevice.currentDevice().identifierForVendor?.UUIDString
+        self.senderId = PFUser.currentUser()?.objectId
+        self.senderDisplayName = PFUser.currentUser()?.username
     }
 }
 
@@ -75,7 +77,54 @@ extension ChatViewController {
     }
     
     override func didPressAccessoryButton(sender: UIButton!) {
+        self.inputToolbar.contentView!.textView!.resignFirstResponder()
         
+        let sheet = UIAlertController(title: "Media messages", message: nil, preferredStyle: .ActionSheet)
+        
+        let photoAction = UIAlertAction(title: "Send photo", style: .Default) { (action) in
+            /**
+             *  Create fake photo
+             */
+            let photoItem = JSQPhotoMediaItem(image: UIImage(named: "goldengate"))
+            self.addMedia(photoItem)
+        }
+        
+        let locationAction = UIAlertAction(title: "Send location", style: .Default) { (action) in
+            /**
+             *  Add fake location
+             */
+            let locationItem = self.buildLocationItem()
+            
+            self.addMedia(locationItem)
+        }
+        
+        let videoAction = UIAlertAction(title: "Send video", style: .Default) { (action) in
+            /**
+             *  Add fake video
+             */
+            let videoItem = self.buildVideoItem()
+            
+            self.addMedia(videoItem)
+        }
+        
+        let audioAction = UIAlertAction(title: "Send audio", style: .Default) { (action) in
+            /**
+             *  Add fake audio
+             */
+            let audioItem = self.buildAudioItem()
+            
+            self.addMedia(audioItem)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
+        sheet.addAction(photoAction)
+        sheet.addAction(locationAction)
+        sheet.addAction(videoAction)
+        sheet.addAction(audioAction)
+        sheet.addAction(cancelAction)
+        
+        self.presentViewController(sheet, animated: true, completion: nil)
     }
 }
 
@@ -109,5 +158,45 @@ extension ChatViewController {
             jsqMessages.append(self.jsqMessageFromParse(message))
         }
         return jsqMessages
+    }
+}
+
+//MARK: Accessories
+extension ChatViewController {
+    func buildVideoItem() -> JSQVideoMediaItem {
+        let videoURL = NSURL(fileURLWithPath: "file://")
+        
+        let videoItem = JSQVideoMediaItem(fileURL: videoURL, isReadyToPlay: true)
+        
+        return videoItem
+    }
+    
+    func buildAudioItem() -> JSQAudioMediaItem {
+        let sample = NSBundle.mainBundle().pathForResource("jsq_messages_sample", ofType: "m4a")
+        let audioData = NSData(contentsOfFile: sample!)
+        
+        let audioItem = JSQAudioMediaItem(data: audioData)
+        
+        return audioItem
+    }
+    
+    func buildLocationItem() -> JSQLocationMediaItem {
+        let ferryBuildingInSF = CLLocation(latitude: 37.795313, longitude: -122.393757)
+        
+        let locationItem = JSQLocationMediaItem()
+        locationItem.setLocation(ferryBuildingInSF) {
+            self.collectionView!.reloadData()
+        }
+        
+        return locationItem
+    }
+    
+    func addMedia(media:JSQMediaItem) {
+        let message = JSQMessage(senderId: self.senderId, displayName: self.senderDisplayName, media: media)
+        self.messages.append(message)
+        
+        //Optional: play sent sound
+        
+        self.finishSendingMessageAnimated(true)
     }
 }

@@ -6,9 +6,7 @@ target 'Questions' do
   use_frameworks!
 
   # Pods for Questions
-  
-pod 'DZNEmptyDataSet'
-pod 'ChameleonFramework/Swift'
+
 pod 'IQKeyboardManager'
 pod 'Parse'
 pod 'ParseUI'
@@ -17,4 +15,6 @@ pod 'SCLAlertView'
 pod 'JSQMessagesViewController'
 pod 'MBProgressHUD'
 pod 'ParseFacebookUtilsV4'
+pod 'Firebase'
+pod 'ChameleonFramework'
 end

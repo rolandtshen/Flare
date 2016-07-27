@@ -11,9 +11,9 @@ import CoreLocation
 import Parse
 import ParseUI
 import DateTools
-import ChameleonFramework
 import SCLAlertView
 import MBProgressHUD
+import ChameleonFramework
 
 class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -45,8 +45,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         
         self.writeQuestionTextView.selectedRange = NSMakeRange(0, 200);
         
-        let gradientColors: [UIColor] = [UIColor.flatMintColor(), UIColor.flatSkyBlueColor()]
-        tableView.backgroundColor = GradientColor(UIGradientStyle.TopToBottom, frame: view.frame, colors: gradientColors)
+        tableView.backgroundColor = UIColor.flatGrayColor()
         
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()

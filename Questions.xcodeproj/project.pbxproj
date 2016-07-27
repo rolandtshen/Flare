@@ -57,6 +57,7 @@
 		2AE71C261D343C1100CB7B62 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE71C251D343C1100CB7B62 /* Profile.swift */; };
 		2AE71C281D3456B100CB7B62 /* MessagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE71C271D3456B100CB7B62 /* MessagesCell.swift */; };
 		2AE71C301D35582400CB7B62 /* QuestionImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE71C2F1D35582400CB7B62 /* QuestionImageCell.swift */; };
+		2AFC1FAD1D482F12007F8BCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AFC1FAC1D482F12007F8BCD /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +113,7 @@
 		2AE71C251D343C1100CB7B62 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		2AE71C271D3456B100CB7B62 /* MessagesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesCell.swift; sourceTree = "<group>"; };
 		2AE71C2F1D35582400CB7B62 /* QuestionImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionImageCell.swift; sourceTree = "<group>"; };
+		2AFC1FAC1D482F12007F8BCD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		877CDF84E4142BB7C982F804 /* Pods_Questions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Questions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A695A7CA19657754306990 /* Pods-Questions.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Questions.release.xcconfig"; path = "Pods/Target Support Files/Pods-Questions/Pods-Questions.release.xcconfig"; sourceTree = "<group>"; };
 		D7C5A4176CD319493A331262 /* Pods-Questions.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Questions.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Questions/Pods-Questions.debug.xcconfig"; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				2AE71C011D341F3E00CB7B62 /* Assets.xcassets */,
 				2AE71C031D341F3E00CB7B62 /* LaunchScreen.storyboard */,
 				2AE71C061D341F3E00CB7B62 /* Info.plist */,
+				2AFC1FAC1D482F12007F8BCD /* GoogleService-Info.plist */,
 				2AB207291D36B30900B4A930 /* Questions-Bridging-Header.h */,
 			);
 			path = Questions;
@@ -335,6 +338,7 @@
 				2AD19F071D394AC0002C0BD3 /* SanFranciscoDisplay-Black.otf in Resources */,
 				2AD19F0B1D394AC0002C0BD3 /* SanFranciscoDisplay-Medium.otf in Resources */,
 				2AD19F101D394AC0002C0BD3 /* SanFranciscoText-Bold.otf in Resources */,
+				2AFC1FAD1D482F12007F8BCD /* GoogleService-Info.plist in Resources */,
 				2AD19F0E1D394AC0002C0BD3 /* SanFranciscoDisplay-Thin.otf in Resources */,
 				2AD19F171D394AC0002C0BD3 /* SanFranciscoText-MediumItalic.otf in Resources */,
 				2AD19F111D394AC0002C0BD3 /* SanFranciscoText-BoldItalic.otf in Resources */,
