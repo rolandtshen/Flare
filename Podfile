@@ -15,6 +15,8 @@ pod 'SCLAlertView'
 pod 'JSQMessagesViewController'
 pod 'MBProgressHUD'
 pod 'ParseFacebookUtilsV4'
-pod 'Firebase'
+pod 'Firebase/Core'
+pod 'Firebase/Database'
 pod 'ChameleonFramework'
+
 end

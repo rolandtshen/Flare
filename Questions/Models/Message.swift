@@ -12,7 +12,8 @@ import Parse
 
 class Message: PFObject, PFSubclassing {
     
-    @NSManaged var fromUser: PFUser?
+    @NSManaged var sender: PFUser?
+    @NSManaged var recipient: PFUser?
     @NSManaged var text: String?
     @NSManaged var attachment: PFFile?
     

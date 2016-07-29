@@ -7,10 +7,17 @@
 //
 
 import UIKit
+import Parse
+import Firebase
+import FirebaseDatabase
 
 class QuestionHeaderView: UITableViewHeaderFooterView {
 
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    
+    @IBAction func messagePressed(sender: AnyObject) {
+        
+    }
 }

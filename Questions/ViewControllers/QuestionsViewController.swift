@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 import CoreLocation
 import Parse
 import ParseUI
@@ -16,7 +17,7 @@ import MBProgressHUD
 import ChameleonFramework
 
 class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+
     @IBOutlet weak var writeQuestionPic: UIImageView!
     @IBOutlet weak var writeQuestionTextView: UITextView!
     @IBOutlet weak var cameraButton: UIImageView!
@@ -35,8 +36,11 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        _ = NSTimer.scheduledTimerWithTimeInterval(120.0, target: self, selector: #selector(QuestionsViewController.queryForTable), userInfo: nil, repeats: true)
+        
         writeQuestionTextView.delegate = self
-        self.tableView.backgroundColor = UIColor.flatWhiteColor()
+        self.tableView.backgroundColor = UIColor.lightGrayColor()
         tableView.estimatedRowHeight = 200
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
@@ -44,8 +48,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         self.objectsPerPage = 5
         
         self.writeQuestionTextView.selectedRange = NSMakeRange(0, 200);
-        
-        tableView.backgroundColor = UIColor.flatGrayColor()
         
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
@@ -275,6 +277,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         query.limit = 100;
         query.orderByDescending("createdAt")
         query.includeKey("user")
+        print("queried")
         return query
     }
     

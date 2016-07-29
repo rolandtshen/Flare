@@ -33,6 +33,9 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rsq-jU-rLI">
                     <rect key="frame" x="556" y="142" width="24" height="24"/>
                     <state key="normal" image="ic_question_answer"/>
+                    <connections>
+                        <action selector="messagePressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="8sa-Rq-mJn"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5yd-eF-65S">
                     <rect key="frame" x="20" y="142" width="24" height="24"/>

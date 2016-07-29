@@ -1,22 +1,25 @@
 
-import Foundation
-import UIKit
 import JSQMessagesViewController
 import Parse
 import ChameleonFramework
+import Firebase
+import FirebaseDatabase
 
 class ChatViewController: JSQMessagesViewController {
     
-    let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor.flatGrayColor())
+    let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor.flatWhiteColor())
     let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.flatSkyBlueColor())
     var messages = [JSQMessage]()
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         title = "Chat"
         self.setup()
-        self.downloadMessages()
     }
     
     override func didReceiveMemoryWarning() {
@@ -61,6 +64,21 @@ extension ChatViewController {
             return self.incomingBubble
         }
     }
+    override func collectionView(collectionView: UICollectionView,
+                                 cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+            as! JSQMessagesCollectionViewCell
+        
+        let message = messages[indexPath.item]
+        
+        if message.senderId == senderId {
+            cell.textView!.textColor = UIColor.whiteColor()
+        } else {
+            cell.textView!.textColor = UIColor.blackColor()
+        }
+        
+        return cell
+    }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
         return nil
@@ -69,10 +87,11 @@ extension ChatViewController {
 
 //MARK - Toolbar
 extension ChatViewController {
+    
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
         let message = JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
         self.messages += [message]
-        self.sendMessageToParse(message)
+        self.sendMessage(message)
         self.finishSendingMessage()
     }
     
@@ -128,39 +147,6 @@ extension ChatViewController {
     }
 }
 
-//MARK - Parse
-extension ChatViewController {
-    
-    func sendMessageToParse(message: JSQMessage) {
-        let messageToSend = Message()
-        messageToSend.text = message.text
-        messageToSend.fromUser = PFUser.currentUser()
-        messageToSend.saveInBackground()
-    }
-    
-    func downloadMessages() {
-        let query = PFQuery(className: "Message")
-        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
-            if let messages = objects as? [Message] {
-                self.messages = self.jsqMessagesFromParse(messages)
-            }
-        }
-    }
-
-    func jsqMessageFromParse(message: Message) -> JSQMessage {
-        let jsqMessage = JSQMessage(senderId: message.fromUser?.objectId, senderDisplayName: message.fromUser?.username, date: message.createdAt, text: message.text)
-        return jsqMessage
-    }
-    
-    func jsqMessagesFromParse(messages: [Message]) -> [JSQMessage] {
-        var jsqMessages : [JSQMessage] = []
-        for message in messages {
-            jsqMessages.append(self.jsqMessageFromParse(message))
-        }
-        return jsqMessages
-    }
-}
-
 //MARK: Accessories
 extension ChatViewController {
     func buildVideoItem() -> JSQVideoMediaItem {
@@ -200,3 +186,41 @@ extension ChatViewController {
         self.finishSendingMessageAnimated(true)
     }
 }
+
+//MARK: Parse
+extension ChatViewController {
+    
+    func sendMessage(message: JSQMessage) {
+        let messageToSend = Message()
+        messageToSend.text = message.text
+        messageToSend.sender = PFUser.currentUser()
+        messageToSend
+        messageToSend.saveInBackground()
+    }
+    
+    func downloadMessages() {
+        let query = PFQuery(className: "Message")
+        query.findObjectsInBackgroundWithBlock {(objects: [PFObject]?, error: NSError?) -> Void in
+            if let messages = objects as? [Message] {
+                self.messages = self.jsqMessagesFromParse(messages)
+                self.finishReceivingMessage()
+            }
+        }
+    }
+    
+    func jsqMessageFromParse(message: Message) -> JSQMessage {
+        let jsqMessage = JSQMessage(senderId: message.sender?.objectId, senderDisplayName: message.sender?.username, date: message.createdAt, text: message.text)
+        return jsqMessage
+    }
+    
+    func jsqMessagesFromParse(messages: [Message]) -> [JSQMessage] {
+        var jsqMessages : [JSQMessage] = []
+        for message in messages {
+            jsqMessages.append(jsqMessageFromParse(message))
+        }
+        return jsqMessages
+    }
+}
+
+
+

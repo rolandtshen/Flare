@@ -12,7 +12,7 @@ import ParseUI
 import JSQMessagesViewController
 
 class MessagesViewController: PFQueryTableViewController {
-    
+
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> PFTableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("messageCell") as! MessagesCell
         
