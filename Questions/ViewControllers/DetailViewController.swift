@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import Parse
 import ParseUI
-import Firebase
 import SCLAlertView
 import IQKeyboardManager
 
@@ -20,8 +19,6 @@ class DetailViewController: PFQueryTableViewController {
     var numReplies: Int?
     var questionHeaderView: QuestionHeaderView?
     var questionImageHeaderView: QuestionImageHeaderView?
-    
-    var rootRef = FIRDatabase.database().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()

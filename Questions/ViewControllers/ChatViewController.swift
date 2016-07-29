@@ -2,8 +2,6 @@
 import JSQMessagesViewController
 import Parse
 import ChameleonFramework
-import Firebase
-import FirebaseDatabase
 
 class ChatViewController: JSQMessagesViewController {
     
@@ -221,6 +219,3 @@ extension ChatViewController {
         return jsqMessages
     }
 }
-
-
-
