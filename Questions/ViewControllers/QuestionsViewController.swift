@@ -40,7 +40,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         _ = NSTimer.scheduledTimerWithTimeInterval(120.0, target: self, selector: #selector(QuestionsViewController.queryForTable), userInfo: nil, repeats: true)
         
         writeQuestionTextView.delegate = self
-        self.tableView.backgroundColor = UIColor.lightGrayColor()
+        self.tableView.backgroundColor = UIColor.flatWhiteColor()
         tableView.estimatedRowHeight = 200
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
@@ -107,17 +107,21 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     
     func uploadPost(completionHandler: () -> Void) {
         let question = Question()
+        var hasError = false
+        
         let progressHUD = MBProgressHUD()
         let alert = SCLAlertView()
         if(selectedCategory != nil) {
             question.category = selectedCategory
         } else {
             alert.showError("Error", subTitle: "Please select a category")
+            hasError = true
         }
         if(writeQuestionTextView.text != "") {
             question.question = writeQuestionTextView.text
         } else {
             alert.showError("Error", subTitle: "You haven't written a question!")
+            hasError = true
         }
         question.location = PFGeoPoint(latitude: currLocation!.latitude, longitude: currLocation!.longitude)
         question.user = PFUser.currentUser()
@@ -127,14 +131,15 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             question.imageFile = imageFile
             question.hasImage = true
         }
-        question.saveInBackground()
-        self.loadObjects()
-        tableView.reloadData()
-        print("posted at lat: \(currLocation!.latitude), long \(currLocation!.longitude)")
-        textFieldShouldReturn(writeQuestionTextView)
-        image = nil
-        progressHUD.show(true)
-        print("posting")
+        if(hasError == false) {
+            question.saveInBackground()
+            self.loadObjects()
+            tableView.reloadData()
+            print("posted at lat: \(currLocation!.latitude), long \(currLocation!.longitude)")
+            textFieldShouldReturn(writeQuestionTextView)
+            image = nil
+            progressHUD.show(true)
+        }
     }
     
     //MARK: Image Picker Methods
@@ -267,7 +272,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     override func queryForTable() -> PFQuery {
         let query = Question.query()!
         if let queryLoc = currLocation {
-            query.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: queryLoc.latitude, longitude: queryLoc.longitude), withinMiles: 5)
+            query.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: queryLoc.latitude, longitude: queryLoc.longitude), withinMiles: 4)
         }
         else {
             //Decide on how the application should react if there is no location available

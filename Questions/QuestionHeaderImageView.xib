@@ -13,17 +13,32 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Of-X0-3B7">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="349"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pqr-vA-1E2">
+                            <rect key="frame" x="12" y="317" width="24" height="24"/>
+                            <state key="normal" image="ic_reply"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEu-bJ-L1w">
+                            <rect key="frame" x="568" y="317" width="24" height="24"/>
+                            <state key="normal" image="ic_question_answer"/>
+                            <connections>
+                                <action selector="messagePressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="a9G-DP-hgx"/>
+                            </connections>
+                        </button>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="zEu-bJ-L1w" secondAttribute="bottom" constant="8" id="6Iw-cQ-8GW"/>
+                        <constraint firstAttribute="trailing" secondItem="zEu-bJ-L1w" secondAttribute="trailing" constant="8" id="RDb-G7-NSR"/>
+                        <constraint firstAttribute="bottom" secondItem="Pqr-vA-1E2" secondAttribute="bottom" constant="8" id="e8d-vM-wMX"/>
+                        <constraint firstItem="Pqr-vA-1E2" firstAttribute="leading" secondItem="5Of-X0-3B7" secondAttribute="leading" constant="12" id="iZy-dj-en4"/>
+                    </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUq-QY-8FG">
                     <rect key="frame" x="549" y="12" width="31" height="17"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEu-bJ-L1w">
-                    <rect key="frame" x="20" y="313" width="24" height="24"/>
-                    <state key="normal" image="ic_question_answer"/>
-                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="POSTER NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LKl-vd-Jpz">
                     <rect key="frame" x="20" y="12" width="103" height="17"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -40,10 +55,6 @@
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pqr-vA-1E2">
-                    <rect key="frame" x="556" y="313" width="24" height="24"/>
-                    <state key="normal" image="ic_reply"/>
-                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -55,23 +66,13 @@
                 <constraint firstAttribute="bottom" secondItem="5Of-X0-3B7" secondAttribute="bottom" id="EE1-X7-BzO"/>
                 <constraint firstItem="zcK-hf-XBC" firstAttribute="top" secondItem="o8U-vd-rjf" secondAttribute="bottom" constant="8" id="FoX-PO-m7E"/>
                 <constraint firstAttribute="trailing" secondItem="fUq-QY-8FG" secondAttribute="trailing" constant="20" id="OZl-1P-G1D"/>
-                <constraint firstAttribute="bottom" secondItem="Pqr-vA-1E2" secondAttribute="bottom" constant="12" id="QIS-y7-rwv"/>
-                <constraint firstAttribute="bottom" secondItem="zEu-bJ-L1w" secondAttribute="bottom" constant="12" id="VBg-8T-Yr9"/>
                 <constraint firstItem="fUq-QY-8FG" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="Zjv-fU-IbX"/>
-                <constraint firstAttribute="trailing" secondItem="Pqr-vA-1E2" secondAttribute="trailing" constant="20" id="Zne-VD-4XI"/>
                 <constraint firstItem="o8U-vd-rjf" firstAttribute="top" secondItem="LKl-vd-Jpz" secondAttribute="bottom" constant="8" id="fYl-cf-it0"/>
                 <constraint firstAttribute="trailing" secondItem="5Of-X0-3B7" secondAttribute="trailing" id="jx9-Ct-2q2"/>
-                <constraint firstItem="zEu-bJ-L1w" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="mr2-ki-FPz"/>
-                <constraint firstItem="Pqr-vA-1E2" firstAttribute="top" secondItem="zcK-hf-XBC" secondAttribute="bottom" constant="8" id="oST-yl-use"/>
                 <constraint firstItem="LKl-vd-Jpz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="uNt-BS-StO"/>
                 <constraint firstItem="5Of-X0-3B7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="zsL-hP-cYR"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="oST-yl-use"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="imageView" destination="zcK-hf-XBC" id="A9y-LI-AV8"/>
                 <outlet property="questionLabel" destination="o8U-vd-rjf" id="CUM-el-I1w"/>

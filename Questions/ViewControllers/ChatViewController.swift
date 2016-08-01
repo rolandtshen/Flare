@@ -5,9 +5,12 @@ import ChameleonFramework
 
 class ChatViewController: JSQMessagesViewController {
     
+    // Get selected conversation from MessagesViewController, then use a query to get all messages with that conversation
+    
     let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor.flatWhiteColor())
     let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.flatSkyBlueColor())
     var messages = [JSQMessage]()
+    var conversation: Conversation?
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
@@ -17,6 +20,7 @@ class ChatViewController: JSQMessagesViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         title = "Chat"
+        print(conversation!.fromUser?.username)
         self.setup()
     }
     
@@ -34,6 +38,10 @@ extension ChatViewController {
     func setup() {
         self.senderId = PFUser.currentUser()?.objectId
         self.senderDisplayName = PFUser.currentUser()?.username
+    }
+    
+    func getMessages() {
+        
     }
 }
 
@@ -62,8 +70,7 @@ extension ChatViewController {
             return self.incomingBubble
         }
     }
-    override func collectionView(collectionView: UICollectionView,
-                                 cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
             as! JSQMessagesCollectionViewCell
         
@@ -191,8 +198,15 @@ extension ChatViewController {
     func sendMessage(message: JSQMessage) {
         let messageToSend = Message()
         messageToSend.text = message.text
-        messageToSend.sender = PFUser.currentUser()
-        messageToSend
+        messageToSend.fromUser = PFUser.currentUser()
+        if(conversation!.toUser != PFUser.currentUser()) {
+            messageToSend.toUser = conversation?.toUser
+        }
+        else {
+            messageToSend.toUser = conversation?.fromUser
+        }
+
+        messageToSend.convo = self.conversation!
         messageToSend.saveInBackground()
     }
     
@@ -207,7 +221,7 @@ extension ChatViewController {
     }
     
     func jsqMessageFromParse(message: Message) -> JSQMessage {
-        let jsqMessage = JSQMessage(senderId: message.sender?.objectId, senderDisplayName: message.sender?.username, date: message.createdAt, text: message.text)
+        let jsqMessage = JSQMessage(senderId: message.fromUser?.objectId, senderDisplayName: message.fromUser?.username, date: message.createdAt, text: message.text)
         return jsqMessage
     }
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class QuestionImageHeaderView: UITableViewHeaderFooterView {
     
@@ -14,5 +15,12 @@ class QuestionImageHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    var poster: PFUser?
     
+    @IBAction func messagePressed(sender: AnyObject) {
+        let newConvo = Conversation()
+        newConvo.fromUser = PFUser.currentUser()
+        newConvo.toUser = poster
+        newConvo.saveInBackground()
+    }
 }

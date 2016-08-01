@@ -25,6 +25,7 @@ class DetailViewController: PFQueryTableViewController {
         tableView.reloadData()
         if question!.hasImage == true {
             questionImageHeaderView = UINib(nibName: "QuestionHeaderImageView", bundle: NSBundle.mainBundle()).instantiateWithOwner(nil, options: nil).first as? QuestionImageHeaderView
+            questionImageHeaderView?.poster = question?.user
             questionImageHeaderView?.questionLabel.text = question?.question
             questionImageHeaderView?.timeLabel.text = question?.createdAt?.shortTimeAgoSinceDate(NSDate())
             questionImageHeaderView?.usernameLabel.text = question!.user?.username
@@ -34,6 +35,7 @@ class DetailViewController: PFQueryTableViewController {
             })
         } else {
             questionHeaderView = UINib(nibName: "QuestionHeaderView", bundle: NSBundle.mainBundle()).instantiateWithOwner(nil, options: nil).first as? QuestionHeaderView
+            questionHeaderView?.poster = question?.user
             questionHeaderView?.questionLabel.text = question?.question
             questionHeaderView?.timeLabel.text = question?.createdAt?.shortTimeAgoSinceDate(NSDate())
             questionHeaderView?.usernameLabel.text = question!.user?.username

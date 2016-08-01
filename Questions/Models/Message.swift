@@ -12,8 +12,9 @@ import Parse
 
 class Message: PFObject, PFSubclassing {
     
-    @NSManaged var sender: PFUser?
-    @NSManaged var recipient: PFUser?
+    @NSManaged var fromUser: PFUser?
+    @NSManaged var toUser: PFUser?
+    @NSManaged var convo: Conversation
     @NSManaged var text: String?
     @NSManaged var attachment: PFFile?
     
@@ -28,5 +29,4 @@ class Message: PFObject, PFSubclassing {
             self.registerSubclass()
         }
     }
-
 }
