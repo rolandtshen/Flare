@@ -26,7 +26,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="zEu-bJ-L1w" secondAttribute="bottom" constant="8" id="6Iw-cQ-8GW"/>
                         <constraint firstAttribute="trailing" secondItem="zEu-bJ-L1w" secondAttribute="trailing" constant="8" id="RDb-G7-NSR"/>

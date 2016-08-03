@@ -174,7 +174,6 @@ extension ChatViewController {
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
         let message = JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
-        self.messages += [message]
         self.sendMessage(message)
         self.finishSendingMessage()
     }
@@ -305,7 +304,7 @@ extension ChatViewController {
             self.finishReceivingMessage()
         }
     }
-    
+
     func downloadLatestMessage() {
         let query = PFQuery(className: "Message")
         query.includeKey("convo")
@@ -315,7 +314,11 @@ extension ChatViewController {
         query.orderByDescending("createdAt")
         query.getFirstObjectInBackgroundWithBlock {(object: PFObject?, error: NSError?) -> Void in
             let parseMessage = object as! Message
-            self.messages.append(self.jsqMessageFromParse(parseMessage))
+            print(parseMessage.fromUser)
+            if parseMessage.fromUser?.email == PFUser.currentUser()?.email {
+                self.messages.append(self.jsqMessageFromParse(parseMessage))
+            }
+            
             self.finishReceivingMessage()
         }
     }

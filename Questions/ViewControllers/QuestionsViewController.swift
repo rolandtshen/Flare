@@ -105,6 +105,20 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         }
     }
     
+    //MARK: Downloads
+    
+    func getNumReplies(object: PFObject, completionHandler: (Int) -> Void) {
+        let question = object as! Question
+        let query = PFQuery(className: "Reply")
+        query.includeKey("toPost")
+        query.whereKey("toPost", equalTo: question)
+        query.orderByDescending("createdAt")
+        query.findObjectsInBackgroundWithBlock {(objects: [PFObject]?, error: NSError?) -> Void in
+            completionHandler(objects!.count)
+        }
+    }
+
+
     func uploadPost(completionHandler: () -> Void) {
         let question = Question()
         var hasError = false
@@ -220,6 +234,10 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             imageCell.categoryFlag.backgroundColor = colorPicker.colorChooser(question.category!)
             imageCell.postImage.clipsToBounds = true
             imageCell.imageView?.image = nil
+            
+            getNumReplies(object!, completionHandler: { (numReplies) in
+                imageCell.repliesLabel.text = "\(numReplies) replies"
+            })
             getImage(object!, completionHandler: { (image) in
                 imageCell.postImage.image = image
             })
@@ -231,6 +249,9 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             cell.usernameLabel.text = question.user?.username
             cell.categoryLabel.text = question.category
             cell.categoryFlag.backgroundColor = colorPicker.colorChooser(question.category!)
+            getNumReplies(object!, completionHandler: { (numReplies) in
+                cell.repliesLabel.text = "\(numReplies) replies"
+            })
             pickedCell = cell
         }
         return pickedCell

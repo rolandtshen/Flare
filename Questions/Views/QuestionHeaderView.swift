@@ -15,9 +15,9 @@ class QuestionHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     var poster: PFUser?
+    let newConvo = Conversation()
     
     @IBAction func messagePressed(sender: AnyObject) {
-        let newConvo = Conversation()
         newConvo.fromUser = PFUser.currentUser()
         newConvo.toUser = poster
         newConvo.saveInBackground()

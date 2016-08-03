@@ -56,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // check if we have logged in user
         let user = PFUser.currentUser()
         
-        let startViewController: UIViewController
+        var startViewController: UIViewController
         
         if (user != nil) {
             // if we have a user, set the TabBarController to be the initial view controller
@@ -64,12 +64,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             startViewController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
         } else {
             // Otherwise set the LoginViewController to be the first
-            let loginViewController = PFLogInViewController()
-            loginViewController.fields = [.UsernameAndPassword, .LogInButton, .SignUpButton, .PasswordForgotten, .Facebook]
-            loginViewController.delegate = parseLoginHelper
-            loginViewController.signUpController?.delegate = parseLoginHelper
-            
-            startViewController = loginViewController
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            startViewController = storyboard.instantiateViewControllerWithIdentifier("Login")
         }
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)

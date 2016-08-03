@@ -14,9 +14,14 @@ class MessagesViewController: PFQueryTableViewController {
         cell.profilePic.layer.cornerRadius = cell.profilePic.frame.width / 2
         cell.profilePic.clipsToBounds = true
         
-        cell.messagePreview.text = "message"
-        cell.profilePic.image = UIImage(named: "default")
-        cell.timestamp.text = convo!.createdAt?.shortTimeAgoSinceDate(NSDate())
+        downloadLatestMessage(object!, completionHandler: { (message) in
+            cell.messagePreview.text = message.messageText
+        })
+        
+        downloadLatestMessage(object!, completionHandler: { (message) in
+            cell.timestamp.text = message.createdAt?.shortTimeAgoSinceDate(NSDate())
+        })
+        
         if((convo?.valueForKey("toUser") as? PFUser) != PFUser.currentUser()) {
             let toUser = convo?.valueForKey("toUser") as! PFUser
             cell.nameLabel.text = toUser.username
@@ -59,6 +64,20 @@ class MessagesViewController: PFQueryTableViewController {
                 let obj = objectAtIndexPath(indexPath) as? Conversation
                 chatViewController.conversation = obj
             }
+        }
+    }
+    
+    //how to structure this if it's in a closure?
+    func downloadLatestMessage(object: PFObject, completionHandler: (Message) -> Void) {
+        let conversation = object as! Conversation
+        let query = PFQuery(className: "Message")
+        query.includeKey("convo")
+        query.includeKey("toUser")
+        query.includeKey("fromUser")
+        query.whereKey("convo", equalTo: conversation)
+        query.orderByDescending("createdAt")
+        query.getFirstObjectInBackgroundWithBlock {(object: PFObject?, error: NSError?) -> Void in
+            completionHandler(object as! Message)
         }
     }
 }
