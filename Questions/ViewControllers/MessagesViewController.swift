@@ -77,7 +77,9 @@ class MessagesViewController: PFQueryTableViewController {
         query.whereKey("convo", equalTo: conversation)
         query.orderByDescending("createdAt")
         query.getFirstObjectInBackgroundWithBlock {(object: PFObject?, error: NSError?) -> Void in
-            completionHandler(object as! Message)
+            if(error == nil) {
+                completionHandler(object as! Message)
+            }
         }
     }
 }

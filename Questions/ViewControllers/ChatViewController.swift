@@ -175,6 +175,7 @@ extension ChatViewController {
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
         let message = JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
         self.sendMessage(message)
+        self.messages.append(message)
         self.finishSendingMessage()
     }
     

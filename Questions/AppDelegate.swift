@@ -10,7 +10,6 @@ import UIKit
 import Parse
 import IQKeyboardManager
 import FBSDKCoreKit
-import ParseUI
 import ParseFacebookUtilsV4
 
 @UIApplicationMain
@@ -74,6 +73,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Message.registerSubclass()
         Conversation.registerSubclass()
+        
+        IQKeyboardManager.sharedManager().enable = true
         
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }

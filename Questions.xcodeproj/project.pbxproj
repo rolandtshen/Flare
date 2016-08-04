@@ -131,6 +131,7 @@
 				2A8B4DB51D52695F00DF875B /* SignUpViewController.swift */,
 			);
 			name = Login;
+			path = ../Views;
 			sourceTree = "<group>";
 		};
 		2AD19EF11D394AC0002C0BD3 /* Fonts */ = {
@@ -204,6 +205,7 @@
 		2AE71C131D34342000CB7B62 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				2A8B4DB21D52694700DF875B /* Login */,
 				2A1EE4BD1D47F5D80022DD7C /* QuestionsViewController.swift */,
 				2AC677C31D46AD990038BAF6 /* DetailContainerViewController.swift */,
 				2A9193C71D36A99D00A9905E /* DetailViewController.swift */,
@@ -217,7 +219,6 @@
 		2AE71C141D34342000CB7B62 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2A8B4DB21D52694700DF875B /* Login */,
 				2AE71C1F1D343B9A00CB7B62 /* QuestionCell.swift */,
 				2AE71C2F1D35582400CB7B62 /* QuestionImageCell.swift */,
 				2AE71C211D343BFB00CB7B62 /* ProfileView.swift */,

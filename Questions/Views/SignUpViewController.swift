@@ -50,7 +50,7 @@ class SignUpViewController: UIViewController {
             let newUser = PFUser()
         
             newUser.setObject(name!, forKey: "name")
-            newUser.username = username
+            newUser.username = email
             newUser.password = password
             newUser.email = email
             
