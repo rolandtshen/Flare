@@ -37,6 +37,8 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 18.0)!, NSForegroundColorAttributeName: UIColor.blackColor()]
+        
         _ = NSTimer.scheduledTimerWithTimeInterval(120.0, target: self, selector: #selector(QuestionsViewController.queryForTable), userInfo: nil, repeats: true)
         
         writeQuestionTextView.delegate = self
@@ -250,7 +252,12 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             cell.categoryLabel.text = question.category
             cell.categoryFlag.backgroundColor = colorPicker.colorChooser(question.category!)
             getNumReplies(object!, completionHandler: { (numReplies) in
-                cell.repliesLabel.text = "\(numReplies) replies"
+                if numReplies == 1 {
+                    cell.repliesLabel.text = "1 reply"
+                }
+                else {
+                    cell.repliesLabel.text = "\(numReplies) replies"
+                }
             })
             pickedCell = cell
         }
