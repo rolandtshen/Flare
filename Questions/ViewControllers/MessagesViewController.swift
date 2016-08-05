@@ -7,6 +7,11 @@ import JSQMessagesViewController
 
 class MessagesViewController: PFQueryTableViewController {
     
+    override func viewDidLoad() {
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 18.0)!, NSForegroundColorAttributeName: UIColor.blackColor()]
+        self.loadObjects()
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         let cell = tableView.dequeueReusableCellWithIdentifier("messageCell") as! MessagesCell
         let convo = object
@@ -67,7 +72,6 @@ class MessagesViewController: PFQueryTableViewController {
         }
     }
     
-    //how to structure this if it's in a closure?
     func downloadLatestMessage(object: PFObject, completionHandler: (Message) -> Void) {
         let conversation = object as! Conversation
         let query = PFQuery(className: "Message")

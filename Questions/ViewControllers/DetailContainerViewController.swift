@@ -13,6 +13,7 @@ import Parse
 class DetailContainerViewController: UIViewController {
     
     var question: Question?
+    var tableView: DetailViewController?
     
     @IBOutlet weak var replyTextView: UITextView!
     
@@ -31,7 +32,11 @@ class DetailContainerViewController: UIViewController {
             reply.reply = replyTextView.text
             reply.fromUser = PFUser.currentUser()
             reply.toPost = question!
-            reply.saveInBackground()
+            reply.saveInBackgroundWithBlock{ (success, error) -> Void in
+                if(error == nil) {
+                    self.tableView?.loadObjects()
+                }
+            }
         }
         else {
             ErrorHandling.ErrorDefaultMessage
@@ -44,8 +49,8 @@ class DetailContainerViewController: UIViewController {
             if identifier == "repliesTableView" {
             let detail = segue.destinationViewController as! DetailViewController
                 detail.question = question
+                tableView = detail
             }
         }
     }
-    
 }

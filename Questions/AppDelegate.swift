@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // if login was successful, display the TabBarController
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let tabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarController")
-                self.window?.rootViewController!.presentViewController(tabBarController, animated:true, completion:nil)
+                self.window?.rootViewController!.presentViewController(tabBarController, animated:true, completion: nil)
             }
         }
     }

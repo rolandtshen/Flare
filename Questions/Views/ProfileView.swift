@@ -8,7 +8,12 @@
 
 import Foundation
 import UIKit
+import ParseUI
 
-class ProfileView {
+class ProfileCellView: PFTableViewCell {
     
+    @IBOutlet weak var categoryBox: UIView!
+    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var questionLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
 }

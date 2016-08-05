@@ -13,9 +13,8 @@ import SCLAlertView
 class SignUpViewController: UIViewController {
     
     @IBOutlet weak var fullNameField: UITextField!
-    @IBOutlet weak var usernameField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var signUpButton: UIButton!
     
     override func viewDidLoad() {
@@ -29,14 +28,13 @@ class SignUpViewController: UIViewController {
     
     @IBAction func signUpPressed(sender: AnyObject) {
         let name = self.fullNameField.text
-        let username = self.usernameField.text
         let password = self.passwordField.text
         let email = self.emailField.text
         
         // Validate the text fields
-        if username == nil {
+        if email == nil {
             let alert = SCLAlertView()
-            alert.showError("Error", subTitle: "You haven't entered a username!")
+            alert.showError("Error", subTitle: "You haven't entered an email!")
             
         } else if password == nil {
             let alert = SCLAlertView()

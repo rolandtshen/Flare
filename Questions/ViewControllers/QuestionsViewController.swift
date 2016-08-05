@@ -37,7 +37,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 18.0)!, NSForegroundColorAttributeName: UIColor.blackColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 18.0)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         
         _ = NSTimer.scheduledTimerWithTimeInterval(120.0, target: self, selector: #selector(QuestionsViewController.queryForTable), userInfo: nil, repeats: true)
         
@@ -65,6 +65,9 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         cameraButton.addGestureRecognizer(tapGesture)
         
         tableView.reloadData()
+    }
+    
+    @IBAction func unwindToQuestionsViewController(segue: UIStoryboardSegue) {
     }
 
     @IBAction func categoryButton(sender: AnyObject) {
@@ -124,8 +127,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     func uploadPost(completionHandler: () -> Void) {
         let question = Question()
         var hasError = false
-        
-        let progressHUD = MBProgressHUD()
         let alert = SCLAlertView()
         if(selectedCategory != nil) {
             question.category = selectedCategory
@@ -148,13 +149,15 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             question.hasImage = true
         }
         if(hasError == false) {
-            question.saveInBackground()
-            self.loadObjects()
-            tableView.reloadData()
-            print("posted at lat: \(currLocation!.latitude), long \(currLocation!.longitude)")
-            textFieldShouldReturn(writeQuestionTextView)
-            image = nil
-            progressHUD.show(true)
+            question.saveInBackgroundWithBlock {(success, error) -> Void in
+                if(error == nil) {
+                    print("posted at lat: \(self.currLocation!.latitude), long \(self.currLocation!.longitude)")
+                    self.textFieldShouldReturn(self.writeQuestionTextView)
+                    self.image = nil
+                    self.loadObjects()
+                    self.selectedCategory = nil
+                }
+            }
         }
     }
     
@@ -231,7 +234,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             let imageCell = tableView.dequeueReusableCellWithIdentifier("QuestionImageCell", forIndexPath: indexPath) as! QuestionImageCell
             imageCell.questionLabel.text = question.question
             imageCell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
-            imageCell.usernameLabel.text = question.user?.username
+            imageCell.usernameLabel.text = question.user?.objectForKey("name") as? String
             imageCell.categoryLabel.text = question.category
             imageCell.categoryFlag.backgroundColor = colorPicker.colorChooser(question.category!)
             imageCell.postImage.clipsToBounds = true
@@ -248,14 +251,14 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             let cell = tableView.dequeueReusableCellWithIdentifier("QuestionCell", forIndexPath: indexPath) as! QuestionCell
             cell.questionLabel.text = question.question
             cell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
-            cell.usernameLabel.text = question.user?.username
+            cell.usernameLabel.text = question.user?.objectForKey("name") as? String
             cell.categoryLabel.text = question.category
             cell.categoryFlag.backgroundColor = colorPicker.colorChooser(question.category!)
             getNumReplies(object!, completionHandler: { (numReplies) in
                 if numReplies == 1 {
                     cell.repliesLabel.text = "1 reply"
                 }
-                else {
+                else if(numReplies != 1) {
                     cell.repliesLabel.text = "\(numReplies) replies"
                 }
             })

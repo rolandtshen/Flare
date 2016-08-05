@@ -30,7 +30,7 @@ class LoginViewController: UIViewController {
         signInButton.backgroundColor = UIColor.init(gradientStyle: .LeftToRight, withFrame: view.frame, andColors: colors)
     }
     
-    @IBAction func unwindToTableViewController(segue: UIStoryboardSegue) {
+    @IBAction func unwindToLogin(segue: UIStoryboardSegue) {
     }
     
     @IBAction func signInPressed(sender: AnyObject) {
