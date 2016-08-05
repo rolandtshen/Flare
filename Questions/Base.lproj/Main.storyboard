@@ -842,13 +842,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="Replies" id="Yot-Px-c3y">
                         <barButtonItem key="leftBarButtonItem" image="back" id="UIJ-Tc-3V4">
-                            <color key="tintColor" red="0.32156862745098036" green="0.80000000000000004" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="vb9-Qv-chh" kind="unwind" unwindAction="unwindToQuestionsViewController:" id="TtZ-Bm-WMh"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="flag" id="QH4-x1-LE7">
-                            <color key="tintColor" red="0.32156862749999998" green="0.80000000000000004" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -872,7 +872,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.24720534329999999" green="0.6522588252" blue="0.75394570709999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="49"/>
                             <color key="textColor" red="0.24720534331744307" green="0.65225882520964718" blue="0.75394570707070707" alpha="1" colorSpace="calibratedRGB"/>
@@ -1674,7 +1674,10 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="New Question" id="oiB-oI-3P9">
                         <barButtonItem key="leftBarButtonItem" image="back" id="hrm-fd-vq7">
-                            <color key="tintColor" red="0.1176470588" green="0.83137254900000002" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="EOc-rz-eV6" kind="unwind" unwindAction="unwindToQuestionsViewController:" id="59f-uO-nGb"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" id="hdi-iF-rTf"/>
                     </navigationItem>
@@ -1684,6 +1687,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sUg-CF-8cn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="EOc-rz-eV6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3113" y="2"/>
         </scene>
