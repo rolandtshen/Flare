@@ -54,8 +54,8 @@ class ProfileViewController: PFQueryTableViewController {
         return cell
     }
     
-    func getProfilePic(object: PFObject, completionHandler: (UIImage) -> Void) {
-        let profile = object as! PFUser
+    func getProfilePic(object: PFUser, completionHandler: (UIImage) -> Void) {
+        let profile = object
         if let picture = profile.objectForKey("profilePic") {
             picture.getDataInBackgroundWithBlock({
                 (imageData: NSData?, error: NSError?) -> Void in
@@ -79,5 +79,16 @@ class ProfileViewController: PFQueryTableViewController {
     }
     
     @IBAction func unwindToProfileViewController(segue: UIStoryboardSegue) {
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            if identifier == "showDetail" {
+                let indexPath = self.tableView.indexPathForSelectedRow
+                let obj = self.objects![indexPath!.row] as? Question
+                let detail = segue.destinationViewController as! DetailContainerViewController
+                detail.question = obj
+            }
+        }
     }
 }

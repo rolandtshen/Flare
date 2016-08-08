@@ -208,13 +208,13 @@
 			children = (
 				2A8B4DB21D52694700DF875B /* Login */,
 				2A1EE4BD1D47F5D80022DD7C /* QuestionsViewController.swift */,
+				2AF1A1B71D5540C000CE52B7 /* NewPostViewController.swift */,
 				2AC677C31D46AD990038BAF6 /* DetailContainerViewController.swift */,
 				2A9193C71D36A99D00A9905E /* DetailViewController.swift */,
 				2A88B1F11D47CEDF00359EAB /* MessagesViewController.swift */,
 				2A88B1F01D47CEDF00359EAB /* ChatViewController.swift */,
 				2AE71C191D34352100CB7B62 /* ProfileViewController.swift */,
 				2A20C9621D55012100D468BB /* EditProfileViewController.swift */,
-				2AF1A1B71D5540C000CE52B7 /* NewPostViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";

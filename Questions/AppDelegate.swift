@@ -47,9 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
         
-        IQKeyboardManager.sharedManager().enable = true
-        IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
-        
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         
         // check if we have logged in user
@@ -74,7 +71,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Message.registerSubclass()
         Conversation.registerSubclass()
         
-        IQKeyboardManager.sharedManager().enable = true
         
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }

@@ -234,7 +234,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             let imageCell = tableView.dequeueReusableCellWithIdentifier("QuestionImageCell", forIndexPath: indexPath) as! QuestionImageCell
             imageCell.questionLabel.text = question.question
             imageCell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
-            imageCell.usernameLabel.text = question.user?.objectForKey("name") as? String
+            imageCell.usernameLabel.text = question.user?.username
             imageCell.categoryLabel.text = question.category
             imageCell.categoryFlag.backgroundColor = colorPicker.colorChooser(question.category!)
             imageCell.postImage.clipsToBounds = true
@@ -335,9 +335,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     
     //When user posts something
     @IBAction func postPressed(sender: AnyObject) {
-        let progressHUD = MBProgressHUD()
         uploadPost({ () in
-            progressHUD.hide(true)
             print("post done")
             self.tableView.reloadData()
             self.loadObjects()

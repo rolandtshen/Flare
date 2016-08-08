@@ -15,21 +15,21 @@ class DetailContainerViewController: UIViewController {
     var question: Question?
     var tableView: DetailViewController?
     
-    @IBOutlet weak var replyTextView: UITextView!
+    @IBOutlet weak var replyTextField: UITextField!
     
     override func viewDidLoad() {
     }
     
-    func textViewShouldReturn(textView: UITextView!) -> Bool {
-        textView.resignFirstResponder()
-        textView.text = ""
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        textField.resignFirstResponder()
+        textField.text = ""
         return true;
     }
     
     @IBAction func sendPressed(sender: AnyObject) {
         let reply = Reply()
-        if(replyTextView.text != "") {
-            reply.reply = replyTextView.text
+        if(replyTextField.text != "") {
+            reply.reply = replyTextField.text
             reply.fromUser = PFUser.currentUser()
             reply.toPost = question!
             reply.saveInBackgroundWithBlock{ (success, error) -> Void in
@@ -41,7 +41,7 @@ class DetailContainerViewController: UIViewController {
         else {
             ErrorHandling.ErrorDefaultMessage
         }
-        textViewShouldReturn(replyTextView)
+        textFieldShouldReturn(replyTextField)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
