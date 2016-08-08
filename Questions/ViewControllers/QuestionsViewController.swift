@@ -15,6 +15,7 @@ import DateTools
 import SCLAlertView
 import MBProgressHUD
 import ChameleonFramework
+import DZNEmptyDataSet
 
 class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -37,12 +38,12 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 18.0)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 18.0)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         
         _ = NSTimer.scheduledTimerWithTimeInterval(120.0, target: self, selector: #selector(QuestionsViewController.queryForTable), userInfo: nil, repeats: true)
         
         writeQuestionTextView.delegate = self
-        self.tableView.backgroundColor = UIColor.flatWhiteColor()
+        self.tableView.backgroundColor = UIColor(hexString: "f2f2f2")
         tableView.estimatedRowHeight = 200
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
@@ -64,7 +65,9 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(QuestionsViewController.imageTapped(_:)))
         cameraButton.addGestureRecognizer(tapGesture)
         
-        tableView.reloadData()
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
+        tableView.tableFooterView = UIView()
     }
     
     @IBAction func unwindToQuestionsViewController(segue: UIStoryboardSegue) {
@@ -205,24 +208,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         presentViewController(imagePickerController!, animated: true, completion: nil)
     }
     
-    //MARK: Empty Data Set
-    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let str = "There haven't been any questions posted near you."
-        let changes = [NSForegroundColorAttributeName: UIColor.blackColor()]
-        
-        return NSAttributedString(string: str, attributes: changes)
-    }
-    
-    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let str = "Be the first!"
-        let attrs = [NSForegroundColorAttributeName : UIColor.blackColor()]
-        return NSAttributedString(string: str, attributes: attrs)
-    }
-    
-    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-        return UIImage(named: "ic_question_answer")
-    }
-
     //MARK: Table View Methods
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
@@ -293,24 +278,15 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         return obj
     }
     
-    //Limits amount of characters in post
-    @objc internal func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        let newText = (textView.text as NSString).stringByReplacingCharactersInRange(range, withString: text)
-        let numberOfChars = newText.characters.count
-        return numberOfChars < 100;
-    }
-    
     override func queryForTable() -> PFQuery {
         let query = Question.query()!
         if let queryLoc = currLocation {
             query.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: queryLoc.latitude, longitude: queryLoc.longitude), withinMiles: 4)
+            query.limit = 100;
         }
         else {
-            //Decide on how the application should react if there is no location available
-            
-            //IMPLEMENT LATER: IMAGE ON SCREEN SAYING CAN'T GET LOCATION
+            query.whereKey("nothing", equalTo: "nothing")
         }
-        query.limit = 100;
         query.orderByDescending("createdAt")
         query.includeKey("user")
         print("queried")
@@ -361,5 +337,33 @@ extension QuestionsViewController: UITextViewDelegate {
         textField.resignFirstResponder()
         textField.text = ""
         return true;
+    }
+}
+
+extension QuestionsViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    //MARK: Empty Data Set
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "No posts found"
+        let changes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 24.0)!, NSForegroundColorAttributeName: UIColor.flatGrayColor()]
+        
+        return NSAttributedString(string: str, attributes: changes)
+    }
+    
+    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "Enable location services or be the first poster in your area!"
+        let attrs = [NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 18.0)!, NSForegroundColorAttributeName: UIColor.flatGrayColor()]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "exclamation_mark_filled")
+    }
+    
+    func buttonImageForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> UIImage! {
+        return UIImage(named: "newquestionbutton")
+    }
+    
+    func emptyDataSetDidTapButton(scrollView: UIScrollView!) {
+        performSegueWithIdentifier("newQuestion", sender: self)
     }
 }

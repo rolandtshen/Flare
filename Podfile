@@ -13,10 +13,9 @@ pod 'ParseUI'
 pod 'DateTools'
 pod 'SCLAlertView'
 pod 'JSQMessagesViewController'
-pod 'MBProgressHUD'
+pod 'SVProgressHUD'
 pod 'ParseFacebookUtilsV4'
-pod 'Firebase/Core'
-pod 'Firebase/Database'
 pod 'ChameleonFramework'
+pod 'DZNEmptyDataSet'
 
 end
