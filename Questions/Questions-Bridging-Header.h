@@ -14,7 +14,6 @@
 #import <Parse/PFObject+Subclass.h>
 #import <Parse/PFGeoPoint.h>
 #import <DateTools/DateTools.h>
-#import <MBProgressHUD/MBProgressHUD.h>
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 #import <JSQMessagesViewController/JSQMessages.h>
 

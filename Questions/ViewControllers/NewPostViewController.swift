@@ -23,18 +23,27 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     let locationManager = CLLocationManager()
     var imagePickerController: UIImagePickerController?
     
-    let accessoryView = UIView(frame: CGRectZero)
-    
-    override var inputAccessoryView: UIView? {
-        return accessoryView
-    }
-    
-    override func viewDidLoad() {
-    }
-    
     override func canBecomeFirstResponder() -> Bool {
         return true
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        postTextView.sizeToFit()
+        postTextView.layoutIfNeeded()
+        
+        // input accessory view
+        let toolbar = UIToolbar()
+        toolbar.translucent = false
+        toolbar.tintColor = UIColor.flatBlackColor()
+        let cameraButton = UIBarButtonItem(image: UIImage(named: "camera"), style: .Plain, target: self, action: #selector(imageTapped(_:)))
+        let space = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+        let postButton = UIBarButtonItem(title: "Post", style: .Plain, target: self, action: nil)
+        toolbar.items = [cameraButton, space, postButton]
+        toolbar.sizeToFit()
+        postTextView.inputAccessoryView = toolbar
+    }
+
     
     func uploadPost(completionHandler: () -> Void) {
         let question = Question()

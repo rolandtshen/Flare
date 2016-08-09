@@ -12,7 +12,7 @@ import SCLAlertView
 
 class SignUpViewController: UIViewController {
     
-    @IBOutlet weak var fullNameField: UITextField!
+    @IBOutlet weak var fullNameField: UITextField! //username
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var signUpButton: UIButton!
@@ -27,7 +27,7 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func signUpPressed(sender: AnyObject) {
-        let name = self.fullNameField.text
+        let username = self.fullNameField.text
         let password = self.passwordField.text
         let email = self.emailField.text
         
@@ -47,8 +47,7 @@ class SignUpViewController: UIViewController {
             
             let newUser = PFUser()
         
-            newUser.setObject(name!, forKey: "name")
-            newUser.username = email
+            newUser.username = username
             newUser.password = password
             newUser.email = email
             

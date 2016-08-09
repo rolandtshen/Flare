@@ -13,7 +13,6 @@ import Parse
 import ParseUI
 import DateTools
 import SCLAlertView
-import MBProgressHUD
 import ChameleonFramework
 import DZNEmptyDataSet
 
@@ -38,7 +37,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 18.0)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.blackColor()]
         
         _ = NSTimer.scheduledTimerWithTimeInterval(120.0, target: self, selector: #selector(QuestionsViewController.queryForTable), userInfo: nil, repeats: true)
         
@@ -220,13 +219,12 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             imageCell.questionLabel.text = question.question
             imageCell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
             imageCell.usernameLabel.text = question.user?.username
-            imageCell.categoryLabel.text = question.category
             imageCell.categoryFlag.backgroundColor = colorPicker.colorChooser(question.category!)
             imageCell.postImage.clipsToBounds = true
             imageCell.imageView?.image = nil
             
             getNumReplies(object!, completionHandler: { (numReplies) in
-                imageCell.repliesLabel.text = "\(numReplies) replies"
+                imageCell.repliesLabel.text = "Replies (\(numReplies))"
             })
             getImage(object!, completionHandler: { (image) in
                 imageCell.postImage.image = image
@@ -236,16 +234,10 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             let cell = tableView.dequeueReusableCellWithIdentifier("QuestionCell", forIndexPath: indexPath) as! QuestionCell
             cell.questionLabel.text = question.question
             cell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
-            cell.usernameLabel.text = question.user?.objectForKey("name") as? String
-            cell.categoryLabel.text = question.category
+            cell.usernameLabel.text = question.user?.username
             cell.categoryFlag.backgroundColor = colorPicker.colorChooser(question.category!)
             getNumReplies(object!, completionHandler: { (numReplies) in
-                if numReplies == 1 {
-                    cell.repliesLabel.text = "1 reply"
-                }
-                else if(numReplies != 1) {
-                    cell.repliesLabel.text = "\(numReplies) replies"
-                }
+                cell.repliesLabel.text = "Replies (\(numReplies))"
             })
             pickedCell = cell
         }

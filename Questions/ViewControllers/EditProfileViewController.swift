@@ -70,23 +70,24 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         presentViewController(imagePickerController!, animated: true, completion: nil)
     }
     
-    func saveName() {
+    func saveUsername() {
         let user = PFUser.currentUser()
-        user!["name"] = nameTextView.text
+        user!.username = emailTextView.text
         user?.saveInBackground()
     }
     
     func saveEmail() {
         let user = PFUser.currentUser()
-        user!.username = emailTextView.text
         user!.email = emailTextView.text
         user?.saveInBackground()
     }
     
     func saveBio() {
         let user = PFUser.currentUser()
-        user!["bio"] = bioTextView.text
-        user?.saveInBackground()
+        user?.setObject(bioTextView.text, forKey: "bio")
+        user?.saveInBackgroundWithBlock {(success, error) -> Void in
+            
+        }
     }
     
     func saveProfilePic(image: UIImage) {
@@ -96,7 +97,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     @IBAction func savePressed(sender: AnyObject) {
-        saveName()
+        saveUsername()
         saveBio()
         saveEmail()
         if(chosenProfilePic != nil) {

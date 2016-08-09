@@ -25,7 +25,7 @@ class ProfileViewController: PFQueryTableViewController {
     override func viewDidLoad() {
         
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 18.0)!, NSForegroundColorAttributeName: UIColor.blackColor()]
-        fullNameLabel.text = PFUser.currentUser()?.objectForKey("name") as? String
+        fullNameLabel.text = PFUser.currentUser()?.username
         profilePicView.layer.cornerRadius = profilePicView.frame.width / 2
         profilePicView.clipsToBounds = true
         getProfilePic(PFUser.currentUser()!, completionHandler: { (image) in
