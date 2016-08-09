@@ -26,12 +26,11 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     var reset: Bool = false
     let locationManager = CLLocationManager()
     var imagePickerController: UIImagePickerController?
-    
+    var toolbar: UIToolbar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         postTextView.sizeToFit()
-        postTextView.becomeFirstResponder()
         postTextView.layoutIfNeeded()
         categoryButton.titleLabel?.textAlignment = NSTextAlignment.Center
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -45,8 +44,7 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     override var inputAccessoryView: UIView? {
-        
-        let toolbar = UIToolbar()
+        toolbar = UIToolbar()
         toolbar.translucent = false
         toolbar.tintColor = UIColor.flatBlackColor()
         let cameraButton = UIBarButtonItem(image: UIImage(named: "camera"), style: .Plain, target: self, action: #selector(NewPostViewController.chooseImageSource))

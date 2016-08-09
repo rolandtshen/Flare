@@ -10,6 +10,7 @@ import UIKit
 import Parse
 import FBSDKCoreKit
 import ParseFacebookUtilsV4
+import IQKeyboardManager
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -71,6 +72,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Conversation.registerSubclass()
         
         application.statusBarHidden = true
+        IQKeyboardManager.sharedManager().enableAutoToolbar = false
+        IQKeyboardManager.sharedManager().enable = false
         
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }

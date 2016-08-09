@@ -18,4 +18,5 @@ class QuestionImageCell: PFTableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var categoryFlag: UIView!
+    @IBOutlet weak var likesLabel: UIButton!
 }

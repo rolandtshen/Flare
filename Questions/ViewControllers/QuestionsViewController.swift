@@ -60,6 +60,34 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     @IBAction func unwindToQuestionsViewController(segue: UIStoryboardSegue) {
     }
     
+    //MARK: Likes
+    
+    func addLike(sender: UIButton) {
+        
+    }
+    
+    //MARK: Downloads
+    
+    func getNumLikes(object: PFObject, completionHandler: (Int) -> Void) {
+        let question = object as! Question
+        let query = PFQuery(className: "Like")
+        query.includeKey("toPost")
+        query.whereKey("toPost", equalTo: question)
+        query.findObjectsInBackgroundWithBlock {(objects: [PFObject]?, error: NSError?) -> Void in
+            completionHandler(objects!.count)
+        }
+    }
+    
+    func getNumReplies(object: PFObject, completionHandler: (Int) -> Void) {
+        let question = object as! Question
+        let query = PFQuery(className: "Reply")
+        query.includeKey("toPost")
+        query.whereKey("toPost", equalTo: question)
+        query.findObjectsInBackgroundWithBlock {(objects: [PFObject]?, error: NSError?) -> Void in
+            completionHandler(objects!.count)
+        }
+    }
+    
     func getImage(object: PFObject, completionHandler: (UIImage) -> Void) {
         let question = object as! Question
         if let picture = question.imageFile {
@@ -69,29 +97,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
                     completionHandler(UIImage(data: imageData!)!)
                 }
             })
-        }
-    }
-    
-    //MARK: Like
-    
-    @IBAction func textCellLiked(sender: AnyObject) {
-        
-    }
-    
-    @IBAction func imageCellLiked(sender: AnyObject) {
-        
-    }
-    
-    //MARK: Downloads
-    
-    func getNumReplies(object: PFObject, completionHandler: (Int) -> Void) {
-        let question = object as! Question
-        let query = PFQuery(className: "Reply")
-        query.includeKey("toPost")
-        query.whereKey("toPost", equalTo: question)
-        query.orderByDescending("createdAt")
-        query.findObjectsInBackgroundWithBlock {(objects: [PFObject]?, error: NSError?) -> Void in
-            completionHandler(objects!.count)
         }
     }
 
@@ -154,13 +159,23 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             imageCell.categoryFlag.backgroundColor = colorPicker.colorChooser(question.category!)
             imageCell.postImage.clipsToBounds = true
             imageCell.imageView?.image = nil
+            imageCell.likesLabel.addTarget(self, action: #selector(QuestionsViewController.addLike(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            if(question.likes != nil) {
+                imageCell.likesLabel.titleLabel!.text = "♥️ Likes (\(question.likes?.stringValue))"
+            }
             
             getNumReplies(object!, completionHandler: { (numReplies) in
                 imageCell.repliesLabel.text = "Replies (\(numReplies))"
             })
+            
+            getNumLikes(object!, completionHandler: { (numLikes) in
+                imageCell.likesLabel.titleLabel!.text = "♥️ Likes (\(numLikes))"
+            })
+            
             getImage(object!, completionHandler: { (image) in
                 imageCell.postImage.image = image
             })
+            
             pickedCell = imageCell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("QuestionCell", forIndexPath: indexPath) as! QuestionCell
@@ -168,8 +183,13 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             cell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
             cell.usernameLabel.text = question.user?.username
             cell.categoryFlag.backgroundColor = colorPicker.colorChooser(question.category!)
+            
             getNumReplies(object!, completionHandler: { (numReplies) in
                 cell.repliesLabel.text = "Replies (\(numReplies))"
+            })
+            
+            getNumLikes(object!, completionHandler: { (numLikes) in
+                cell.likesLabel.titleLabel!.text = "♥️ Likes (\(numLikes))"
             })
             pickedCell = cell
         }
@@ -234,7 +254,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             }
         }
     }
-    
 }
 
 extension QuestionsViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {

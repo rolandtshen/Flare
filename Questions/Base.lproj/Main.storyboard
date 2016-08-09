@@ -319,9 +319,6 @@
                                                                     <exclude reference="mo4-Fd-eci"/>
                                                                 </mask>
                                                             </variation>
-                                                            <connections>
-                                                                <action selector="textCellLiked:" destination="Tq7-z1-6XU" eventType="touchUpInside" id="see-NH-Qpp"/>
-                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoE-tU-G4T">
                                                             <rect key="frame" x="200" y="4" width="200" height="28"/>
@@ -407,6 +404,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="categoryFlag" destination="bFv-2e-dTU" id="bri-HE-qEa"/>
+                                    <outlet property="likesLabel" destination="r6T-67-fG2" id="i1G-oE-h3w"/>
                                     <outlet property="questionLabel" destination="6hz-zZ-TGJ" id="7dt-LM-axl"/>
                                     <outlet property="repliesLabel" destination="CtQ-2A-GAe" id="vj2-4N-gKn"/>
                                     <outlet property="timeLabel" destination="RK0-K2-ETi" id="2PK-f7-1h0"/>
@@ -499,9 +497,6 @@
                                                                     <exclude reference="97b-3c-Ut0"/>
                                                                 </mask>
                                                             </variation>
-                                                            <connections>
-                                                                <action selector="imageCellLiked:" destination="Tq7-z1-6XU" eventType="touchUpInside" id="oh2-rz-Llq"/>
-                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfh-60-a9i">
                                                             <rect key="frame" x="200" y="4" width="200" height="28"/>
@@ -593,6 +588,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="categoryFlag" destination="qzY-eW-rTJ" id="9xM-T5-OWb"/>
+                                    <outlet property="likesLabel" destination="bAf-sL-F08" id="xb3-f8-DjV"/>
                                     <outlet property="postImage" destination="6Lu-rR-Bfe" id="JJ8-vC-aiD"/>
                                     <outlet property="questionLabel" destination="V6K-fx-GQg" id="RjN-zT-3dS"/>
                                     <outlet property="repliesLabel" destination="fAN-1j-vwl" id="Udm-5j-wfY"/>
