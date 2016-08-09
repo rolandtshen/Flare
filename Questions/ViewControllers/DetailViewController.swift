@@ -40,6 +40,8 @@ class DetailViewController: PFQueryTableViewController {
             questionHeaderView?.timeLabel.text = question?.createdAt?.shortTimeAgoSinceDate(NSDate())
             questionHeaderView?.usernameLabel.text = question!.user?.username
         }
+        
+        self.tableView.tableHeaderView = questionHeaderView ?? questionImageHeaderView
     }
     
     func getImage(object: PFObject, completionHandler: (UIImage) -> Void) {
@@ -63,19 +65,19 @@ class DetailViewController: PFQueryTableViewController {
         return query
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if(questionHeaderView != nil) {
-            return 125.0
-        }
-        return 349.0
-    }
-
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if(questionHeaderView != nil) {
-            return questionHeaderView
-        }
-        return questionImageHeaderView
-    }
+//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        if(questionHeaderView != nil) {
+//            return questionHeaderView
+//        }
+//        return questionImageHeaderView
+//    }
+//    
+//    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        if(questionHeaderView != nil) {
+//            return 125.0
+//        }
+//        return 349.0
+//    }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         let cell = tableView.dequeueReusableCellWithIdentifier("replyCell", forIndexPath: indexPath) as! ReplyCell

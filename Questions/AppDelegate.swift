@@ -71,7 +71,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Message.registerSubclass()
         Conversation.registerSubclass()
         
-        IQKeyboardManager.sharedManager().enable = true
+        application.statusBarHidden = true
+        //IQKeyboardManager.sharedManager().enable = true
         
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }

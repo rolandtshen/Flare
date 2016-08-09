@@ -17,10 +17,6 @@ import ChameleonFramework
 import DZNEmptyDataSet
 
 class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
-    @IBOutlet weak var writeQuestionPic: UIImageView!
-    @IBOutlet weak var writeQuestionTextView: UITextView!
-    @IBOutlet weak var cameraButton: UIImageView!
     
     var image: UIImage?
     var selectedCategory: String?
@@ -40,16 +36,12 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.blackColor()]
         
         _ = NSTimer.scheduledTimerWithTimeInterval(120.0, target: self, selector: #selector(QuestionsViewController.queryForTable), userInfo: nil, repeats: true)
-        
-        writeQuestionTextView.delegate = self
         self.tableView.backgroundColor = UIColor(hexString: "f2f2f2")
         tableView.estimatedRowHeight = 200
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         self.pullToRefreshEnabled = true
         self.objectsPerPage = 5
-        
-        self.writeQuestionTextView.selectedRange = NSMakeRange(0, 200);
         
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
@@ -60,44 +52,12 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             locationManager.startUpdatingLocation()
         }
         
-        cameraButton.userInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(QuestionsViewController.imageTapped(_:)))
-        cameraButton.addGestureRecognizer(tapGesture)
-        
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
         tableView.tableFooterView = UIView()
     }
     
     @IBAction func unwindToQuestionsViewController(segue: UIStoryboardSegue) {
-    }
-
-    @IBAction func categoryButton(sender: AnyObject) {
-        let alertView = SCLAlertView()
-        
-        alertView.addButton("Travel", backgroundColor: UIColor.flatRedColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
-            self.selectedCategory = "Travel"
-        }
-
-        alertView.addButton("Entertainment", backgroundColor: UIColor.flatOrangeColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
-            self.selectedCategory = "Entertainment"
-        }
-
-        alertView.addButton("Meetup", backgroundColor: UIColor.flatYellowColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
-            self.selectedCategory = "Meetup"
-        }
-
-        alertView.addButton("Listings", backgroundColor: UIColor.flatGreenColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
-            self.selectedCategory = "Listings"
-        }
-
-        alertView.addButton("Recommendations", backgroundColor: UIColor.flatSkyBlueColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
-            self.selectedCategory = "Recommendations"
-        }
-        alertView.addButton("Other", backgroundColor: UIColor.flatMagentaColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
-            self.selectedCategory = "Other"
-        }
-        alertView.showNotice("Categories", subTitle: "")
     }
     
     func getImage(object: PFObject, completionHandler: (UIImage) -> Void) {
@@ -125,44 +85,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         }
     }
 
-
-    func uploadPost(completionHandler: () -> Void) {
-        let question = Question()
-        var hasError = false
-        let alert = SCLAlertView()
-        if(selectedCategory != nil) {
-            question.category = selectedCategory
-        } else {
-            alert.showError("Error", subTitle: "Please select a category")
-            hasError = true
-        }
-        if(writeQuestionTextView.text != "") {
-            question.question = writeQuestionTextView.text
-        } else {
-            alert.showError("Error", subTitle: "You haven't written a question!")
-            hasError = true
-        }
-        question.location = PFGeoPoint(latitude: currLocation!.latitude, longitude: currLocation!.longitude)
-        question.user = PFUser.currentUser()
-        if let image = image {
-            guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {return}
-            guard let imageFile = PFFile(name: "\(question.objectId).jpg", data: imageData) else {return}
-            question.imageFile = imageFile
-            question.hasImage = true
-        }
-        if(hasError == false) {
-            question.saveInBackgroundWithBlock {(success, error) -> Void in
-                if(error == nil) {
-                    print("posted at lat: \(self.currLocation!.latitude), long \(self.currLocation!.longitude)")
-                    self.textFieldShouldReturn(self.writeQuestionTextView)
-                    self.image = nil
-                    self.loadObjects()
-                    self.selectedCategory = nil
-                }
-            }
-        }
-    }
-    
     //MARK: Image Picker Methods
     func imageTapped(gesture: UIGestureRecognizer) {
         if (gesture.view as? UIImageView) != nil {
@@ -247,18 +169,20 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
 
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         locationManager.stopUpdatingLocation()
+        let alert = SCLAlertView()
         if(locations.count > 0) {
             let location = locations[locations.count - 1]
             currLocation = location.coordinate
             self.loadObjects()
         }
         else {
-            alert("Please enable location services in settings!")
+            alert.showError("Error", subTitle: "Please enable location services in settings!")
         }
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        alert("Please enable location services in settings!")
+        let alert = SCLAlertView()
+        alert.showError("Error", subTitle: "Please enable location services in settings!")
     }
     
     override func objectAtIndexPath(indexPath: NSIndexPath!) -> PFObject? {
@@ -301,35 +225,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         }
     }
     
-    //When user posts something
-    @IBAction func postPressed(sender: AnyObject) {
-        uploadPost({ () in
-            print("post done")
-            self.tableView.reloadData()
-            self.loadObjects()
-        })
-    }
-}
-
-extension QuestionsViewController: UITextViewDelegate {
-    func alert(message: String) {
-        let alert = UIAlertController(title: "We couldn't fetch your location.", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
-        let settings = UIAlertAction(title: "Settings", style: UIAlertActionStyle.Default) { (action) -> Void in
-            UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
-            return
-        }
-        alert.addAction(settings)
-        alert.addAction(cancel)
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    //Turn off text field when post is pressed
-    func textFieldShouldReturn(textField: UITextView!) -> Bool {
-        textField.resignFirstResponder()
-        textField.text = ""
-        return true;
-    }
 }
 
 extension QuestionsViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
@@ -359,3 +254,8 @@ extension QuestionsViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegat
         performSegueWithIdentifier("newQuestion", sender: self)
     }
 }
+//uploadPost({ () in
+//    print("post done")
+//    self.tableView.reloadData()
+//    self.loadObjects()
+//})
