@@ -19,6 +19,7 @@ class Question: PFObject, PFSubclassing {
     @NSManaged var question: String?
     @NSManaged var imageFile: PFFile?
     @NSManaged var hasImage: Bool
+    @NSManaged var likes: NSNumber?
 
     class func parseClassName() -> String {
         return "Post"

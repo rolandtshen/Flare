@@ -72,6 +72,16 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         }
     }
     
+    //MARK: Like
+    
+    @IBAction func textCellLiked(sender: AnyObject) {
+        
+    }
+    
+    @IBAction func imageCellLiked(sender: AnyObject) {
+        
+    }
+    
     //MARK: Downloads
     
     func getNumReplies(object: PFObject, completionHandler: (Int) -> Void) {
@@ -254,8 +264,3 @@ extension QuestionsViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegat
         performSegueWithIdentifier("newQuestion", sender: self)
     }
 }
-//uploadPost({ () in
-//    print("post done")
-//    self.tableView.reloadData()
-//    self.loadObjects()
-//})

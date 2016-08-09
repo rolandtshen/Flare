@@ -10,10 +10,12 @@ import Foundation
 import ChameleonFramework
 import SCLAlertView
 import Parse
+import SVProgressHUD
+import IQKeyboardManager
 
 class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    @IBOutlet weak var postTextView: UITextView!
+    @IBOutlet weak var postTextView: IQTextView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var profilePicView: UIImageView!
     @IBOutlet weak var categoryButton: UIButton!
@@ -47,7 +49,7 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         let toolbar = UIToolbar()
         toolbar.translucent = false
         toolbar.tintColor = UIColor.flatBlackColor()
-        let cameraButton = UIBarButtonItem(image: UIImage(named: "camera"), style: .Plain, target: self, action: #selector(imageTapped(_:)))
+        let cameraButton = UIBarButtonItem(image: UIImage(named: "camera"), style: .Plain, target: self, action: #selector(NewPostViewController.chooseImageSource))
         let space = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
         let postButton = UIBarButtonItem(title: "Post", style: .Plain, target: self, action: #selector(NewPostViewController.uploadPost))
         
@@ -57,6 +59,7 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func uploadPost() {
+        SVProgressHUD.show()
         let question = Question()
         var hasError = false
         let alert = SCLAlertView()
@@ -84,9 +87,13 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
             question.saveInBackgroundWithBlock {(success, error) -> Void in
                 if(error == nil) {
                     print("posted at lat: \(self.currLocation!.latitude), long \(self.currLocation!.longitude)")
-                    self.textFieldShouldReturn(self.postTextView)
                     self.image = nil
                     self.selectedCategory = nil
+                    self.navigationController?.popViewControllerAnimated(true)
+                    //self.performSegueWithIdentifier("unwindToQuestions", sender: self)
+                    SVProgressHUD.dismiss()
+                    SVProgressHUD.showSuccessWithStatus("Posted!")
+                    self.postTextView.resignFirstResponder()
                 }
             }
         }
@@ -139,31 +146,28 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 
     //MARK: Image Picker Methods
-    func imageTapped(gesture: UIGestureRecognizer) {
-        if (gesture.view as? UIImageView) != nil {
-            print("Image Tapped")
-            // Allow user to choose between photo library and camera
-            let alertController = UIAlertController(title: nil, message: "Where do you want to get your picture from?", preferredStyle: .ActionSheet)
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-            
-            alertController.addAction(cancelAction)
-            
-            let photoLibraryAction = UIAlertAction(title: "Photo from Library", style: .Default) { (action) in
-                self.showImagePickerController(.PhotoLibrary)
-            }
-            
-            alertController.addAction(photoLibraryAction)
-            
-            // Only show camera option if rear camera is available
-            if (UIImagePickerController.isCameraDeviceAvailable(.Rear)) {
-                let cameraAction = UIAlertAction(title: "Photo from Camera", style: .Default) { (action) in
-                    self.showImagePickerController(.Camera)
-                }
-                alertController.addAction(cameraAction)
-            }
-            presentViewController(alertController, animated: true, completion: nil)
+    func chooseImageSource() {
+        // Allow user to choose between photo library and camera
+        let alertController = UIAlertController(title: nil, message: "Where do you want to get your picture from?", preferredStyle: .ActionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
+        alertController.addAction(cancelAction)
+        
+        let photoLibraryAction = UIAlertAction(title: "Photo from Library", style: .Default) { (action) in
+            self.showImagePickerController(.PhotoLibrary)
         }
+        
+        alertController.addAction(photoLibraryAction)
+        
+        // Only show camera option if rear camera is available
+        if (UIImagePickerController.isCameraDeviceAvailable(.Rear)) {
+            let cameraAction = UIAlertAction(title: "Photo from Camera", style: .Default) { (action) in
+                self.showImagePickerController(.Camera)
+            }
+            alertController.addAction(cameraAction)
+        }
+        presentViewController(alertController, animated: true, completion: nil)
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
@@ -195,13 +199,6 @@ extension NewPostViewController: UITextViewDelegate {
         alert.addAction(settings)
         alert.addAction(cancel)
         self.presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    //Turn off text field when post is pressed
-    func textFieldShouldReturn(textField: UITextView!) -> Bool {
-        textField.resignFirstResponder()
-        textField.text = ""
-        return true;
     }
 }
 
