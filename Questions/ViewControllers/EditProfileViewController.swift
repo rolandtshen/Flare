@@ -53,23 +53,6 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            profileImageView.image = pickedImage
-            chosenProfilePic = pickedImage
-        }
-        
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    func showImagePickerController(sourceType: UIImagePickerControllerSourceType) {
-        imagePickerController = UIImagePickerController()
-        imagePickerController!.sourceType = sourceType
-        imagePickerController!.delegate = self
-        
-        presentViewController(imagePickerController!, animated: true, completion: nil)
-    }
-    
     func saveUsername() {
         let user = PFUser.currentUser()
         user!.username = emailTextView.text
@@ -105,7 +88,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    @IBAction func changePhotoPressed(sender: AnyObject) {
+    func chooseImageSource() {
         // Allow user to choose between photo library and camera
         let alertController = UIAlertController(title: nil, message: "Where do you want to get your picture from?", preferredStyle: .ActionSheet)
         
@@ -127,6 +110,23 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             alertController.addAction(cameraAction)
         }
         presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            profileImageView.image = pickedImage
+            chosenProfilePic = pickedImage
+        }
+        
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func showImagePickerController(sourceType: UIImagePickerControllerSourceType) {
+        imagePickerController = UIImagePickerController()
+        imagePickerController!.sourceType = sourceType
+        imagePickerController!.delegate = self
+        
+        presentViewController(imagePickerController!, animated: true, completion: nil)
     }
 }
 

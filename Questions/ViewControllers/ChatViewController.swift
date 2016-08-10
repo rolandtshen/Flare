@@ -36,6 +36,7 @@ class ChatViewController: JSQMessagesViewController {
     
     func reloadMessagesView() {
         downloadLatestMessage()
+        self.collectionView.reloadData()
     }
 }
 

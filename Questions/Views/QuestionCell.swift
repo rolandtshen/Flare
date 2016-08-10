@@ -19,4 +19,19 @@ class QuestionCell: PFTableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var categoryFlag: UIView!
     @IBOutlet weak var likesLabel: UIButton!
+    var post : Question!
+    var numberOfLikes : Int!
+    
+    @IBAction func likePressed(sender: AnyObject) {
+        LikeHelper.toggleLikePost(PFUser.currentUser()!, post: post) { (isLiked) in
+            
+            if isLiked {
+                self.likesLabel.titleLabel?.text = "♥️ Likes (\(self.numberOfLikes-1))"
+                self.numberOfLikes = self.numberOfLikes - 1
+            } else {
+                self.likesLabel.titleLabel?.text = "♥️ Likes (\(self.numberOfLikes+1))"
+                self.numberOfLikes = self.numberOfLikes + 1
+            }
+        }
+    }
 }

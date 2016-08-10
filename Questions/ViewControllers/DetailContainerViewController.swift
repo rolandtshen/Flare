@@ -19,8 +19,6 @@ class DetailContainerViewController: UIViewController {
     @IBOutlet weak var replyTextField: UITextField!
     
     override func viewDidLoad() {
-        IQKeyboardManager.sharedManager().enable = true
-        IQKeyboardManager.sharedManager().enableAutoToolbar = true
     }
     
     func textFieldShouldReturn(textField: UITextField!) -> Bool {

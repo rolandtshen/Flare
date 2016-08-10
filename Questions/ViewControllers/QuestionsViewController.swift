@@ -60,12 +60,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     @IBAction func unwindToQuestionsViewController(segue: UIStoryboardSegue) {
     }
     
-    //MARK: Likes
-    
-    func addLike(sender: UIButton) {
-        
-    }
-    
     //MARK: Downloads
     
     func getNumLikes(object: PFObject, completionHandler: (Int) -> Void) {
@@ -74,7 +68,9 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         query.includeKey("toPost")
         query.whereKey("toPost", equalTo: question)
         query.findObjectsInBackgroundWithBlock {(objects: [PFObject]?, error: NSError?) -> Void in
-            completionHandler(objects!.count)
+            if error == nil {
+                completionHandler(objects!.count)
+            }
         }
     }
     
@@ -159,7 +155,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             imageCell.categoryFlag.backgroundColor = colorPicker.colorChooser(question.category!)
             imageCell.postImage.clipsToBounds = true
             imageCell.imageView?.image = nil
-            imageCell.likesLabel.addTarget(self, action: #selector(QuestionsViewController.addLike(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             if(question.likes != nil) {
                 imageCell.likesLabel.titleLabel!.text = "♥️ Likes (\(question.likes?.stringValue))"
             }
@@ -179,6 +174,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             pickedCell = imageCell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("QuestionCell", forIndexPath: indexPath) as! QuestionCell
+            cell.post = question
             cell.questionLabel.text = question.question
             cell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
             cell.usernameLabel.text = question.user?.username
@@ -187,9 +183,11 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             getNumReplies(object!, completionHandler: { (numReplies) in
                 cell.repliesLabel.text = "Replies (\(numReplies))"
             })
-            
+//             cell.likesLabel.titleLabel!.text = "♥️ Likes 2)"
             getNumLikes(object!, completionHandler: { (numLikes) in
+                print(numLikes)
                 cell.likesLabel.titleLabel!.text = "♥️ Likes (\(numLikes))"
+                cell.numberOfLikes = numLikes
             })
             pickedCell = cell
         }
