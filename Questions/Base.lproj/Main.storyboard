@@ -303,24 +303,14 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="XWU-h0-eyi">
                                                     <rect key="frame" x="0.0" y="148" width="600" height="36"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6T-67-fG2">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="caY-0c-Wsy">
                                                             <rect key="frame" x="0.0" y="4" width="200" height="28"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="192" id="XBi-sY-8Uh"/>
-                                                                <constraint firstAttribute="width" constant="37" id="mo4-Fd-eci"/>
-                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="16"/>
-                                                            <state key="normal" title="❤️ Likes (0)">
+                                                            <state key="normal" title="♥️ Likes (0)">
                                                                 <color key="titleColor" red="0.42655369640000002" green="0.475846082" blue="0.4802647531" alpha="1" colorSpace="calibratedRGB"/>
                                                             </state>
-                                                            <variation key="default">
-                                                                <mask key="constraints">
-                                                                    <exclude reference="XBi-sY-8Uh"/>
-                                                                    <exclude reference="mo4-Fd-eci"/>
-                                                                </mask>
-                                                            </variation>
                                                             <connections>
-                                                                <action selector="likePressed:" destination="e6k-s6-GTb" eventType="touchUpInside" id="7Kx-l5-Kdk"/>
+                                                                <action selector="likePressed:" destination="e6k-s6-GTb" eventType="touchUpInside" id="0K0-5H-x9k"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoE-tU-G4T">
@@ -407,7 +397,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="categoryFlag" destination="bFv-2e-dTU" id="bri-HE-qEa"/>
-                                    <outlet property="likesLabel" destination="r6T-67-fG2" id="i1G-oE-h3w"/>
+                                    <outlet property="likesLabel" destination="caY-0c-Wsy" id="PR5-Mh-Q0S"/>
                                     <outlet property="questionLabel" destination="6hz-zZ-TGJ" id="7dt-LM-axl"/>
                                     <outlet property="repliesLabel" destination="CtQ-2A-GAe" id="vj2-4N-gKn"/>
                                     <outlet property="timeLabel" destination="RK0-K2-ETi" id="2PK-f7-1h0"/>
@@ -475,7 +465,7 @@
                                                                 <constraint firstAttribute="width" constant="192" id="97b-3c-Ut0"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="16"/>
-                                                            <state key="normal" title="♥️Likes (0)">
+                                                            <state key="normal" title="♥️ Likes (0)">
                                                                 <color key="titleColor" red="0.42655369640000002" green="0.475846082" blue="0.4802647531" alpha="1" colorSpace="calibratedRGB"/>
                                                             </state>
                                                             <variation key="default">
@@ -484,6 +474,9 @@
                                                                     <exclude reference="97b-3c-Ut0"/>
                                                                 </mask>
                                                             </variation>
+                                                            <connections>
+                                                                <action selector="likePressed:" destination="ofV-2k-VJP" eventType="touchUpInside" id="aCw-Yf-AeZ"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfh-60-a9i">
                                                             <rect key="frame" x="200" y="4" width="200" height="28"/>
@@ -1073,6 +1066,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="S6H-ZM-Pf4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

@@ -18,6 +18,9 @@ PODS:
   - JSQMessagesViewController (7.3.4):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
+  - Mixpanel (3.0.2):
+    - Mixpanel/Mixpanel (= 3.0.2)
+  - Mixpanel/Mixpanel (3.0.2)
   - Parse (1.13.0):
     - Bolts/Tasks (~> 1.6)
   - ParseFacebookUtilsV4 (1.11.1):
@@ -38,6 +41,7 @@ DEPENDENCIES:
   - DZNEmptyDataSet
   - IQKeyboardManager
   - JSQMessagesViewController
+  - Mixpanel
   - Parse
   - ParseFacebookUtilsV4
   - ParseUI
@@ -54,12 +58,13 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 4a6f83b540283c2645aaeba2bd8dc0f09b5c77f8
   JSQMessagesViewController: 39fed975e3c9f8eba7292071e29eeb541d105e66
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
+  Mixpanel: 0e4f1f9a2ac612b589b2894830038418c2587428
   Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
   ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
   ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e
   SCLAlertView: d7c6a48c7d340e60206d4ed0e8ebcbff3b9d2a44
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
 
-PODFILE CHECKSUM: 54abe4252af2b0928c953e9f83f7bd8945392f17
+PODFILE CHECKSUM: dabb67f6d3418c381633cf49cba0c358a1c8f0ba
 
 COCOAPODS: 1.0.1

@@ -8,7 +8,7 @@ import JSQMessagesViewController
 class MessagesViewController: PFQueryTableViewController {
     
     override func viewDidLoad() {
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 18.0)!, NSForegroundColorAttributeName: UIColor.blackColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.blackColor()]
         self.loadObjects()
     }
     

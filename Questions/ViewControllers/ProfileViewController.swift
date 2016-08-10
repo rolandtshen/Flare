@@ -28,13 +28,25 @@ class ProfileViewController: PFQueryTableViewController {
         fullNameLabel.text = PFUser.currentUser()?.username
         profilePicView.layer.cornerRadius = profilePicView.frame.width / 2
         profilePicView.clipsToBounds = true
+        
         getProfilePic(PFUser.currentUser()!, completionHandler: { (image) in
             self.profilePicView.image = image
         })
-        bioLabel.text = PFUser.currentUser()?.objectForKey("bio") as? String
+        
+        getNumAnswers { (numAnswers) in
+            self.answersLabel.text = "\(numAnswers)"
+        }
+        
+        getNumQuestions { (numQuestions) in
+            self.questionsLabel.text = "\(numQuestions)"
+        }
+        
+        bioLabel.sizeToFit()
+        bioLabel.text = (PFUser.currentUser()?.objectForKey("bio") as? String) ?? "You don't have a bio yet!"
         self.loadObjects()
     }
     
+    // get posts made by current user
     override func queryForTable() -> PFQuery {
         let query = PFQuery(className: "Post")
         query.includeKey("user")
@@ -54,6 +66,8 @@ class ProfileViewController: PFQueryTableViewController {
         return cell
     }
     
+    //MARK: Downloads
+    
     func getProfilePic(object: PFUser, completionHandler: (UIImage) -> Void) {
         let profile = object
         if let picture = profile.objectForKey("profilePic") {
@@ -66,7 +80,12 @@ class ProfileViewController: PFQueryTableViewController {
         }
     }
     
-    func getBio(object: PFObject, completionHandler: (UIImage) -> Void) {
+    func getBio(object: PFObject, completionHandler: (String) -> Void) {
+        let query = PFQuery(className: "User")
+        query.whereKey("username", equalTo: PFUser.currentUser()!.username!)
+    }
+    
+    func getLikes(object: PFObject, completionHandler: (UIImage) -> Void) {
         let profile = object as! PFUser
         if let picture = profile.objectForKey("profilePic") {
             picture.getDataInBackgroundWithBlock({
@@ -77,6 +96,29 @@ class ProfileViewController: PFQueryTableViewController {
             })
         }
     }
+    
+    func getNumQuestions(completionHandler: (Int) -> Void) {
+        let query = PFQuery(className: "Post")
+        query.whereKey("user", equalTo: PFUser.currentUser()!)
+        query.findObjectsInBackgroundWithBlock {(objects: [PFObject]?, error: NSError?) -> Void in
+            if error == nil {
+                completionHandler(objects!.count)
+            }
+        }
+    }
+    
+    func getNumAnswers(completionHandler: (Int) -> Void) {
+        let query = PFQuery(className: "Reply")
+        query.whereKey("fromUser", equalTo: PFUser.currentUser()!)
+        query.findObjectsInBackgroundWithBlock {(objects: [PFObject]?, error: NSError?) -> Void in
+            if error == nil {
+                completionHandler(objects!.count)
+            }
+        }
+    }
+    
+    
+    //MARK: Segue Methods
     
     @IBAction func unwindToProfileViewController(segue: UIStoryboardSegue) {
     }

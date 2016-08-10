@@ -60,6 +60,22 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     @IBAction func unwindToQuestionsViewController(segue: UIStoryboardSegue) {
     }
     
+    //MARK: Likes
+//    
+//    func like(post: Question) {
+//        LikeHelper.toggleLikePost(PFUser.currentUser()!, post: post) { (isLiked) in
+//            
+//            if isLiked {
+//                self.likesLabel.text = "♥️ Likes (\(self.numberOfLikes - 1))"
+//                self.numberOfLikes = self.numberOfLikes - 1
+//            } else {
+//                self.likesLabel.text = "♥️ Likes (\(self.numberOfLikes + 1))"
+//                self.numberOfLikes = self.numberOfLikes + 1
+//            }
+//        }
+//
+//    }
+    
     //MARK: Downloads
     
     func getNumLikes(object: PFObject, completionHandler: (Int) -> Void) {
@@ -149,6 +165,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         
         if question.hasImage == true {
             let imageCell = tableView.dequeueReusableCellWithIdentifier("QuestionImageCell", forIndexPath: indexPath) as! QuestionImageCell
+            imageCell.post = question
             imageCell.questionLabel.text = question.question
             imageCell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
             imageCell.usernameLabel.text = question.user?.username
@@ -164,7 +181,9 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             })
             
             getNumLikes(object!, completionHandler: { (numLikes) in
-                imageCell.likesLabel.titleLabel!.text = "♥️ Likes (\(numLikes))"
+                imageCell.numberOfLikes = numLikes
+                imageCell.likesLabel.titleLabel?.text = "♥️Likes (\(numLikes))"
+
             })
             
             getImage(object!, completionHandler: { (image) in
@@ -183,11 +202,10 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             getNumReplies(object!, completionHandler: { (numReplies) in
                 cell.repliesLabel.text = "Replies (\(numReplies))"
             })
-//             cell.likesLabel.titleLabel!.text = "♥️ Likes 2)"
+            
             getNumLikes(object!, completionHandler: { (numLikes) in
-                print(numLikes)
-                cell.likesLabel.titleLabel!.text = "♥️ Likes (\(numLikes))"
                 cell.numberOfLikes = numLikes
+                cell.likesLabel.titleLabel?.text = "♥️Likes (\(numLikes))"
             })
             pickedCell = cell
         }

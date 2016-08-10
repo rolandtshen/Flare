@@ -26,10 +26,10 @@ class QuestionCell: PFTableViewCell {
         LikeHelper.toggleLikePost(PFUser.currentUser()!, post: post) { (isLiked) in
             
             if isLiked {
-                self.likesLabel.titleLabel?.text = "♥️ Likes (\(self.numberOfLikes-1))"
+                self.likesLabel.titleLabel?.text = "♥️ Likes (\(self.numberOfLikes - 1))"
                 self.numberOfLikes = self.numberOfLikes - 1
             } else {
-                self.likesLabel.titleLabel?.text = "♥️ Likes (\(self.numberOfLikes+1))"
+                self.likesLabel.titleLabel?.text = "♥️ Likes (\(self.numberOfLikes + 1))"
                 self.numberOfLikes = self.numberOfLikes + 1
             }
         }
