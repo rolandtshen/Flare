@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Parse
 import IQKeyboardManager
+import SVProgressHUD
 
 class DetailContainerViewController: UIViewController {
     
@@ -25,6 +26,27 @@ class DetailContainerViewController: UIViewController {
         textField.resignFirstResponder()
         textField.text = ""
         return true;
+    }
+
+    func showFlagActionSheetForPost() {
+        let alertController = UIAlertController(title: nil, message: "Do you want to flag this post?", preferredStyle: .ActionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let destroyAction = UIAlertAction(title: "Flag", style: .Destructive) { (action) in
+            let flag = Flag()
+            flag.fromUser = PFUser.currentUser()
+            flag.toPost = self.question
+            SVProgressHUD.show()
+            flag.saveInBackgroundWithBlock({ (success, error) in
+                SVProgressHUD.dismiss()
+            })
+        }
+        
+        alertController.addAction(destroyAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     @IBAction func sendPressed(sender: AnyObject) {
@@ -43,6 +65,10 @@ class DetailContainerViewController: UIViewController {
             ErrorHandling.ErrorDefaultMessage
         }
         textFieldShouldReturn(replyTextField)
+    }
+
+    @IBAction func flagPressed(sender: AnyObject) {
+        showFlagActionSheetForPost()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

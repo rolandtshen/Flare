@@ -10,11 +10,13 @@ import Foundation
 import ChameleonFramework
 import SCLAlertView
 import Parse
+import ParseUI
 import SVProgressHUD
 import IQKeyboardManager
+import Mixpanel
 
 class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+
     @IBOutlet weak var postTextView: IQTextView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var profilePicView: UIImageView!
@@ -32,6 +34,7 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         postTextView.sizeToFit()
         postTextView.layoutIfNeeded()
+        nameLabel.text = PFUser.currentUser()?.username
         categoryButton.titleLabel?.textAlignment = NSTextAlignment.Center
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
@@ -57,7 +60,6 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func uploadPost() {
-        SVProgressHUD.show()
         let question = Question()
         var hasError = false
         let alert = SCLAlertView()
@@ -73,6 +75,7 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
             alert.showError("Error", subTitle: "You haven't written a question!")
             hasError = true
         }
+        
         question.location = PFGeoPoint(latitude: currLocation!.latitude, longitude: currLocation!.longitude)
         question.user = PFUser.currentUser()
         if let image = image {
@@ -82,16 +85,20 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
             question.hasImage = true
         }
         if(hasError == false) {
+            SVProgressHUD.show()
             question.saveInBackgroundWithBlock {(success, error) -> Void in
                 if(error == nil) {
                     print("posted at lat: \(self.currLocation!.latitude), long \(self.currLocation!.longitude)")
                     self.image = nil
                     self.selectedCategory = nil
                     self.navigationController?.popViewControllerAnimated(true)
-                    //self.performSegueWithIdentifier("unwindToQuestions", sender: self)
                     SVProgressHUD.dismiss()
                     SVProgressHUD.showSuccessWithStatus("Posted!")
+                    Mixpanel.sharedInstance().track("Uploaded post")
                     self.postTextView.resignFirstResponder()
+                }
+                else {
+                    SVProgressHUD.dismiss()
                 }
             }
         }
@@ -99,6 +106,10 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBAction func pressCategoryButton(sender: AnyObject) {
         let alertView = SCLAlertView()
+        
+        if(postTextView.isFirstResponder()) {
+            postTextView.resignFirstResponder()
+        }
         
         alertView.addButton("Travel", backgroundColor: UIColor.flatRedColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
             self.selectedCategory = "Travel"

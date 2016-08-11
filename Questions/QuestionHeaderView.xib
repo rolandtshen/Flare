@@ -29,7 +29,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="147"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QUESTION TEXT HERE" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3Z-yx-7WM">
-                                    <rect key="frame" x="20" y="32" width="185" height="18"/>
+                                    <rect key="frame" x="20" y="32" width="560" height="18"/>
                                     <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="18"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -38,10 +38,6 @@
                                     <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="16"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5yd-eF-65S">
-                                    <rect key="frame" x="20" y="119" width="24" height="24"/>
-                                    <state key="normal" image="ic_reply"/>
-                                </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qT5-vO-7lm">
                                     <rect key="frame" x="552" y="8" width="28" height="14"/>
                                     <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="14"/>
@@ -60,14 +56,13 @@
                             <constraints>
                                 <constraint firstItem="Z3Z-yx-7WM" firstAttribute="leading" secondItem="UOr-k1-UFH" secondAttribute="leading" constant="20" id="767-t6-YZ7"/>
                                 <constraint firstAttribute="trailing" secondItem="rsq-jU-rLI" secondAttribute="trailing" constant="20" id="9DP-pN-VCv"/>
-                                <constraint firstItem="5yd-eF-65S" firstAttribute="leading" secondItem="UOr-k1-UFH" secondAttribute="leading" constant="20" id="BTH-yV-pg6"/>
                                 <constraint firstItem="qT5-vO-7lm" firstAttribute="top" secondItem="UOr-k1-UFH" secondAttribute="top" constant="8" id="CeJ-VU-iGr"/>
                                 <constraint firstItem="Z3Z-yx-7WM" firstAttribute="top" secondItem="Bdy-bp-RAh" secondAttribute="bottom" constant="8" id="G9c-vm-8xr"/>
                                 <constraint firstAttribute="bottom" secondItem="rsq-jU-rLI" secondAttribute="bottom" constant="4" id="euL-y6-5oU"/>
                                 <constraint firstItem="Bdy-bp-RAh" firstAttribute="top" secondItem="UOr-k1-UFH" secondAttribute="top" constant="8" id="fT3-hx-zbA"/>
                                 <constraint firstItem="Bdy-bp-RAh" firstAttribute="leading" secondItem="UOr-k1-UFH" secondAttribute="leading" constant="20" id="lun-Ja-A7G"/>
                                 <constraint firstAttribute="trailing" secondItem="qT5-vO-7lm" secondAttribute="trailing" constant="20" id="rFW-Xh-i0p"/>
-                                <constraint firstAttribute="bottom" secondItem="5yd-eF-65S" secondAttribute="bottom" constant="4" id="rJr-f7-LRZ"/>
+                                <constraint firstAttribute="trailing" secondItem="Z3Z-yx-7WM" secondAttribute="trailing" constant="20" id="rh6-kQ-8U8"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -99,6 +94,5 @@
     </objects>
     <resources>
         <image name="ic_question_answer" width="24" height="24"/>
-        <image name="ic_reply" width="24" height="24"/>
     </resources>
 </document>

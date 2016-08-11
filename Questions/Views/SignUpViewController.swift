@@ -9,6 +9,7 @@
 import Foundation
 import Parse
 import SCLAlertView
+import SVProgressHUD
 
 class SignUpViewController: UIViewController {
     
@@ -24,45 +25,61 @@ class SignUpViewController: UIViewController {
             UIColor(hexString: "#22C0CF")
         ]
         signUpButton.backgroundColor = UIColor.init(gradientStyle: .LeftToRight, withFrame: view.frame, andColors: colors)
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SignUpViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
     
     @IBAction func signUpPressed(sender: AnyObject) {
         let username = self.fullNameField.text
         let password = self.passwordField.text
         let email = self.emailField.text
+        var hasError = false
         
         // Validate the text fields
-        if email == nil {
+        
+        if username == "" {
+            let alert = SCLAlertView()
+            alert.showError("Error", subTitle: "You haven't entered a username!")
+            hasError = true
+        }
+        
+        if email == "" {
             let alert = SCLAlertView()
             alert.showError("Error", subTitle: "You haven't entered an email!")
-            
-        } else if password == nil {
+            hasError = true
+        }
+        
+        if password == "" {
             let alert = SCLAlertView()
             alert.showError("Error", subTitle: "You haven't entered a password!")
-            
-        } else {
-            // Run a spinner to show a task in progress
-            let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
-            spinner.startAnimating()
-            
+            hasError = true
+        }
+     
+        if(hasError == false) {
             let newUser = PFUser()
-        
             newUser.username = username
             newUser.password = password
             newUser.email = email
+            SVProgressHUD.show()
             
             // Sign up the user asynchronously
             newUser.signUpInBackgroundWithBlock({ (succeed, error) -> Void in
-                spinner.stopAnimating()
                 if (error == nil) {
-                    let alert = SCLAlertView()
-                    alert.showSuccess("Success", subTitle: "Welcome to Questions!")
+                    SVProgressHUD.dismiss()
+                    SVProgressHUD.showSuccessWithStatus("Welcome to Questions!")
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         let viewController: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TabBarController")
                         self.presentViewController(viewController, animated: true, completion: nil)
                     })
                 }
                 else {
+                    SVProgressHUD.dismiss()
                     let alert = SCLAlertView()
                     alert.showError("Error", subTitle: "Username or email are already taken")
                 }

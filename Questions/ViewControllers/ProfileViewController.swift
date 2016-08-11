@@ -29,6 +29,9 @@ class ProfileViewController: PFQueryTableViewController {
         profilePicView.layer.cornerRadius = profilePicView.frame.width / 2
         profilePicView.clipsToBounds = true
         
+        tableView.estimatedRowHeight = 80.0
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
         getProfilePic(PFUser.currentUser()!, completionHandler: { (image) in
             self.profilePicView.image = image
         })
@@ -41,8 +44,13 @@ class ProfileViewController: PFQueryTableViewController {
             self.questionsLabel.text = "\(numQuestions)"
         }
         
-        bioLabel.sizeToFit()
-        bioLabel.text = (PFUser.currentUser()?.objectForKey("bio") as? String) ?? "You don't have a bio yet!"
+        
+        getBio(PFUser.currentUser()!) { (bio) in
+            self.bioLabel.sizeToFit()
+            self.bioLabel.text = bio
+        }
+        
+        self.objectsPerPage = 5
         self.loadObjects()
     }
     
@@ -52,7 +60,7 @@ class ProfileViewController: PFQueryTableViewController {
         query.includeKey("user")
         query.whereKey("user", equalTo: PFUser.currentUser()!)
         query.orderByDescending("createdAt")
-        query.limit = 5
+        query.limit = 100
         return query
     }
     
@@ -81,8 +89,18 @@ class ProfileViewController: PFQueryTableViewController {
     }
     
     func getBio(object: PFObject, completionHandler: (String) -> Void) {
-        let query = PFQuery(className: "User")
-        query.whereKey("username", equalTo: PFUser.currentUser()!.username!)
+        let query = PFUser.query()
+        query!.whereKey("username", equalTo: PFUser.currentUser()!.username!)
+        query!.getFirstObjectInBackgroundWithBlock { (object, error) in
+            if(error == nil) {
+                if(object!["bio"] != nil) {
+                    completionHandler(object!["bio"] as! String)
+                }
+                else {
+                    completionHandler("You don't have a bio!")
+                }
+            }
+        }
     }
     
     func getLikes(object: PFObject, completionHandler: (UIImage) -> Void) {

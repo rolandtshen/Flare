@@ -30,6 +30,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 self.profileImageView.image = image
             })
         }
+        
         if(PFUser.currentUser()?.objectForKey("bio") != nil) {
             bioTextView.text = PFUser.currentUser()?.objectForKey("bio") as! String
         }
@@ -37,8 +38,8 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             bioTextView.text = ""
         }
         
-        nameTextView.text = PFUser.currentUser()?.objectForKey("name") as! String
-        emailTextView.text = PFUser.currentUser()?.username
+        nameTextView.text = PFUser.currentUser()?.username
+        emailTextView.text = PFUser.currentUser()?.email
     }
     
     func getProfilePic(object: PFObject, completionHandler: (UIImage) -> Void) {
@@ -69,7 +70,6 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         let user = PFUser.currentUser()
         user?.setObject(bioTextView.text, forKey: "bio")
         user?.saveInBackgroundWithBlock {(success, error) -> Void in
-            
         }
     }
     

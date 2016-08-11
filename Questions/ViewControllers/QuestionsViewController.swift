@@ -28,6 +28,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     
     override func viewDidAppear(animated: Bool) {
         tableView.reloadData()
+        self.loadObjects()
     }
     
     override func viewDidLoad() {
@@ -172,6 +173,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             imageCell.categoryFlag.backgroundColor = colorPicker.colorChooser(question.category!)
             imageCell.postImage.clipsToBounds = true
             imageCell.imageView?.image = nil
+            imageCell.likesLabel.sizeToFit()
             if(question.likes != nil) {
                 imageCell.likesLabel.titleLabel!.text = "♥️ Likes (\(question.likes?.stringValue))"
             }
@@ -182,7 +184,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             
             getNumLikes(object!, completionHandler: { (numLikes) in
                 imageCell.numberOfLikes = numLikes
-                imageCell.likesLabel.titleLabel?.text = "♥️Likes (\(numLikes))"
+                imageCell.likesLabel.setTitle(" ♥️ Likes (\(numLikes))", forState: .Normal)
 
             })
             
@@ -198,6 +200,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             cell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
             cell.usernameLabel.text = question.user?.username
             cell.categoryFlag.backgroundColor = colorPicker.colorChooser(question.category!)
+            cell.likesLabel.sizeToFit()
             
             getNumReplies(object!, completionHandler: { (numReplies) in
                 cell.repliesLabel.text = "Replies (\(numReplies))"
@@ -205,7 +208,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             
             getNumLikes(object!, completionHandler: { (numLikes) in
                 cell.numberOfLikes = numLikes
-                cell.likesLabel.titleLabel?.text = "♥️Likes (\(numLikes))"
+                cell.likesLabel.setTitle(" ♥️ Likes (\(numLikes))", forState: .Normal)
             })
             pickedCell = cell
         }

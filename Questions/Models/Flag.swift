@@ -1,5 +1,5 @@
 //
-//  Profile.swift
+//  Flag.swift
 //  Questions
 //
 //  Created by Roland Shen on 8/10/16.
@@ -9,13 +9,13 @@
 import Foundation
 import Parse
 
-class User: PFObject, PFSubclassing {
+class Flag: PFObject, PFSubclassing {
     
-    @NSManaged var bio: String?
-    @NSManaged var profilePic: PFFile?
+    @NSManaged var fromUser: PFUser?
+    @NSManaged var toPost: PFObject?
     
     class func parseClassName() -> String {
-        return "User"
+        return "Flag"
     }
     
     override class func initialize() {

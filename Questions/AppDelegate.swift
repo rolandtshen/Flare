@@ -11,6 +11,7 @@ import Parse
 import FBSDKCoreKit
 import ParseFacebookUtilsV4
 import IQKeyboardManager
+import Mixpanel
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,6 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        //initialize Parse
         let configuration = ParseClientConfiguration {
             $0.applicationId = "questionsapp"
             $0.server = "https://questionsapp.herokuapp.com/parse"
@@ -47,9 +50,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
         
+        //initialize Facebook
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         
-        // check if we have logged in user
+        //initialize Mixpanel
+        Mixpanel.sharedInstanceWithToken("8393fb097d75410d96bf238e12397daf")
+        let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+        mixpanel.track("App launched")
+        
+        //determine whether or not to show login screen
         let user = PFUser.currentUser()
         
         var startViewController: UIViewController

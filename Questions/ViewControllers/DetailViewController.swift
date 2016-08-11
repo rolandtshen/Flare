@@ -76,7 +76,7 @@ class DetailViewController: PFQueryTableViewController {
         if(questionHeaderView != nil) {
             return 125.0
         }
-        return 349.0
+        return 315.0
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
