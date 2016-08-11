@@ -7,7 +7,7 @@ target 'Questions' do
 
   # Pods for Questions
 
-pod 'IQKeyboardManager'
+pod 'IQKeyboardManagerSwift'
 pod 'Parse'
 pod 'ParseUI'
 pod 'DateTools'

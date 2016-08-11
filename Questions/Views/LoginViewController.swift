@@ -14,7 +14,6 @@ import SCLAlertView
 import ParseFacebookUtilsV4
 import FBSDKLoginKit
 import FBSDKCoreKit
-import IQKeyboardManager
 import SVProgressHUD
 
 class LoginViewController: UIViewController {

@@ -8,8 +8,10 @@
 
 import Foundation
 import UIKit
-import IQKeyboardManager
+import IQKeyboardManagerSwift
 import Parse
+import SCLAlertView
+import SVProgressHUD
 
 class EditProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -21,71 +23,44 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     var imagePickerController: UIImagePickerController?
     var chosenProfilePic: UIImage?
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidLoad() {
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2;
         profileImageView.clipsToBounds = true
         
-        if(PFUser.currentUser()?.objectForKey("profilePic") != nil) {
-            getProfilePic(PFUser.currentUser()!, completionHandler: { (image) in
-                self.profileImageView.image = image
-            })
-        }
-        
-        if(PFUser.currentUser()?.objectForKey("bio") != nil) {
-            bioTextView.text = PFUser.currentUser()?.objectForKey("bio") as! String
-        }
-        else {
-            bioTextView.text = ""
-        }
-        
         nameTextView.text = PFUser.currentUser()?.username
         emailTextView.text = PFUser.currentUser()?.email
-    }
-    
-    func getProfilePic(object: PFObject, completionHandler: (UIImage) -> Void) {
-        let profile = object as! PFUser
-        if let picture = profile.objectForKey("profilePic") {
-            picture.getDataInBackgroundWithBlock({
-                (imageData: NSData?, error: NSError?) -> Void in
-                if (error == nil) {
-                    completionHandler(UIImage(data: imageData!)!)
-                }
-            })
+        
+        getProfilePic(PFUser.currentUser()!) { (profilePic) in
+            self.profileImageView.image = profilePic
         }
-    }
-    
-    func saveUsername() {
-        let user = PFUser.currentUser()
-        user!.username = emailTextView.text
-        user?.saveInBackground()
-    }
-    
-    func saveEmail() {
-        let user = PFUser.currentUser()
-        user!.email = emailTextView.text
-        user?.saveInBackground()
-    }
-    
-    func saveBio() {
-        let user = PFUser.currentUser()
-        user?.setObject(bioTextView.text, forKey: "bio")
-        user?.saveInBackgroundWithBlock {(success, error) -> Void in
+        
+        getBio { (bio) in
+            self.bioTextView.text = bio
         }
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(EditProfileViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     
-    func saveProfilePic(image: UIImage) {
-        let user = PFUser.currentUser()
-        user!["profilePic"] = PFFile(name: "sdfsdf.jpg", data: UIImageJPEGRepresentation(image, 0.6)!)
-        user?.saveInBackground()
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     @IBAction func savePressed(sender: AnyObject) {
-        saveUsername()
-        saveBio()
-        saveEmail()
-        if(chosenProfilePic != nil) {
-            saveProfilePic(chosenProfilePic!)
+        let user = PFUser.currentUser()
+        user!.username = emailTextView.text
+        user!.email = emailTextView.text
+        user!["bio"] = bioTextView.text
+        if let image = chosenProfilePic {
+            user!["profilePic"] = PFFile(name: "image.jpg", data: UIImageJPEGRepresentation(image, 0.6)!)
         }
+        SVProgressHUD.show()
+        user?.saveInBackgroundWithBlock({ (success, error) in
+            if(error == nil) {
+                SVProgressHUD.dismiss()
+                self.navigationController?.popViewControllerAnimated(true)
+            }
+        })
     }
     
     func chooseImageSource() {
@@ -112,6 +87,14 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         presentViewController(alertController, animated: true, completion: nil)
     }
     
+    func showImagePickerController(sourceType: UIImagePickerControllerSourceType) {
+        imagePickerController = UIImagePickerController()
+        imagePickerController!.sourceType = sourceType
+        imagePickerController!.delegate = self
+        
+        presentViewController(imagePickerController!, animated: true, completion: nil)
+    }
+    
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             profileImageView.image = pickedImage
@@ -121,12 +104,37 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func showImagePickerController(sourceType: UIImagePickerControllerSourceType) {
-        imagePickerController = UIImagePickerController()
-        imagePickerController!.sourceType = sourceType
-        imagePickerController!.delegate = self
-        
-        presentViewController(imagePickerController!, animated: true, completion: nil)
+    //MARK: Downloads
+    
+    func getProfilePic(object: PFObject, completionHandler: (UIImage) -> Void) {
+        let profile = object as! PFUser
+        if let picture = profile.objectForKey("profilePic") {
+            picture.getDataInBackgroundWithBlock({
+                (imageData: NSData?, error: NSError?) -> Void in
+                if (error == nil) {
+                    completionHandler(UIImage(data: imageData!)!)
+                }
+            })
+        }
+    }
+    
+    func getBio(completionHandler: (String) -> Void) {
+        let query = PFUser.query()
+        query!.whereKey("username", equalTo: PFUser.currentUser()!.username!)
+        query!.getFirstObjectInBackgroundWithBlock { (object, error) in
+            if(error == nil) {
+                if(object!["bio"] != nil) {
+                    completionHandler(object!["bio"] as! String)
+                }
+                else {
+                    completionHandler("")
+                }
+            }
+        }
+    }
+    
+    @IBAction func changePhoto(sender: AnyObject) {
+        chooseImageSource()
     }
 }
 

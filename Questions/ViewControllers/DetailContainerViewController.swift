@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import Parse
-import IQKeyboardManager
 import SVProgressHUD
 
 class DetailContainerViewController: UIViewController {
@@ -20,8 +19,15 @@ class DetailContainerViewController: UIViewController {
     @IBOutlet weak var replyTextField: UITextField!
     
     override func viewDidLoad() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+
     func textFieldShouldReturn(textField: UITextField!) -> Bool {
         textField.resignFirstResponder()
         textField.text = ""

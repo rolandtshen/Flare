@@ -10,8 +10,8 @@ import UIKit
 import Parse
 import FBSDKCoreKit
 import ParseFacebookUtilsV4
-import IQKeyboardManager
 import Mixpanel
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // if login was successful, display the TabBarController
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let tabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarController")
-                self.window?.rootViewController!.presentViewController(tabBarController, animated:true, completion: nil)
+                self.window?.rootViewController!.presentViewController(tabBarController, animated: true, completion: nil)
             }
         }
     }
@@ -82,7 +82,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.statusBarHidden = true
         IQKeyboardManager.sharedManager().enableAutoToolbar = false
-        IQKeyboardManager.sharedManager().enable = false
+        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses = [LoginViewController.self, SignUpViewController.self, DetailContainerViewController.self, EditProfileViewController.self]
         
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }

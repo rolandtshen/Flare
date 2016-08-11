@@ -4,11 +4,12 @@ import UIKit
 import Parse
 import ParseUI
 import JSQMessagesViewController
+import DZNEmptyDataSet
 
 class MessagesViewController: PFQueryTableViewController {
     
     override func viewDidLoad() {
-        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.blackColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 17.0)!, NSForegroundColorAttributeName: UIColor.blackColor()]
         self.loadObjects()
     }
     
@@ -85,5 +86,28 @@ class MessagesViewController: PFQueryTableViewController {
                 completionHandler(object as! Message)
             }
         }
+    }
+    
+    @IBAction func unwindToMessagesViewController(segue: UIStoryboardSegue) {
+    }
+}
+
+extension MessagesViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    //MARK: Empty Data Set
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "You don't have any messages!"
+        let changes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 24.0)!, NSForegroundColorAttributeName: UIColor.flatGrayColor()]
+        
+        return NSAttributedString(string: str, attributes: changes)
+    }
+    
+    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "Find a post and press the chat icon to start a conversation."
+        let attrs = [NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 18.0)!, NSForegroundColorAttributeName: UIColor.flatGrayColor()]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "exclamation_mark_filled")
     }
 }

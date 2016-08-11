@@ -14,7 +14,7 @@ PODS:
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.14.0):
     - FBSDKCoreKit
-  - IQKeyboardManager (4.0.4)
+  - IQKeyboardManagerSwift (4.0.4)
   - JSQMessagesViewController (7.3.4):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
@@ -39,7 +39,7 @@ DEPENDENCIES:
   - ChameleonFramework
   - DateTools
   - DZNEmptyDataSet
-  - IQKeyboardManager
+  - IQKeyboardManagerSwift
   - JSQMessagesViewController
   - Mixpanel
   - Parse
@@ -55,7 +55,7 @@ SPEC CHECKSUMS:
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FBSDKCoreKit: 6e020b5db0b5bd1e01f5fb0902131befd129a502
   FBSDKLoginKit: da563567a108050ef83739c8c8c001ee9e25fa13
-  IQKeyboardManager: 4a6f83b540283c2645aaeba2bd8dc0f09b5c77f8
+  IQKeyboardManagerSwift: e0964d04d6a29b71016fd346dca13ecb80a2823a
   JSQMessagesViewController: 39fed975e3c9f8eba7292071e29eeb541d105e66
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   Mixpanel: 0e4f1f9a2ac612b589b2894830038418c2587428
@@ -65,6 +65,6 @@ SPEC CHECKSUMS:
   SCLAlertView: d7c6a48c7d340e60206d4ed0e8ebcbff3b9d2a44
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
 
-PODFILE CHECKSUM: dabb67f6d3418c381633cf49cba0c358a1c8f0ba
+PODFILE CHECKSUM: 528a30e544f850d9fe5df40a9b45a716b83ab136
 
 COCOAPODS: 1.0.1

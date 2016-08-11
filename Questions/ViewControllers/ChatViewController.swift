@@ -9,7 +9,7 @@ class ChatViewController: JSQMessagesViewController {
     // Get selected conversation from MessagesViewController, then use a query to get all messages with that conversation
     
     let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor.flatWhiteColor())
-    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor(hexString: "52CC9A"))
+    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor(hexString: "2796c2                                                 "))
     
     var avatars = Dictionary<String, JSQMessagesAvatarImage>()
     var messages = [JSQMessage]()

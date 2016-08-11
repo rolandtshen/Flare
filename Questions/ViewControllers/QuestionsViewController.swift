@@ -34,7 +34,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.blackColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 17.0)!, NSForegroundColorAttributeName: UIColor.blackColor()]
         
         _ = NSTimer.scheduledTimerWithTimeInterval(120.0, target: self, selector: #selector(QuestionsViewController.queryForTable), userInfo: nil, repeats: true)
         self.tableView.backgroundColor = UIColor(hexString: "f2f2f2")

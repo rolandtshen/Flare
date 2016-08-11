@@ -12,8 +12,8 @@ import SCLAlertView
 import Parse
 import ParseUI
 import SVProgressHUD
-import IQKeyboardManager
 import Mixpanel
+import IQKeyboardManagerSwift
 
 class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -32,6 +32,11 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getProfilePic(PFUser.currentUser()!) { (image) in
+            self.profilePicView.image = image
+        }
+        
         postTextView.sizeToFit()
         postTextView.layoutIfNeeded()
         nameLabel.text = PFUser.currentUser()?.username
@@ -151,7 +156,20 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.categoryButton.backgroundColor = UIColor.flatMagentaColor()
             self.categoryButton.titleLabel?.text = "Other"
         }
+        
         alertView.showNotice("Categories", subTitle: "")
+    }
+    
+    func getProfilePic(user: PFUser, completionHandler: (UIImage) -> Void) {
+        let profile = user
+        if let picture = profile.objectForKey("profilePic") {
+            picture.getDataInBackgroundWithBlock({
+                (imageData: NSData?, error: NSError?) -> Void in
+                if (error == nil) {
+                    completionHandler(UIImage(data: imageData!)!)
+                }
+            })
+        }
     }
 
     //MARK: Image Picker Methods

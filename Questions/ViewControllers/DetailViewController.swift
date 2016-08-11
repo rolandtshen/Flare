@@ -11,7 +11,6 @@ import UIKit
 import Parse
 import ParseUI
 import SCLAlertView
-import IQKeyboardManager
 
 class DetailViewController: PFQueryTableViewController {
    

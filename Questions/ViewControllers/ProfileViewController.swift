@@ -103,17 +103,17 @@ class ProfileViewController: PFQueryTableViewController {
         }
     }
     
-    func getLikes(object: PFObject, completionHandler: (UIImage) -> Void) {
-        let profile = object as! PFUser
-        if let picture = profile.objectForKey("profilePic") {
-            picture.getDataInBackgroundWithBlock({
-                (imageData: NSData?, error: NSError?) -> Void in
-                if (error == nil) {
-                    completionHandler(UIImage(data: imageData!)!)
-                }
-            })
-        }
-    }
+//    func getLikes(object: PFObject, completionHandler: (UIImage) -> Void) {
+//        let profile = object as! PFUser
+//        if let picture = profile.objectForKey("profilePic") {
+//            picture.getDataInBackgroundWithBlock({
+//                (imageData: NSData?, error: NSError?) -> Void in
+//                if (error == nil) {
+//                    completionHandler(UIImage(data: imageData!)!)
+//                }
+//            })
+//        }
+//    }
     
     func getNumQuestions(completionHandler: (Int) -> Void) {
         let query = PFQuery(className: "Post")
@@ -134,7 +134,6 @@ class ProfileViewController: PFQueryTableViewController {
             }
         }
     }
-    
     
     //MARK: Segue Methods
     
