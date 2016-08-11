@@ -66,7 +66,9 @@ class LoginViewController: UIViewController {
             PFUser.logInWithUsernameInBackground(username!, password: password!, block: { (user, error) -> Void in
                 if ((user) != nil) {
                     SVProgressHUD.dismiss()
-                    
+                    let installation = PFInstallation.currentInstallation()
+                    installation.setObject(PFUser.currentUser()!, forKey: "user")
+                    installation.saveInBackground()
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TabBarController")
                         self.presentViewController(viewController, animated: true, completion: nil)

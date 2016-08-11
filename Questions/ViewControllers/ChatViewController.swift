@@ -5,9 +5,7 @@ import ChameleonFramework
 import SCLAlertView
 
 class ChatViewController: JSQMessagesViewController {
-    
-    // Get selected conversation from MessagesViewController, then use a query to get all messages with that conversation
-    
+
     let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor.flatWhiteColor())
     let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor(hexString: "2796c2"))
     
@@ -35,8 +33,10 @@ class ChatViewController: JSQMessagesViewController {
     }
     
     func reloadMessagesView() {
-        downloadLatestMessage()
-        self.collectionView.reloadData()
+        dispatch_async(dispatch_get_main_queue()) {
+            self.downloadLatestMessage()
+            self.collectionView.reloadData()
+        }
     }
 }
 
@@ -317,10 +317,7 @@ extension ChatViewController {
         query.getFirstObjectInBackgroundWithBlock {(object: PFObject?, error: NSError?) -> Void in
             let parseMessage = object as! Message
             print(parseMessage.fromUser)
-            if parseMessage.fromUser?.email == PFUser.currentUser()?.email {
-                self.messages.append(self.jsqMessageFromParse(parseMessage))
-            }
-            
+            self.messages.append(self.jsqMessageFromParse(parseMessage))
             self.finishReceivingMessage()
         }
     }

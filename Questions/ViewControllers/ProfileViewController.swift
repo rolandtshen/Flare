@@ -32,6 +32,9 @@ class ProfileViewController: PFQueryTableViewController {
         tableView.estimatedRowHeight = 80.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        fullNameLabel.textAlignment = .Center
+        bioLabel.textAlignment = .Center
+        
         getUsername { (username) in
             self.fullNameLabel.text = username
         }

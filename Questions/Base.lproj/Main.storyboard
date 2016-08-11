@@ -714,16 +714,16 @@
                         <viewControllerLayoutGuide type="bottom" id="WHb-I8-taT"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="w5l-YH-RdI">
-                        <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Write a reply..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5sH-iw-wy3">
-                                <rect key="frame" x="8" y="449" width="536" height="30"/>
+                                <rect key="frame" x="8" y="513" width="536" height="30"/>
                                 <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y1B-eh-qip">
-                                <rect key="frame" x="552" y="449" width="36" height="30"/>
+                                <rect key="frame" x="552" y="513" width="36" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="36" id="NhZ-gb-Z7E"/>
                                 </constraints>
@@ -732,7 +732,7 @@
                                     <action selector="sendPressed:" destination="Aj6-4d-Kkm" eventType="touchUpInside" id="nmy-nt-LwX"/>
                                 </connections>
                             </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PEr-hf-zmV">
+                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PEr-hf-zmV">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="441"/>
                                 <connections>
                                     <segue destination="xiv-cn-ARc" kind="embed" identifier="repliesTableView" id="dRH-C2-NUS"/>
@@ -866,7 +866,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4KT-V1-OSd">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You don't have a bio yet!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4KT-V1-OSd">
                                     <rect key="frame" x="20" y="162" width="560" height="41"/>
                                     <accessibility key="accessibilityConfiguration" identifier="AC273C94-C433-4AFA-A545-86D198BFCA3F"/>
                                     <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="18"/>
@@ -1685,6 +1685,6 @@
         <image name="user_male_circle" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mhT-1h-oh5"/>
+        <segue reference="pfi-Rm-sic"/>
     </inferredMetricsTieBreakers>
 </document>
