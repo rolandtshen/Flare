@@ -14,6 +14,7 @@ class QuestionHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var categoryView: UIView!
     var poster: PFUser?
     let newConvo = Conversation()
     

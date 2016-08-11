@@ -32,7 +32,8 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        profilePicView.layer.cornerRadius = profilePicView.frame.width/2
+        profilePicView.clipsToBounds = true
         getProfilePic(PFUser.currentUser()!) { (image) in
             self.profilePicView.image = image
         }
@@ -55,7 +56,7 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         toolbar = UIToolbar()
         toolbar.translucent = false
         toolbar.tintColor = UIColor.flatBlackColor()
-        let cameraButton = UIBarButtonItem(image: UIImage(named: "camera"), style: .Plain, target: self, action: #selector(NewPostViewController.chooseImageSource))
+        let cameraButton = UIBarButtonItem(image: UIImage(named: "MMS"), style: .Plain, target: self, action: #selector(NewPostViewController.chooseImageSource))
         let space = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
         let postButton = UIBarButtonItem(title: "Post", style: .Plain, target: self, action: #selector(NewPostViewController.uploadPost))
         

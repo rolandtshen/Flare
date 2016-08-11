@@ -22,15 +22,19 @@ class ProfileViewController: PFQueryTableViewController {
     
     let colorPicker = CategoryHelper()
     
-    override func viewDidLoad() {
+    override func viewDidAppear(animated: Bool) {
         
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 18.0)!, NSForegroundColorAttributeName: UIColor.blackColor()]
-        fullNameLabel.text = PFUser.currentUser()?.username
+        
         profilePicView.layer.cornerRadius = profilePicView.frame.width / 2
         profilePicView.clipsToBounds = true
         
         tableView.estimatedRowHeight = 80.0
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        getUsername { (username) in
+            self.fullNameLabel.text = username
+        }
         
         getProfilePic(PFUser.currentUser()!, completionHandler: { (image) in
             self.profilePicView.image = image
@@ -43,7 +47,6 @@ class ProfileViewController: PFQueryTableViewController {
         getNumQuestions { (numQuestions) in
             self.questionsLabel.text = "\(numQuestions)"
         }
-        
         
         getBio(PFUser.currentUser()!) { (bio) in
             self.bioLabel.sizeToFit()
@@ -89,17 +92,19 @@ class ProfileViewController: PFQueryTableViewController {
     }
     
     func getBio(object: PFObject, completionHandler: (String) -> Void) {
-        let query = PFUser.query()
-        query!.whereKey("username", equalTo: PFUser.currentUser()!.username!)
-        query!.getFirstObjectInBackgroundWithBlock { (object, error) in
-            if(error == nil) {
-                if(object!["bio"] != nil) {
-                    completionHandler(object!["bio"] as! String)
-                }
-                else {
-                    completionHandler("You don't have a bio!")
-                }
+        PFUser.currentUser()?.fetchInBackgroundWithBlock { user, error in
+            if(user!["bio"] != nil) {
+                completionHandler(user!["bio"] as! String)
             }
+            else {
+                completionHandler("You don't have a bio!")
+            }
+        }
+    }
+    
+    func getUsername(completionHandler: (String) -> Void) {
+        PFUser.currentUser()?.fetchInBackgroundWithBlock { user, error in
+            completionHandler((PFUser.currentUser()?.username)!)
         }
     }
     

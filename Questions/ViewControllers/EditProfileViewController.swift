@@ -24,11 +24,16 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     var chosenProfilePic: UIImage?
     
     override func viewDidLoad() {
-        profileImageView.layer.cornerRadius = profileImageView.frame.width / 2;
+        profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
         profileImageView.clipsToBounds = true
         
-        nameTextView.text = PFUser.currentUser()?.username
-        emailTextView.text = PFUser.currentUser()?.email
+        getUsername { (username) in
+            self.nameTextView.text = username
+        }
+        
+        getEmail { (email) in
+            self.emailTextView.text = email
+        }
         
         getProfilePic(PFUser.currentUser()!) { (profilePic) in
             self.profileImageView.image = profilePic
@@ -48,7 +53,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     @IBAction func savePressed(sender: AnyObject) {
         let user = PFUser.currentUser()
-        user!.username = emailTextView.text
+        user!.username = nameTextView.text
         user!.email = emailTextView.text
         user!["bio"] = bioTextView.text
         if let image = chosenProfilePic {
@@ -118,17 +123,25 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
+    func getUsername(completionHandler: (String) -> Void) {
+        PFUser.currentUser()?.fetchInBackgroundWithBlock { user, error in
+            completionHandler((PFUser.currentUser()?.username)!)
+        }
+    }
+    
+    func getEmail(completionHandler: (String) -> Void) {
+        PFUser.currentUser()?.fetchInBackgroundWithBlock { user, error in
+            completionHandler((PFUser.currentUser()?.email)!)
+        }
+    }
+    
     func getBio(completionHandler: (String) -> Void) {
-        let query = PFUser.query()
-        query!.whereKey("username", equalTo: PFUser.currentUser()!.username!)
-        query!.getFirstObjectInBackgroundWithBlock { (object, error) in
-            if(error == nil) {
-                if(object!["bio"] != nil) {
-                    completionHandler(object!["bio"] as! String)
-                }
-                else {
-                    completionHandler("")
-                }
+        PFUser.currentUser()?.fetchInBackgroundWithBlock { user, error in
+            if(user!["bio"] != nil) {
+                completionHandler(user!["bio"] as! String)
+            }
+            else {
+                completionHandler("You don't have a bio!")
             }
         }
     }

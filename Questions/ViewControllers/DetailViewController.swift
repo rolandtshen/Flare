@@ -18,6 +18,7 @@ class DetailViewController: PFQueryTableViewController {
     var numReplies: Int?
     var questionHeaderView: QuestionHeaderView?
     var questionImageHeaderView: QuestionImageHeaderView?
+    let colorPicker = CategoryHelper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,7 @@ class DetailViewController: PFQueryTableViewController {
             questionImageHeaderView?.timeLabel.text = question?.createdAt?.shortTimeAgoSinceDate(NSDate())
             questionImageHeaderView?.usernameLabel.text = question!.user?.username
             questionImageHeaderView?.imageView.clipsToBounds = true
+            questionImageHeaderView?.categoryView.backgroundColor = colorPicker.colorChooser(question!.category!)
             getImage(question!, completionHandler: {(image) in
                 self.questionImageHeaderView?.imageView.image = image
             })
@@ -38,9 +40,11 @@ class DetailViewController: PFQueryTableViewController {
             questionHeaderView?.questionLabel.text = question?.question
             questionHeaderView?.timeLabel.text = question?.createdAt?.shortTimeAgoSinceDate(NSDate())
             questionHeaderView?.usernameLabel.text = question!.user?.username
+            questionHeaderView?.categoryView.backgroundColor = colorPicker.colorChooser(question!.category!)
         }
         
-//        self.tableView.tableHeaderView = questionHeaderView ?? questionImageHeaderView
+        //self.tableView.tableHeaderView = questionHeaderView ?? questionImageHeaderView
+        
     }
     
     func getImage(object: PFObject, completionHandler: (UIImage) -> Void) {
@@ -73,7 +77,7 @@ class DetailViewController: PFQueryTableViewController {
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if(questionHeaderView != nil) {
-            return 125.0
+            return 200.0
         }
         return 315.0
     }

@@ -8,10 +8,8 @@
         <mutableArray key="ProximaNova-Bold.otf">
             <string>ProximaNova-Bold</string>
         </mutableArray>
-        <mutableArray key="ProximaNova-Regular.otf">
-            <string>ProximaNova-Regular</string>
-        </mutableArray>
         <mutableArray key="ProximaNova-Semibold.otf">
+            <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
         </mutableArray>
     </customFonts>
@@ -19,20 +17,32 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="QuestionHeaderView" customModule="Questions" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="157"/>
+            <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C9F-8L-nTi">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="157"/>
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UOr-k1-UFH">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="147"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="190"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QUESTION TEXT HERE" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3Z-yx-7WM">
-                                    <rect key="frame" x="20" y="32" width="560" height="18"/>
-                                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="18"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIm-GH-RIz" userLabel="categoryView">
+                                    <rect key="frame" x="0.0" y="32" width="600" height="127"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QUESTION TEXT HERE" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3Z-yx-7WM">
+                                            <rect key="frame" x="20" y="8" width="560" height="18"/>
+                                            <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="18"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="Z3Z-yx-7WM" firstAttribute="leading" secondItem="hIm-GH-RIz" secondAttribute="leading" constant="20" id="OTw-5l-9ib"/>
+                                        <constraint firstItem="Z3Z-yx-7WM" firstAttribute="top" secondItem="hIm-GH-RIz" secondAttribute="top" constant="8" id="bTT-dW-KaL"/>
+                                        <constraint firstAttribute="trailing" secondItem="Z3Z-yx-7WM" secondAttribute="trailing" constant="20" id="e0V-62-ukk"/>
+                                    </constraints>
+                                </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="POSTER NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bdy-bp-RAh">
                                     <rect key="frame" x="20" y="8" width="111" height="16"/>
                                     <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="16"/>
@@ -44,7 +54,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rsq-jU-rLI">
-                                    <rect key="frame" x="556" y="119" width="24" height="24"/>
+                                    <rect key="frame" x="556" y="162" width="24" height="24"/>
                                     <state key="normal" image="ic_question_answer"/>
                                     <connections>
                                         <action selector="messagePressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="8sa-Rq-mJn"/>
@@ -54,15 +64,16 @@
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="Z3Z-yx-7WM" firstAttribute="leading" secondItem="UOr-k1-UFH" secondAttribute="leading" constant="20" id="767-t6-YZ7"/>
                                 <constraint firstAttribute="trailing" secondItem="rsq-jU-rLI" secondAttribute="trailing" constant="20" id="9DP-pN-VCv"/>
                                 <constraint firstItem="qT5-vO-7lm" firstAttribute="top" secondItem="UOr-k1-UFH" secondAttribute="top" constant="8" id="CeJ-VU-iGr"/>
-                                <constraint firstItem="Z3Z-yx-7WM" firstAttribute="top" secondItem="Bdy-bp-RAh" secondAttribute="bottom" constant="8" id="G9c-vm-8xr"/>
+                                <constraint firstItem="hIm-GH-RIz" firstAttribute="top" secondItem="Bdy-bp-RAh" secondAttribute="bottom" constant="8" id="KbI-aT-orz"/>
+                                <constraint firstItem="rsq-jU-rLI" firstAttribute="top" secondItem="hIm-GH-RIz" secondAttribute="bottom" constant="3" id="XM7-as-xZt"/>
                                 <constraint firstAttribute="bottom" secondItem="rsq-jU-rLI" secondAttribute="bottom" constant="4" id="euL-y6-5oU"/>
                                 <constraint firstItem="Bdy-bp-RAh" firstAttribute="top" secondItem="UOr-k1-UFH" secondAttribute="top" constant="8" id="fT3-hx-zbA"/>
+                                <constraint firstAttribute="trailing" secondItem="hIm-GH-RIz" secondAttribute="trailing" id="gom-pm-aB6"/>
                                 <constraint firstItem="Bdy-bp-RAh" firstAttribute="leading" secondItem="UOr-k1-UFH" secondAttribute="leading" constant="20" id="lun-Ja-A7G"/>
                                 <constraint firstAttribute="trailing" secondItem="qT5-vO-7lm" secondAttribute="trailing" constant="20" id="rFW-Xh-i0p"/>
-                                <constraint firstAttribute="trailing" secondItem="Z3Z-yx-7WM" secondAttribute="trailing" constant="20" id="rh6-kQ-8U8"/>
+                                <constraint firstItem="hIm-GH-RIz" firstAttribute="leading" secondItem="UOr-k1-UFH" secondAttribute="leading" id="yHi-1m-zha"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -85,11 +96,12 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="categoryView" destination="hIm-GH-RIz" id="Ji0-HE-3e9"/>
                 <outlet property="questionLabel" destination="Z3Z-yx-7WM" id="zJW-rq-7gC"/>
                 <outlet property="timeLabel" destination="qT5-vO-7lm" id="po7-pS-Htq"/>
                 <outlet property="usernameLabel" destination="Bdy-bp-RAh" id="kEX-bP-XTG"/>
             </connections>
-            <point key="canvasLocation" x="338" y="399.5"/>
+            <point key="canvasLocation" x="338" y="372"/>
         </view>
     </objects>
     <resources>

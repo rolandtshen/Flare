@@ -10,6 +10,7 @@
 		108A4B29AAEF965660C14BB2 /* Pods_Questions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877CDF84E4142BB7C982F804 /* Pods_Questions.framework */; };
 		2A163EFB1D4047EC00FC8FE1 /* QuestionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A163EFA1D4047EC00FC8FE1 /* QuestionHeaderView.swift */; };
 		2A1E7B271D5BFF5D0084FD73 /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1E7B261D5BFF5D0084FD73 /* Flag.swift */; };
+		2A1E7B291D5D2AA20084FD73 /* ParseObjectHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1E7B281D5D2AA20084FD73 /* ParseObjectHelper.swift */; };
 		2A1EE4BE1D47F5D80022DD7C /* QuestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1EE4BD1D47F5D80022DD7C /* QuestionsViewController.swift */; };
 		2A1EE4C01D4809D20022DD7C /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1EE4BF1D4809D20022DD7C /* Message.swift */; };
 		2A1EE4C21D481CEA0022DD7C /* ParseLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1EE4C11D481CEA0022DD7C /* ParseLoginHelper.swift */; };
@@ -57,6 +58,7 @@
 /* Begin PBXFileReference section */
 		2A163EFA1D4047EC00FC8FE1 /* QuestionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionHeaderView.swift; sourceTree = "<group>"; };
 		2A1E7B261D5BFF5D0084FD73 /* Flag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
+		2A1E7B281D5D2AA20084FD73 /* ParseObjectHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseObjectHelper.swift; sourceTree = "<group>"; };
 		2A1EE4BD1D47F5D80022DD7C /* QuestionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsViewController.swift; sourceTree = "<group>"; };
 		2A1EE4BF1D4809D20022DD7C /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		2A1EE4C11D481CEA0022DD7C /* ParseLoginHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseLoginHelper.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				2AD3F3B01D3FE580000626E5 /* CategoryHelper.swift */,
 				2A1EE4C11D481CEA0022DD7C /* ParseLoginHelper.swift */,
 				2A9963EB1D5AAAA700B5D963 /* LikeHelper.swift */,
+				2A1E7B281D5D2AA20084FD73 /* ParseObjectHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				2A1EE4C01D4809D20022DD7C /* Message.swift in Sources */,
 				2AD3F3B11D3FE580000626E5 /* CategoryHelper.swift in Sources */,
 				2A88B1F51D47CEEC00359EAB /* Conversation.swift in Sources */,
+				2A1E7B291D5D2AA20084FD73 /* ParseObjectHelper.swift in Sources */,
 				2AE71C281D3456B100CB7B62 /* MessagesCell.swift in Sources */,
 				2A3822D61D356CFD00BC6D02 /* ErrorHandling.swift in Sources */,
 				2A9963EC1D5AAAA700B5D963 /* LikeHelper.swift in Sources */,
