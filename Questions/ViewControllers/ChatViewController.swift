@@ -287,11 +287,11 @@ extension ChatViewController {
         messageToSend.fromUser = PFUser.currentUser()
         if(conversation!.toUser != PFUser.currentUser()) {
             messageToSend.toUser = conversation?.toUser
-            messageToSend.senderName = conversation?.toUser?.username
+            messageToSend.senderName = conversation?.fromUser?.username
         }
         else {
             messageToSend.toUser = conversation?.fromUser
-            messageToSend.senderName = conversation?.toUser?.username
+            messageToSend.senderName = conversation?.fromUser?.username
         }
         messageToSend.convo = self.conversation!
         messageToSend.convoId = self.conversation!.objectId
