@@ -29,6 +29,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>CFBundleDisplayName</key>
+	<string>Orca</string>
 	<key>FacebookAppID</key>
 	<string>1120382068032860</string>
 	<key>FacebookDisplayName</key>

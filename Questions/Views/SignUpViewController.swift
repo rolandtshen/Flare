@@ -10,6 +10,7 @@ import Foundation
 import Parse
 import SCLAlertView
 import SVProgressHUD
+import Mixpanel
 
 class SignUpViewController: UIViewController {
     
@@ -71,6 +72,7 @@ class SignUpViewController: UIViewController {
             // Sign up the user asynchronously
             newUser.signUpInBackgroundWithBlock({ (succeed, error) -> Void in
                 if (error == nil) {
+                    Mixpanel.sharedInstance().track("Signed up successfully")
                     SVProgressHUD.dismiss()
                     SVProgressHUD.showSuccessWithStatus("Welcome to Questions!")
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in

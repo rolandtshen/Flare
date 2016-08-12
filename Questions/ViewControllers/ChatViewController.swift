@@ -3,11 +3,12 @@ import JSQMessagesViewController
 import Parse
 import ChameleonFramework
 import SCLAlertView
+import Mixpanel
 
 class ChatViewController: JSQMessagesViewController {
 
     let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor.flatWhiteColor())
-    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor(hexString: "2796c2"))
+    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor(hexString: "1ED4A5"))
     
     var avatars = Dictionary<String, JSQMessagesAvatarImage>()
     var messages = [JSQMessage]()
@@ -17,6 +18,8 @@ class ChatViewController: JSQMessagesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Mixpanel.sharedInstance().track("Chat opened")
         if(conversation?.toUser!.username == PFUser.currentUser()!.username) {
             title = conversation!.fromUser?.username
         }
@@ -177,6 +180,7 @@ extension ChatViewController {
         let message = JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
         self.sendMessage(message)
         self.messages.append(message)
+        Mixpanel.sharedInstance().track("Message sent")
         self.finishSendingMessage()
     }
     
@@ -283,11 +287,12 @@ extension ChatViewController {
         messageToSend.fromUser = PFUser.currentUser()
         if(conversation!.toUser != PFUser.currentUser()) {
             messageToSend.toUser = conversation?.toUser
+            messageToSend.senderName = conversation?.toUser?.username
         }
         else {
             messageToSend.toUser = conversation?.fromUser
+            messageToSend.senderName = conversation?.toUser?.username
         }
-
         messageToSend.convo = self.conversation!
         messageToSend.convoId = self.conversation!.objectId
         messageToSend.saveInBackground()
@@ -323,13 +328,6 @@ extension ChatViewController {
     }
     
     func jsqMessageFromParse(message: Message) -> JSQMessage {
-//        guard let fromUser = message.fromUser else { fatalError() }
-//        let text: String = message.messageText!
-//        let date: NSDate = message.createdAt!
-//        let senderId: String = fromUser.objectId!
-//        let senderDisplayName: String = fromUser.username!
-//        
-//        return JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
         return JSQMessage(senderId: message.senderId(), senderDisplayName: message.senderDisplayName(), date: message.date(), text: message.text())
     }
 }

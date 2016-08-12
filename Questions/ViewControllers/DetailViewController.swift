@@ -23,6 +23,10 @@ class DetailViewController: PFQueryTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.reloadData()
+        
+        tableView.estimatedRowHeight = 80.0
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
         if question!.hasImage == true {
             questionImageHeaderView = UINib(nibName: "QuestionHeaderImageView", bundle: NSBundle.mainBundle()).instantiateWithOwner(nil, options: nil).first as? QuestionImageHeaderView
             questionImageHeaderView?.poster = question?.user
@@ -59,6 +63,18 @@ class DetailViewController: PFQueryTableViewController {
         }
     }
     
+    func getProfilePic(user: PFUser, completionHandler: (UIImage) -> Void) {
+        let profile = user
+        if let picture = profile.objectForKey("profilePic") {
+            picture.getDataInBackgroundWithBlock({
+                (imageData: NSData?, error: NSError?) -> Void in
+                if (imageData != nil) {
+                    completionHandler(UIImage(data: imageData!)!)
+                }
+            })
+        }
+    }
+    
     override func queryForTable() -> PFQuery {
         let query = PFQuery(className: "Reply")
         query.whereKey("toPost", equalTo: question!)
@@ -88,7 +104,9 @@ class DetailViewController: PFQueryTableViewController {
         cell.replyText.text = object!.valueForKey("reply") as? String
         let user = object!.valueForKey("fromUser") as? PFUser
         cell.usernameLabel.text = user?.username
+        getProfilePic((user)!) { (image) in
+            cell.replyProfilePic.image = image
+        }
         return cell
     }
 }
-

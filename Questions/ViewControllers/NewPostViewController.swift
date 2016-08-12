@@ -166,7 +166,7 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         if let picture = profile.objectForKey("profilePic") {
             picture.getDataInBackgroundWithBlock({
                 (imageData: NSData?, error: NSError?) -> Void in
-                if (error == nil) {
+                if (imageData != nil) {
                     completionHandler(UIImage(data: imageData!)!)
                 }
             })
@@ -202,6 +202,7 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             image = pickedImage
         }
+        Mixpanel.sharedInstance().track("Picked image")
         
         dismissViewControllerAnimated(true, completion: nil)
     }

@@ -19,6 +19,7 @@ class Message: PFObject, PFSubclassing, JSQMessageData {
     @NSManaged var messageText: String?
     @NSManaged var attachment: PFFile?
     @NSManaged var convoId: String?
+    @NSManaged var senderName: String?
     
     func senderId() -> String! {
         return fromUser?.objectId

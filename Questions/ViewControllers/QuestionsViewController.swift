@@ -36,6 +36,10 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 17.0)!, NSForegroundColorAttributeName: UIColor.blackColor()]
         
+//        let logo = UIImage(named: "navbarmelon")
+//        let imageView = UIImageView(image:logo)
+//        self.navigationItem.titleView = imageView
+        
         _ = NSTimer.scheduledTimerWithTimeInterval(120.0, target: self, selector: #selector(QuestionsViewController.queryForTable), userInfo: nil, repeats: true)
         self.tableView.backgroundColor = UIColor(hexString: "f2f2f2")
         tableView.estimatedRowHeight = 200
@@ -78,6 +82,18 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
 //    }
     
     //MARK: Downloads
+    
+    func getProfilePic(user: PFUser, completionHandler: (UIImage) -> Void) {
+        let profile = user
+        if let picture = profile.objectForKey("profilePic") {
+            picture.getDataInBackgroundWithBlock({
+                (imageData: NSData?, error: NSError?) -> Void in
+                if (imageData != nil) {
+                    completionHandler(UIImage(data: imageData!)!)
+                }
+            })
+        }
+    }
     
     func getNumLikes(object: PFObject, completionHandler: (Int) -> Void) {
         let question = object as! Question
@@ -166,6 +182,8 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         
         if question.hasImage == true {
             let imageCell = tableView.dequeueReusableCellWithIdentifier("QuestionImageCell", forIndexPath: indexPath) as! QuestionImageCell
+            imageCell.profilePicView.layer.cornerRadius = imageCell.profilePicView.frame.width/2
+            imageCell.profilePicView.clipsToBounds = true
             imageCell.post = question
             imageCell.questionLabel.text = question.question
             imageCell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
@@ -173,6 +191,9 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             imageCell.categoryFlag.backgroundColor = colorPicker.colorChooser(question.category!)
             imageCell.postImage.clipsToBounds = true
             imageCell.imageView?.image = nil
+            getProfilePic(question.user!, completionHandler: { (profilePic) in
+                imageCell.profilePicView?.image = profilePic
+            })
             imageCell.likesLabel.sizeToFit()
             if(question.likes != nil) {
                 imageCell.likesLabel.titleLabel!.text = "♥️ Likes (\(question.likes?.stringValue))"
@@ -195,11 +216,16 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             pickedCell = imageCell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("QuestionCell", forIndexPath: indexPath) as! QuestionCell
+            cell.profilePicView.layer.cornerRadius = cell.profilePicView.frame.width/2
+            cell.profilePicView.clipsToBounds = true
             cell.post = question
             cell.questionLabel.text = question.question
             cell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
             cell.usernameLabel.text = question.user?.username
             cell.categoryFlag.backgroundColor = colorPicker.colorChooser(question.category!)
+            getProfilePic(question.user!, completionHandler: { (profilePic) in
+                cell.profilePicView?.image = profilePic
+            })
             cell.likesLabel.sizeToFit()
             
             getNumReplies(object!, completionHandler: { (numReplies) in

@@ -20,6 +20,17 @@ class MessagesViewController: PFQueryTableViewController {
         cell.profilePic.layer.cornerRadius = cell.profilePic.frame.width / 2
         cell.profilePic.clipsToBounds = true
         
+        if((convo?.valueForKey("toUser") as? PFUser) != PFUser.currentUser()) {
+            getProfilePic(convo?.valueForKey("toUser") as! PFUser, completionHandler: { (profilePic) in
+                cell.profilePic.image = profilePic
+            })
+        }
+        else if((convo?.valueForKey("fromUser") as? PFUser) != PFUser.currentUser()) {
+            getProfilePic(convo?.valueForKey("fromUser") as! PFUser, completionHandler: { (profilePic) in
+                cell.profilePic.image = profilePic
+            })
+        }
+        
         downloadLatestMessage(object!, completionHandler: { (message) in
             cell.messagePreview.text = message.messageText
         })
@@ -88,6 +99,18 @@ class MessagesViewController: PFQueryTableViewController {
         }
     }
     
+    func getProfilePic(object: PFUser, completionHandler: (UIImage) -> Void) {
+        let profile = object
+        if let picture = profile.objectForKey("profilePic") {
+            picture.getDataInBackgroundWithBlock({
+                (imageData: NSData?, error: NSError?) -> Void in
+                if (error == nil) {
+                    completionHandler(UIImage(data: imageData!)!)
+                }
+            })
+        }
+    }
+
     @IBAction func unwindToMessagesViewController(segue: UIStoryboardSegue) {
     }
 }

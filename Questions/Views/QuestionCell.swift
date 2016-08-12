@@ -19,6 +19,8 @@ class QuestionCell: PFTableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var categoryFlag: UIView!
     @IBOutlet weak var likesLabel: UIButton!
+    @IBOutlet weak var profilePicView: UIImageView!
+    
     var post : Question!
     var numberOfLikes : Int!
     
