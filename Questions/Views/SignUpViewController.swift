@@ -36,6 +36,10 @@ class SignUpViewController: UIViewController {
         view.endEditing(true)
     }
     
+    @IBAction func tosButton(sender: AnyObject) {
+        UIApplication.sharedApplication().openURL(NSURL(string: "http://www.rolandshen.com/orca/eula.html")!)
+    }
+    
     @IBAction func signUpPressed(sender: AnyObject) {
         let username = self.fullNameField.text
         let password = self.passwordField.text

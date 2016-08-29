@@ -16,11 +16,15 @@ class DetailContainerViewController: UIViewController {
     var question: Question?
     var tableView: DetailViewController?
     
+    @IBOutlet weak var flagButton: UIBarButtonItem!
     @IBOutlet weak var replyTextField: UITextField!
     
     override func viewDidLoad() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
+        if(question?.user == PFUser.currentUser()) {
+            flagButton = nil
+        }
     }
     
     func dismissKeyboard() {
@@ -35,12 +39,24 @@ class DetailContainerViewController: UIViewController {
     }
 
     func showFlagActionSheetForPost() {
-        let alertController = UIAlertController(title: nil, message: "Do you want to flag this post?", preferredStyle: .ActionSheet)
+        let alertController = UIAlertController(title: nil, message: "Choose an action", preferredStyle: .ActionSheet)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         alertController.addAction(cancelAction)
         
-        let destroyAction = UIAlertAction(title: "Flag", style: .Destructive) { (action) in
+        let blockAction = UIAlertAction(title: "Block", style: .Destructive) { (action) in
+            let block = Block()
+            block.fromUser = PFUser.currentUser()
+            block.toUser = self.question?.user
+            SVProgressHUD.show()
+            block.saveInBackgroundWithBlock({(success, error) in
+                SVProgressHUD.dismiss()
+            })
+        }
+        
+        alertController.addAction(blockAction)
+        
+        let flagAction = UIAlertAction(title: "Flag", style: .Destructive) { (action) in
             let flag = Flag()
             flag.fromUser = PFUser.currentUser()
             flag.toPost = self.question
@@ -50,7 +66,7 @@ class DetailContainerViewController: UIViewController {
             })
         }
         
-        alertController.addAction(destroyAction)
+        alertController.addAction(flagAction)
         
         self.presentViewController(alertController, animated: true, completion: nil)
     }

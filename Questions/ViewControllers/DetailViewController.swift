@@ -24,6 +24,7 @@ class DetailViewController: PFQueryTableViewController {
         super.viewDidLoad()
         tableView.reloadData()
         
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         tableView.estimatedRowHeight = 80.0
         tableView.rowHeight = UITableViewAutomaticDimension
         

@@ -18,6 +18,8 @@
 		2A34A4041D41981600519B63 /* QuestionImageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A34A4031D41981600519B63 /* QuestionImageHeaderView.swift */; };
 		2A364C931D3D44E1004F59EC /* Reply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A364C921D3D44E1004F59EC /* Reply.swift */; };
 		2A3822D61D356CFD00BC6D02 /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3822D51D356CFD00BC6D02 /* ErrorHandling.swift */; };
+		2A46FE561D697B0D00DF6820 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A46FE551D697B0D00DF6820 /* Block.swift */; };
+		2A46FE581D6980E300DF6820 /* BlockHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A46FE571D6980E300DF6820 /* BlockHelper.swift */; };
 		2A6546FC1D3853CC00A234A1 /* PhotoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6546FB1D3853CC00A234A1 /* PhotoHelper.swift */; };
 		2A88B1F21D47CEDF00359EAB /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88B1F01D47CEDF00359EAB /* ChatViewController.swift */; };
 		2A88B1F31D47CEDF00359EAB /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88B1F11D47CEDF00359EAB /* MessagesViewController.swift */; };
@@ -66,6 +68,8 @@
 		2A34A4031D41981600519B63 /* QuestionImageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionImageHeaderView.swift; sourceTree = "<group>"; };
 		2A364C921D3D44E1004F59EC /* Reply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reply.swift; sourceTree = "<group>"; };
 		2A3822D51D356CFD00BC6D02 /* ErrorHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
+		2A46FE551D697B0D00DF6820 /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
+		2A46FE571D6980E300DF6820 /* BlockHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockHelper.swift; sourceTree = "<group>"; };
 		2A6546FB1D3853CC00A234A1 /* PhotoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoHelper.swift; sourceTree = "<group>"; };
 		2A88B1F01D47CEDF00359EAB /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		2A88B1F11D47CEDF00359EAB /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +134,7 @@
 				2A1EE4C11D481CEA0022DD7C /* ParseLoginHelper.swift */,
 				2A9963EB1D5AAAA700B5D963 /* LikeHelper.swift */,
 				2A1E7B281D5D2AA20084FD73 /* ParseObjectHelper.swift */,
+				2A46FE571D6980E300DF6820 /* BlockHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -208,6 +213,7 @@
 				2AE71C231D343C0700CB7B62 /* Question.swift */,
 				2A364C921D3D44E1004F59EC /* Reply.swift */,
 				2A1E7B261D5BFF5D0084FD73 /* Flag.swift */,
+				2A46FE551D697B0D00DF6820 /* Block.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -415,6 +421,7 @@
 				2A9193C81D36A99D00A9905E /* DetailViewController.swift in Sources */,
 				2A88B1F31D47CEDF00359EAB /* MessagesViewController.swift in Sources */,
 				2AE71C221D343BFB00CB7B62 /* ProfileView.swift in Sources */,
+				2A46FE581D6980E300DF6820 /* BlockHelper.swift in Sources */,
 				2A1E7B271D5BFF5D0084FD73 /* Flag.swift in Sources */,
 				2A8B4DB41D52695400DF875B /* LoginViewController.swift in Sources */,
 				2A1EE4C21D481CEA0022DD7C /* ParseLoginHelper.swift in Sources */,
@@ -427,6 +434,7 @@
 				2A88B1F51D47CEEC00359EAB /* Conversation.swift in Sources */,
 				2A1E7B291D5D2AA20084FD73 /* ParseObjectHelper.swift in Sources */,
 				2AE71C281D3456B100CB7B62 /* MessagesCell.swift in Sources */,
+				2A46FE561D697B0D00DF6820 /* Block.swift in Sources */,
 				2A3822D61D356CFD00BC6D02 /* ErrorHandling.swift in Sources */,
 				2A9963EC1D5AAAA700B5D963 /* LikeHelper.swift in Sources */,
 			);

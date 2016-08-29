@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en_US</string>
+	<key>CFBundleDisplayName</key>
+	<string>Orca</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -28,9 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
-	<key>CFBundleDisplayName</key>
-	<string>Orca</string>
+	<string>2</string>
 	<key>FacebookAppID</key>
 	<string>1120382068032860</string>
 	<key>FacebookDisplayName</key>
