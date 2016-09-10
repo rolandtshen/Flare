@@ -9,6 +9,7 @@ PODS:
     - ChameleonFramework/Default (= 2.1.0)
   - ChameleonFramework/Default (2.1.0)
   - DateTools (1.7.0)
+  - DOFavoriteButton (0.0.4)
   - DZNEmptyDataSet (1.8.1)
   - FBSDKCoreKit (4.14.0):
     - Bolts (~> 1.7)
@@ -38,6 +39,7 @@ PODS:
 DEPENDENCIES:
   - ChameleonFramework
   - DateTools
+  - DOFavoriteButton
   - DZNEmptyDataSet
   - IQKeyboardManagerSwift
   - JSQMessagesViewController
@@ -52,6 +54,7 @@ SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
+  DOFavoriteButton: 866e15af173d2dd5233971a1f657a5f31d2491d5
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FBSDKCoreKit: 6e020b5db0b5bd1e01f5fb0902131befd129a502
   FBSDKLoginKit: da563567a108050ef83739c8c8c001ee9e25fa13
@@ -65,6 +68,6 @@ SPEC CHECKSUMS:
   SCLAlertView: d7c6a48c7d340e60206d4ed0e8ebcbff3b9d2a44
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
 
-PODFILE CHECKSUM: 528a30e544f850d9fe5df40a9b45a716b83ab136
+PODFILE CHECKSUM: b9cc44dec12bb92662c9953497f29942cfeeb885
 
 COCOAPODS: 1.0.1

@@ -34,7 +34,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 17.0)!, NSForegroundColorAttributeName: UIColor.blackColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         
         _ = NSTimer.scheduledTimerWithTimeInterval(120.0, target: self, selector: #selector(QuestionsViewController.queryForTable), userInfo: nil, repeats: true)
         self.tableView.backgroundColor = UIColor(hexString: "f2f2f2")
@@ -78,6 +78,22 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
 //    }
     
     //MARK: Downloads
+    
+    func getBlockedUsers(completionHandler: ([PFUser]) -> Void) {
+        var blockedUsers: [PFUser] = []
+        let query = Block.query()!
+        query.whereKey("fromUser", equalTo: PFUser.currentUser()!)
+        query.findObjectsInBackgroundWithBlock { (objects, error) in
+            if(error == nil) {
+                let blocks = objects as? [Block]
+                for block in blocks! {
+                    blockedUsers.append(block.toUser!)
+                }
+            }
+        }
+        completionHandler(blockedUsers)
+    }
+
     
     func getProfilePic(user: PFUser, completionHandler: (UIImage) -> Void) {
         let profile = user
@@ -175,7 +191,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         let question = object as? Question
         var pickedCell = PFTableViewCell()
         let colorPicker = CategoryHelper()
-        let blockedUsers = BlockHelper.getBlockedUsers()
         
         if question!.hasImage == true {
             let imageCell = tableView.dequeueReusableCellWithIdentifier("QuestionImageCell", forIndexPath: indexPath) as! QuestionImageCell
@@ -197,7 +212,12 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             }
             
             getNumReplies(object!, completionHandler: { (numReplies) in
-                imageCell.repliesLabel.text = "Replies (\(numReplies))"
+                if(numReplies == 1) {
+                    imageCell.repliesLabel.text = "1 reply"
+                }
+                else {
+                    imageCell.repliesLabel.text = "\(numReplies) replies"
+                }
             })
             
             getNumLikes(object!, completionHandler: { (numLikes) in
@@ -235,9 +255,12 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             })
             pickedCell = cell
         }
-        if(blockedUsers.contains((question?.user)!)) {
-            let blockedCell = tableView.dequeueReusableCellWithIdentifier("blockedContentCell") as! PFTableViewCell
-            pickedCell = blockedCell
+        
+        getBlockedUsers { (blockedUsers) in
+            if(blockedUsers.contains((question?.user)!)) {
+                let blockedCell = tableView.dequeueReusableCellWithIdentifier("blockedContentCell") as! PFTableViewCell
+                pickedCell = blockedCell
+            }
         }
         return pickedCell
     }

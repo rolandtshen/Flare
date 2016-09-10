@@ -63,10 +63,11 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         toolbar = UIToolbar()
         toolbar.translucent = false
         toolbar.tintColor = UIColor.flatBlackColor()
-        let cameraButton = UIBarButtonItem(image: UIImage(named: "MMS"), style: .Plain, target: self, action: #selector(NewPostViewController.chooseImageSource))
+        let cameraButton = UIBarButtonItem(image: UIImage(named: "camera"), style: .Plain, target: self, action: #selector(NewPostViewController.chooseImageSource))
+        cameraButton.tintColor = UIColor.flatGrayColorDark()
         let space = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
-        let postButton = UIBarButtonItem(title: "Post", style: .Plain, target: self, action: #selector(NewPostViewController.uploadPost))
-        
+        let postButton = UIBarButtonItem(title: "POST", style: .Plain, target: self, action: #selector(NewPostViewController.uploadPost))
+        postButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 16.0)!, NSForegroundColorAttributeName: UIColor.flatGrayColorDark()], forState: .Normal)
         toolbar.items = [cameraButton, space, postButton]
         toolbar.sizeToFit()
         return toolbar
