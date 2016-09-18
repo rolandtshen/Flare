@@ -24,7 +24,7 @@ class ProfileViewController: PFQueryTableViewController {
     
     override func viewDidAppear(animated: Bool) {
         
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 18.0)!, NSForegroundColorAttributeName: UIColor.blackColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         
         profilePicView.layer.cornerRadius = profilePicView.frame.width / 2
         profilePicView.clipsToBounds = true
@@ -42,6 +42,10 @@ class ProfileViewController: PFQueryTableViewController {
         getProfilePic(PFUser.currentUser()!, completionHandler: { (image) in
             self.profilePicView.image = image
         })
+        
+        getNumLikes { (numLikes) in
+            self.likesLabel.text = "\(numLikes)"
+        }
         
         getNumAnswers { (numAnswers) in
             self.answersLabel.text = "\(numAnswers)"
@@ -111,17 +115,15 @@ class ProfileViewController: PFQueryTableViewController {
         }
     }
     
-//    func getLikes(object: PFObject, completionHandler: (UIImage) -> Void) {
-//        let profile = object as! PFUser
-//        if let picture = profile.objectForKey("profilePic") {
-//            picture.getDataInBackgroundWithBlock({
-//                (imageData: NSData?, error: NSError?) -> Void in
-//                if (error == nil) {
-//                    completionHandler(UIImage(data: imageData!)!)
-//                }
-//            })
-//        }
-//    }
+    func getNumLikes(completionHandler: (Int) -> Void) {
+        let query = PFQuery(className: "Like")
+        query.whereKey("fromUser", equalTo: PFUser.currentUser()!)
+        query.findObjectsInBackgroundWithBlock {(objects: [PFObject]?, error: NSError?) -> Void in
+            if error == nil {
+                completionHandler(objects!.count)
+            }
+        }
+    }
     
     func getNumQuestions(completionHandler: (Int) -> Void) {
         let query = PFQuery(className: "Post")

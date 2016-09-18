@@ -14,11 +14,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>DOFavoriteButton.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>DZNEmptyDataSet.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -112,17 +107,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2026FCBB26E4E8305E84E03BCA36881E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>2C8AA1BAF35413BDB954A1DF93576ED1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3D413C9868A37894E47E20894065B251</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -132,17 +117,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6DA3CD0D18F40C99F0E9BBE65F7B19FB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>6EDC37F3FA92533C6AC3562458AA91F1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>805D4E75C1BB0ABF8B1DF1FECAAB4B65</key>
+		<key>8791C2F635422EA26C796542808BA9DF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -168,6 +148,16 @@
 			<true/>
 		</dict>
 		<key>AFEDA8059B169E4068B6DCC4D2F0B0E9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B3EEFB5B2B7D956CB1773709A6D0877F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C885F839E9E21B3A698071076FEAE63C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

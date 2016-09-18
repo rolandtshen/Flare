@@ -9,7 +9,7 @@ import DZNEmptyDataSet
 class MessagesViewController: PFQueryTableViewController {
     
     override func viewDidLoad() {
-        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Semibold", size: 17.0)!, NSForegroundColorAttributeName: UIColor.blackColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
     }
     
     override func viewDidAppear(animated: Bool) {

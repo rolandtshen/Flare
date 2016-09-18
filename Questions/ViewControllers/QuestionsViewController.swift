@@ -60,23 +60,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     
     @IBAction func unwindToQuestionsViewController(segue: UIStoryboardSegue) {
     }
-    
-    //MARK: Likes
-//    
-//    func like(post: Question) {
-//        LikeHelper.toggleLikePost(PFUser.currentUser()!, post: post) { (isLiked) in
-//            
-//            if isLiked {
-//                self.likesLabel.text = "♥️ Likes (\(self.numberOfLikes - 1))"
-//                self.numberOfLikes = self.numberOfLikes - 1
-//            } else {
-//                self.likesLabel.text = "♥️ Likes (\(self.numberOfLikes + 1))"
-//                self.numberOfLikes = self.numberOfLikes + 1
-//            }
-//        }
-//
-//    }
-    
+
     //MARK: Downloads
     
     func getBlockedUsers(completionHandler: ([PFUser]) -> Void) {
@@ -109,6 +93,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     
     func getNumLikes(object: PFObject, completionHandler: (Int) -> Void) {
         let question = object as! Question
+        
         let query = PFQuery(className: "Like")
         query.includeKey("toPost")
         query.whereKey("toPost", equalTo: question)
@@ -203,13 +188,14 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             imageCell.categoryFlag.backgroundColor = colorPicker.colorChooser(question!.category!)
             imageCell.postImage.clipsToBounds = true
             imageCell.imageView?.image = nil
+            
+            if(question?.doesUserLikePost(question!) == true) {
+                imageCell.likeButton.imageView?.image = UIImage(named: "liked")
+            }
+            
             getProfilePic(question!.user!, completionHandler: { (profilePic) in
                 imageCell.profilePicView?.image = profilePic
             })
-            imageCell.likesLabel.sizeToFit()
-            if(question!.likes != nil) {
-                imageCell.likesLabel.titleLabel!.text = "♥️ Likes (\(question!.likes?.stringValue))"
-            }
             
             getNumReplies(object!, completionHandler: { (numReplies) in
                 if(numReplies == 1) {
@@ -222,8 +208,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             
             getNumLikes(object!, completionHandler: { (numLikes) in
                 imageCell.numberOfLikes = numLikes
-                imageCell.likesLabel.setTitle(" ♥️ Likes (\(numLikes))", forState: .Normal)
-
+                imageCell.likesLabel.text = "\(numLikes)"
             })
             
             getImage(object!, completionHandler: { (image) in
@@ -231,6 +216,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             })
             
             pickedCell = imageCell
+            
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("QuestionCell", forIndexPath: indexPath) as! QuestionCell
             cell.profilePicView.layer.cornerRadius = cell.profilePicView.frame.width/2
@@ -245,13 +231,22 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             })
             cell.likesLabel.sizeToFit()
             
+            if(question?.doesUserLikePost(question!) == true) {
+                cell.likeButton.imageView?.image = UIImage(named: "liked")
+            }
+            
             getNumReplies(object!, completionHandler: { (numReplies) in
-                cell.repliesLabel.text = "Replies (\(numReplies))"
+                if(numReplies == 1) {
+                    cell.repliesLabel.text = "1 reply"
+                }
+                else {
+                    cell.repliesLabel.text = "\(numReplies) replies"
+                }
             })
             
             getNumLikes(object!, completionHandler: { (numLikes) in
                 cell.numberOfLikes = numLikes
-                cell.likesLabel.setTitle(" ♥️ Likes (\(numLikes))", forState: .Normal)
+                cell.likesLabel.text = "\(numLikes)"
             })
             pickedCell = cell
         }

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import ParseUI
 import Parse
+import ChameleonFramework
 
 class QuestionCell: PFTableViewCell {
     
@@ -18,8 +19,9 @@ class QuestionCell: PFTableViewCell {
     @IBOutlet weak var repliesLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var categoryFlag: UIView!
-    @IBOutlet weak var likesLabel: UIButton!
     @IBOutlet weak var profilePicView: UIImageView!
+    @IBOutlet weak var likesLabel: UILabel!
+    @IBOutlet weak var likeButton: UIButton!
     
     var post : Question!
     var numberOfLikes : Int!
@@ -28,10 +30,12 @@ class QuestionCell: PFTableViewCell {
         LikeHelper.toggleLikePost(PFUser.currentUser()!, post: post) { (isLiked) in
             
             if isLiked {
-                self.likesLabel.titleLabel?.text = "♥️ Likes (\(self.numberOfLikes - 1))"
+                self.likeButton.imageView?.image = UIImage(named: "like")
+                self.likesLabel.text = "\(self.numberOfLikes - 1)"
                 self.numberOfLikes = self.numberOfLikes - 1
             } else {
-                self.likesLabel.titleLabel?.text = "♥️ Likes (\(self.numberOfLikes + 1))"
+                self.likeButton.imageView?.image = UIImage(named: "liked")
+                self.likesLabel.text = "\(self.numberOfLikes + 1)"
                 self.numberOfLikes = self.numberOfLikes + 1
             }
         }

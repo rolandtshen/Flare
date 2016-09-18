@@ -20,6 +20,8 @@ class DetailContainerViewController: UIViewController {
     @IBOutlet weak var replyTextField: UITextField!
     
     override func viewDidLoad() {
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         if(question?.user == PFUser.currentUser()) {
