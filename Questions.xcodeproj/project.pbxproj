@@ -39,6 +39,7 @@
 		2A9252A51D514E480051D1B3 /* ProximaNova-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2A92529A1D514E480051D1B3 /* ProximaNova-Semibold.otf */; };
 		2A9252A61D514E480051D1B3 /* ProximaNova-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2A92529B1D514E480051D1B3 /* ProximaNova-SemiboldItalic.otf */; };
 		2A9963EC1D5AAAA700B5D963 /* LikeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9963EB1D5AAAA700B5D963 /* LikeHelper.swift */; };
+		2AA9D2A01DA5BFB60037CA8E /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA9D29F1DA5BFB60037CA8E /* TabViewController.swift */; };
 		2AC024231D3E9D0000CDF938 /* QuestionHeaderImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC024221D3E9D0000CDF938 /* QuestionHeaderImageView.xib */; };
 		2AC677C41D46AD990038BAF6 /* DetailContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC677C31D46AD990038BAF6 /* DetailContainerViewController.swift */; };
 		2AC6D81B1D3D9B1D0054BCDC /* QuestionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC6D81A1D3D9B1D0054BCDC /* QuestionHeaderView.xib */; };
@@ -89,6 +90,7 @@
 		2A92529A1D514E480051D1B3 /* ProximaNova-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Semibold.otf"; sourceTree = "<group>"; };
 		2A92529B1D514E480051D1B3 /* ProximaNova-SemiboldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-SemiboldItalic.otf"; sourceTree = "<group>"; };
 		2A9963EB1D5AAAA700B5D963 /* LikeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeHelper.swift; sourceTree = "<group>"; };
+		2AA9D29F1DA5BFB60037CA8E /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		2AB207291D36B30900B4A930 /* Questions-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Questions-Bridging-Header.h"; sourceTree = "<group>"; };
 		2AC024221D3E9D0000CDF938 /* QuestionHeaderImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionHeaderImageView.xib; sourceTree = "<group>"; };
 		2AC677C31D46AD990038BAF6 /* DetailContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailContainerViewController.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				2A8B4DB21D52694700DF875B /* Login */,
 				2A1EE4BD1D47F5D80022DD7C /* QuestionsViewController.swift */,
 				2AF1A1B71D5540C000CE52B7 /* NewPostViewController.swift */,
+				2AA9D29F1DA5BFB60037CA8E /* TabViewController.swift */,
 				2AC677C31D46AD990038BAF6 /* DetailContainerViewController.swift */,
 				2A9193C71D36A99D00A9905E /* DetailViewController.swift */,
 				2A88B1F11D47CEDF00359EAB /* MessagesViewController.swift */,
@@ -414,6 +417,7 @@
 				2AE71C241D343C0700CB7B62 /* Question.swift in Sources */,
 				2AE71C201D343B9A00CB7B62 /* QuestionCell.swift in Sources */,
 				2A8B4DB61D52695F00DF875B /* SignUpViewController.swift in Sources */,
+				2AA9D2A01DA5BFB60037CA8E /* TabViewController.swift in Sources */,
 				2A34A4041D41981600519B63 /* QuestionImageHeaderView.swift in Sources */,
 				2A163EFB1D4047EC00FC8FE1 /* QuestionHeaderView.swift in Sources */,
 				2AC677C41D46AD990038BAF6 /* DetailContainerViewController.swift in Sources */,

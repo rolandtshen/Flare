@@ -26,6 +26,10 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     
     var imagePickerController: UIImagePickerController?
     
+    override func prefersStatusBarHidden() -> Bool {
+        return false
+    }
+    
     override func viewDidAppear(animated: Bool) {
         tableView.reloadData()
         self.loadObjects()
@@ -33,7 +37,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         
         _ = NSTimer.scheduledTimerWithTimeInterval(120.0, target: self, selector: #selector(QuestionsViewController.queryForTable), userInfo: nil, repeats: true)
@@ -56,6 +60,10 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
         tableView.tableFooterView = UIView()
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
     }
     
     @IBAction func unwindToQuestionsViewController(segue: UIStoryboardSegue) {
@@ -190,7 +198,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             imageCell.imageView?.image = nil
             
             if(question?.doesUserLikePost(question!) == true) {
-                imageCell.likeButton.imageView?.image = UIImage(named: "liked")
+                imageCell.likeButton.imageView!.image = UIImage(named: "liked")
             }
             
             getProfilePic(question!.user!, completionHandler: { (profilePic) in
@@ -232,7 +240,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             cell.likesLabel.sizeToFit()
             
             if(question?.doesUserLikePost(question!) == true) {
-                cell.likeButton.imageView?.image = UIImage(named: "liked")
+                cell.likeButton.imageView!.image = UIImage(named: "liked")
             }
             
             getNumReplies(object!, completionHandler: { (numReplies) in
