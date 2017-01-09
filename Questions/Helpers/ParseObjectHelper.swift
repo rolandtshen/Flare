@@ -12,7 +12,11 @@ import Parse
 extension PFObject {
     
     public override func isEqual(object: AnyObject?) -> Bool {
-        guard let object = object as? PFObject else { return false }
-        return object.objectId == self.objectId
+        if (object as? PFObject)?.objectId == self.objectId {
+            return true
+        } else {
+            return super.isEqual(object)
+        }
     }
+    
 }

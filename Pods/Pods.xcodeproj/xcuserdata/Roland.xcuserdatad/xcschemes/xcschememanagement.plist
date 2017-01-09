@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Bond.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ChameleonFramework.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -122,12 +127,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8791C2F635422EA26C796542808BA9DF</key>
+		<key>80076C510C29F960587E43C0597ECBD5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>8978C7FB7007A28B676AB1EA004C3923</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8B82CDACD13B54AE78F275BB76AE1528</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8DED6BA74D1914B120938343456A7976</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -147,17 +162,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>9DB897EC0CAECC3EC0BB3FD838EF3A16</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>AFEDA8059B169E4068B6DCC4D2F0B0E9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B3EEFB5B2B7D956CB1773709A6D0877F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C885F839E9E21B3A698071076FEAE63C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

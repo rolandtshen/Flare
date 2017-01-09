@@ -99,18 +99,18 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         }
     }
     
-    func getNumLikes(object: PFObject, completionHandler: (Int) -> Void) {
-        let question = object as! Question
-        
-        let query = PFQuery(className: "Like")
-        query.includeKey("toPost")
-        query.whereKey("toPost", equalTo: question)
-        query.findObjectsInBackgroundWithBlock {(objects: [PFObject]?, error: NSError?) -> Void in
-            if error == nil {
-                completionHandler(objects!.count)
-            }
-        }
-    }
+//    func getNumLikes(object: PFObject, completionHandler: (Int) -> Void) {
+//        let question = object as! Question
+//        
+//        let query = PFQuery(className: "Like")
+//        query.includeKey("toPost")
+//        query.whereKey("toPost", equalTo: question)
+//        query.findObjectsInBackgroundWithBlock {(objects: [PFObject]?, error: NSError?) -> Void in
+//            if error == nil {
+//                completionHandler(objects!.count)
+//            }
+//        }
+//    }
     
     func getNumReplies(object: PFObject, completionHandler: (Int) -> Void) {
         let question = object as! Question
@@ -197,9 +197,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             imageCell.postImage.clipsToBounds = true
             imageCell.imageView?.image = nil
             
-            if(question?.doesUserLikePost(question!) == true) {
-                imageCell.likeButton.imageView!.image = UIImage(named: "liked")
-            }
+            question?.fetchLikes()
             
             getProfilePic(question!.user!, completionHandler: { (profilePic) in
                 imageCell.profilePicView?.image = profilePic
@@ -214,10 +212,10 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
                 }
             })
             
-            getNumLikes(object!, completionHandler: { (numLikes) in
-                imageCell.numberOfLikes = numLikes
-                imageCell.likesLabel.text = "\(numLikes)"
-            })
+//            getNumLikes(object!, completionHandler: { (numLikes) in
+//                imageCell.numberOfLikes = numLikes
+//                imageCell.likesLabel.text = "\(numLikes)"
+//            })
             
             getImage(object!, completionHandler: { (image) in
                 imageCell.postImage.image = image
@@ -234,14 +232,13 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             cell.timeLabel.text = question!.createdAt?.shortTimeAgoSinceDate(NSDate())
             cell.usernameLabel.text = question!.user?.username
             cell.categoryFlag.backgroundColor = colorPicker.colorChooser(question!.category!)
+            
+            question?.fetchLikes()
+            
             getProfilePic(question!.user!, completionHandler: { (profilePic) in
                 cell.profilePicView?.image = profilePic
             })
             cell.likesLabel.sizeToFit()
-            
-            if(question?.doesUserLikePost(question!) == true) {
-                cell.likeButton.imageView!.image = UIImage(named: "liked")
-            }
             
             getNumReplies(object!, completionHandler: { (numReplies) in
                 if(numReplies == 1) {
@@ -252,10 +249,10 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
                 }
             })
             
-            getNumLikes(object!, completionHandler: { (numLikes) in
-                cell.numberOfLikes = numLikes
-                cell.likesLabel.text = "\(numLikes)"
-            })
+//            getNumLikes(object!, completionHandler: { (numLikes) in
+//                cell.numberOfLikes = numLikes
+//                cell.likesLabel.text = "\(numLikes)"
+//            })
             pickedCell = cell
         }
         

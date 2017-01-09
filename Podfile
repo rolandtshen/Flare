@@ -18,5 +18,6 @@ pod 'ParseFacebookUtilsV4'
 pod 'ChameleonFramework'
 pod 'DZNEmptyDataSet'
 pod 'Mixpanel'
+pod 'Bond'
 
 end

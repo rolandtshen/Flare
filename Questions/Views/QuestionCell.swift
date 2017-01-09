@@ -11,6 +11,7 @@ import UIKit
 import ParseUI
 import Parse
 import ChameleonFramework
+import Bond
 
 class QuestionCell: PFTableViewCell {
     
@@ -23,21 +24,35 @@ class QuestionCell: PFTableViewCell {
     @IBOutlet weak var likesLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
     
-    var post : Question!
-    var numberOfLikes : Int!
-    
-    @IBAction func likePressed(sender: AnyObject) {
-        LikeHelper.toggleLikePost(PFUser.currentUser()!, post: post) { (isLiked) in
-            
-            if isLiked {
-                self.likeButton.imageView?.image = UIImage(named: "like")
-                self.likesLabel.text = "\(self.numberOfLikes - 1)"
-                self.numberOfLikes = self.numberOfLikes - 1
-            } else {
-                self.likeButton.imageView?.image = UIImage(named: "liked")
-                self.likesLabel.text = "\(self.numberOfLikes + 1)"
-                self.numberOfLikes = self.numberOfLikes + 1
+    var post: Question? {
+        didSet {
+            likeDisposable?.dispose()
+            if let post = post {
+                likeDisposable = post.likes.observe { (value: [PFUser]?) -> () in
+                    if let value = value {
+                        self.likesLabel.text = "\(LikeHelper.getNumLikes(post))"
+                        self.likeButton.selected = value.contains(PFUser.currentUser()!)
+                        if value.count == 0 {
+                            self.likeButton.setImage(UIImage(named: "like"), forState: .Normal)
+                        } else {
+                            self.likeButton.setImage(UIImage(named: "liked"), forState: .Normal)
+                        }
+                    } else {
+                        self.likesLabel.text = "\(LikeHelper.getNumLikes(post))"
+                        self.likeButton.selected = false
+                        self.likeButton.setImage(UIImage(named: "like"), forState: .Normal)
+                    }
+                }
             }
         }
+    }
+
+    var numberOfLikes : Int!
+    
+    var postDisposable: DisposableType?
+    var likeDisposable: DisposableType?
+    
+    @IBAction func likePressed(sender: AnyObject) {
+        post!.toggleLikePost(PFUser.currentUser()!)
     }
 }

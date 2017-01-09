@@ -5,6 +5,7 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
+  - Bond (4.3.1)
   - ChameleonFramework (2.1.0):
     - ChameleonFramework/Default (= 2.1.0)
   - ChameleonFramework/Default (2.1.0)
@@ -36,6 +37,7 @@ PODS:
   - SVProgressHUD (2.0.3)
 
 DEPENDENCIES:
+  - Bond
   - ChameleonFramework
   - DateTools
   - DZNEmptyDataSet
@@ -50,6 +52,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  Bond: 55903fc67f09e8e49791a657163cabba1d6fb29d
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
@@ -65,6 +68,6 @@ SPEC CHECKSUMS:
   SCLAlertView: d7c6a48c7d340e60206d4ed0e8ebcbff3b9d2a44
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
 
-PODFILE CHECKSUM: 528a30e544f850d9fe5df40a9b45a716b83ab136
+PODFILE CHECKSUM: e256805fe5553e2f7368752b3fcdbfa98de05a56
 
 COCOAPODS: 1.0.1
