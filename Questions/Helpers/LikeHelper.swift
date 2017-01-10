@@ -25,6 +25,19 @@ class LikeHelper {
         }
         return count
     }
+
+    static func getNumLikesAsync(object: PFObject, completionHandler: (Int) -> Void) {
+        let question = object as! Question
+        
+        let query = PFQuery(className: "Like")
+        query.includeKey("toPost")
+        query.whereKey("toPost", equalTo: question)
+        query.findObjectsInBackgroundWithBlock {(objects: [PFObject]?, error: NSError?) -> Void in
+            if error == nil {
+                completionHandler(objects!.count)
+            }
+        }
+    }
     
     static func likesForPost(post: Question, completionBlock: PFQueryArrayResultBlock) {
         let query = PFQuery(className: "Like")

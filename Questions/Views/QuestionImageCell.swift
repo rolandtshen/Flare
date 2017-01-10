@@ -32,8 +32,7 @@ class QuestionImageCell: PFTableViewCell {
             if let post = post {
                 likeDisposable = post.likes.observe { (value: [PFUser]?) -> () in
                     if let value = value {
-                        let numLikes = LikeHelper.getNumLikes(post)
-                        self.likesLabel.text = "\(numLikes)"
+                        self.likesLabel.text = self.numLikes(value)
                         self.likeButton.selected = value.contains(PFUser.currentUser()!)
                         if value.count == 0 {
                             self.likeButton.setImage(UIImage(named: "like"), forState: .Normal)
@@ -48,6 +47,12 @@ class QuestionImageCell: PFTableViewCell {
                 }
             }
         }
+    }
+    
+    func numLikes(userList: [PFUser]) -> String {
+        let likes = userList.count
+        let stringLikes = String(likes)
+        return stringLikes
     }
     
     @IBAction func likePressed(sender: AnyObject) {
