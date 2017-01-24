@@ -212,11 +212,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
                 }
             })
             
-//            getNumLikes(object!, completionHandler: { (numLikes) in
-//                imageCell.numberOfLikes = numLikes
-//                imageCell.likesLabel.text = "\(numLikes)"
-//            })
-            
             getImage(object!, completionHandler: { (image) in
                 imageCell.postImage.image = image
             })
@@ -249,10 +244,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
                 }
             })
             
-//            getNumLikes(object!, completionHandler: { (numLikes) in
-//                cell.numberOfLikes = numLikes
-//                cell.likesLabel.text = "\(numLikes)"
-//            })
             pickedCell = cell
         }
         
@@ -328,7 +319,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
 extension QuestionsViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     //MARK: Empty Data Set
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let str = "No posts found"
+        let str = "There's nothing here!"
         let changes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 24.0)!, NSForegroundColorAttributeName: UIColor.flatGrayColor()]
         
         return NSAttributedString(string: str, attributes: changes)

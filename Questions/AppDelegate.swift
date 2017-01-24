@@ -83,9 +83,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Conversation.registerSubclass()
         
         application.statusBarHidden = true
-        IQKeyboardManager.sharedManager().enableAutoToolbar = false
-        IQKeyboardManager.sharedManager().enable = true
-        IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses = [LoginViewController.self, SignUpViewController.self, DetailContainerViewController.self, EditProfileViewController.self]
+//        IQKeyboardManager.sharedManager().enableAutoToolbar = false
+//        IQKeyboardManager.sharedManager().enable = true
+//        IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses = [LoginViewController.self, SignUpViewController.self, DetailContainerViewController.self, EditProfileViewController.self]
         
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
