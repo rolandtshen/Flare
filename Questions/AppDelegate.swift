@@ -11,7 +11,6 @@ import Parse
 import FBSDKCoreKit
 import ParseFacebookUtilsV4
 import Mixpanel
-import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -83,9 +82,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Conversation.registerSubclass()
         
         application.statusBarHidden = true
-//        IQKeyboardManager.sharedManager().enableAutoToolbar = false
-//        IQKeyboardManager.sharedManager().enable = true
-//        IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses = [LoginViewController.self, SignUpViewController.self, DetailContainerViewController.self, EditProfileViewController.self]
         
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }

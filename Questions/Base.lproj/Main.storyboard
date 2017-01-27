@@ -844,6 +844,7 @@
                     <connections>
                         <outlet property="flagButton" destination="QH4-x1-LE7" id="L8T-7H-kfH"/>
                         <outlet property="replyTextField" destination="5sH-iw-wy3" id="qtY-4B-g62"/>
+                        <outlet property="replyTextFieldConstraint" destination="maF-6U-jmK" id="7zc-m0-QKZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WEB-sR-5O3" userLabel="First Responder" sceneMemberID="firstResponder"/>

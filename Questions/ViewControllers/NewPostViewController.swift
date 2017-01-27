@@ -13,11 +13,10 @@ import Parse
 import ParseUI
 import SVProgressHUD
 import Mixpanel
-import IQKeyboardManagerSwift
 
 class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    @IBOutlet weak var postTextView: IQTextView!
+    @IBOutlet weak var postTextView: UITextView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var profilePicView: UIImageView!
     @IBOutlet weak var categoryButton: UIButton!

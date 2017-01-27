@@ -8,9 +8,9 @@
 
 import Foundation
 import UIKit
-import IQKeyboardManagerSwift
 import Parse
 import SCLAlertView
+import IQKeyboardManagerSwift
 import SVProgressHUD
 
 class EditProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {

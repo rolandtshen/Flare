@@ -22,6 +22,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var signInButton: UIButton!
+    //@IBOutlet weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,28 @@ class LoginViewController: UIViewController {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+//    func keyboardWillShow(notification:NSNotification){
+//        
+//        var userInfo = notification.userInfo!
+//        var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
+//        keyboardFrame = self.view.convertRect(keyboardFrame, fromView: nil)
+//        
+//        var contentInset:UIEdgeInsets = self.scrollView.contentInset
+//        contentInset.bottom = keyboardFrame.size.height
+//        self.scrollView.contentInset = contentInset
+//    }
+//    
+//    func keyboardWillHide(notification:NSNotification){
+//        
+//        let contentInset:UIEdgeInsets = UIEdgeInsetsZero
+//        self.scrollView.contentInset = contentInset
+//    }
     
     func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
@@ -87,7 +110,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func facebookPressed(sender: AnyObject) {
         let alert = SCLAlertView()
-        alert.showError("Error", subTitle: "Facebook login isn't ready yet!")
+        alert.showError("Error", subTitle: "Facebook login isn't ready yet.")
 //        let permissions = ["public_profile", "email", "user_friends"]
 //        
 //        PFFacebookUtils.logInInBackgroundWithReadPermissions(permissions,  block: {  (user: PFUser?, error: NSError?) -> Void in

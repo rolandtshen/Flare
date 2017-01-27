@@ -16,6 +16,7 @@ class DetailContainerViewController: UIViewController {
     var question: Question?
     var tableView: DetailViewController?
     
+    @IBOutlet weak var replyTextFieldConstraint: NSLayoutConstraint!
     @IBOutlet weak var flagButton: UIBarButtonItem!
     @IBOutlet weak var replyTextField: UITextField!
     
