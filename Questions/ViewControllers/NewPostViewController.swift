@@ -22,6 +22,7 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var categoryButton: UIButton!
     
     var image: UIImage?
+    var locationExists: Bool = false
     var selectedCategory: String?
     var currLocation: CLLocationCoordinate2D?
     var reset: Bool = false
@@ -45,6 +46,9 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        if(locationManager.location != nil) {
+            locationExists = true
+        }
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
@@ -82,6 +86,7 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
             alert.showError("Error", subTitle: "Please select a category")
             hasError = true
         }
+        
         if(postTextView.text != "") {
             question.question = postTextView.text
         } else {
@@ -89,7 +94,12 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
             hasError = true
         }
         
-        question.location = PFGeoPoint(latitude: currLocation!.latitude, longitude: currLocation!.longitude)
+        if(locationExists == true) {
+            question.location = PFGeoPoint(latitude: currLocation!.latitude, longitude: currLocation!.longitude)
+        } else {
+            alert.showError("Error", subTitle: "Couldn't get location!")
+        }
+        
         question.user = PFUser.currentUser()
         if let image = image {
             guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {return}

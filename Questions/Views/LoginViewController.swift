@@ -28,8 +28,8 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         let colors:[UIColor] = [
-            UIColor(hexString: "#1ED4A5"),
-            UIColor(hexString: "#22C0CF")
+            UIColor(hexString: "dd2c00"),
+            UIColor(hexString: "ffc107")
         ]
         signInButton.backgroundColor = UIColor.init(gradientStyle: .LeftToRight, withFrame: view.frame, andColors: colors)
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))

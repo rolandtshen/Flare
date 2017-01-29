@@ -79,7 +79,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="IAr-jH-2nD">
                                 <rect key="frame" x="20" y="28" width="560" height="552"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whale" translatesAutoresizingMaskIntoConstraints="NO" id="mfo-YB-c5V">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fire_element" translatesAutoresizingMaskIntoConstraints="NO" id="mfo-YB-c5V">
                                         <rect key="frame" x="230" y="0.0" width="100" height="100"/>
                                         <accessibility key="accessibilityConfiguration" identifier="A32883ED-D105-4DD6-8446-7E19509BD02F"/>
                                         <constraints>
@@ -87,11 +87,11 @@
                                             <constraint firstAttribute="height" constant="100" id="lnA-dZ-8J6"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Orca" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWa-7B-T1T">
-                                        <rect key="frame" x="179" y="125" width="202" height="26"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Flare" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWa-7B-T1T">
+                                        <rect key="frame" x="178" y="125" width="205" height="26"/>
                                         <accessibility key="accessibilityConfiguration" identifier="18267740-ED8A-4099-A336-F0DBDFCE622E"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="26"/>
-                                        <color key="textColor" red="0.1176470588" green="0.83137254900000002" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.89126098155975342" green="0.3545563817024231" blue="0.39968371391296387" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A new way to connect with your local community." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g1e-8C-T61">
@@ -238,7 +238,7 @@
                         <color key="tintColor" red="0.0" green="0.63529411764705879" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
-                                <color key="value" red="0.0" green="0.63529411764705879" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="value" red="0.89126098155975342" green="0.3545563817024231" blue="0.39968371391296387" alpha="1" colorSpace="calibratedRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBar>
@@ -864,7 +864,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.0" green="0.63529411764705879" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.89126098155975342" green="0.3545563817024231" blue="0.39968371391296387" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="49"/>
                             <color key="textColor" red="0.90980392156862744" green="0.92549019607843142" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
@@ -894,7 +894,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="Amy-gf-5Qe">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.0" green="0.63529411764705879" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.89126098155975342" green="0.3545563817024231" blue="0.39968371391296387" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -1146,7 +1146,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="S6H-ZM-Pf4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.0" green="0.63529411764705879" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.89126098155975342" green="0.3545563817024231" blue="0.39968371391296387" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -1478,7 +1478,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="2gS-C3-b7H">
                                 <rect key="frame" x="36" y="28" width="528" height="552"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whale" translatesAutoresizingMaskIntoConstraints="NO" id="Gti-Kt-mir">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fire_element" translatesAutoresizingMaskIntoConstraints="NO" id="Gti-Kt-mir">
                                         <rect key="frame" x="219" y="0.0" width="90" height="90"/>
                                         <accessibility key="accessibilityConfiguration" identifier="802DE031-37DD-46A9-95C9-A81092D56E13"/>
                                         <constraints>
@@ -1490,7 +1490,7 @@
                                         <rect key="frame" x="111" y="118" width="307" height="30"/>
                                         <accessibility key="accessibilityConfiguration" identifier="9528B795-2F4B-4053-BD14-E33F35F85DA8"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="30"/>
-                                        <color key="textColor" red="0.11764705882352941" green="0.83137254901960778" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.89126098155975342" green="0.3545563817024231" blue="0.39968371391296387" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It only takes a minute." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUl-Kt-32h">
@@ -1553,7 +1553,7 @@
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRW-CE-1Rg">
                                         <rect key="frame" x="0.0" y="455" width="528" height="43"/>
-                                        <color key="backgroundColor" red="0.13333333333333333" green="0.75294117647058822" blue="0.81176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.89126098155975342" green="0.3545563817024231" blue="0.39968371391296387" alpha="1" colorSpace="calibratedRGB"/>
                                         <accessibility key="accessibilityConfiguration" identifier="C5841D35-D7E8-40AC-873D-B4038AB70F5A"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="43" id="agJ-dq-5pn"/>
@@ -1572,9 +1572,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="vVQ-fZ-hus">
-                                        <rect key="frame" x="112" y="526" width="305" height="26"/>
+                                        <rect key="frame" x="111" y="526" width="306" height="26"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="14"/>
-                                        <state key="normal" title="By signing up, I agree to Orca's Terms of Service.">
+                                        <state key="normal" title="By signing up, I agree to Flare's Terms of Service.">
                                             <color key="titleColor" red="0.4275765467" green="0.4275765467" blue="0.4275765467" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -1729,13 +1729,13 @@
         <image name="edit" width="25" height="25"/>
         <image name="email" width="50" height="50"/>
         <image name="employee_card" width="50" height="50"/>
+        <image name="fire_element" width="64" height="64"/>
         <image name="flag" width="25" height="25"/>
         <image name="home" width="25" height="25"/>
         <image name="like" width="25" height="25"/>
         <image name="quote" width="50" height="50"/>
         <image name="talk" width="50" height="50"/>
         <image name="user_male_circle" width="25" height="25"/>
-        <image name="whale" width="96" height="96"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="mhT-1h-oh5"/>

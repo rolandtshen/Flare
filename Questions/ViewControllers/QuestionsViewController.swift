@@ -185,6 +185,13 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         var pickedCell = PFTableViewCell()
         let colorPicker = CategoryHelper()
         
+        getBlockedUsers { (blockedUsers) in
+            if(blockedUsers.contains((question?.user)!)) {
+                let blockedCell = tableView.dequeueReusableCellWithIdentifier("blockedContentCell") as! PFTableViewCell
+                pickedCell = blockedCell
+            }
+        }
+        
         if question!.hasImage == true {
             let imageCell = tableView.dequeueReusableCellWithIdentifier("QuestionImageCell", forIndexPath: indexPath) as! QuestionImageCell
             imageCell.profilePicView.layer.cornerRadius = imageCell.profilePicView.frame.width/2
@@ -218,7 +225,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             
             pickedCell = imageCell
             
-        } else {
+        } else if question!.hasImage == false {
             let cell = tableView.dequeueReusableCellWithIdentifier("QuestionCell", forIndexPath: indexPath) as! QuestionCell
             cell.profilePicView.layer.cornerRadius = cell.profilePicView.frame.width/2
             cell.profilePicView.clipsToBounds = true
@@ -245,13 +252,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             })
             
             pickedCell = cell
-        }
-        
-        getBlockedUsers { (blockedUsers) in
-            if(blockedUsers.contains((question?.user)!)) {
-                let blockedCell = tableView.dequeueReusableCellWithIdentifier("blockedContentCell") as! PFTableViewCell
-                pickedCell = blockedCell
-            }
         }
         return pickedCell
     }
