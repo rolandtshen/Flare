@@ -20,6 +20,10 @@ class DetailContainerViewController: UIViewController {
     @IBOutlet weak var flagButton: UIBarButtonItem!
     @IBOutlet weak var replyTextField: UITextField!
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         

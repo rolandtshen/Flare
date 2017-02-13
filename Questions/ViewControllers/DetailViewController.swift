@@ -20,6 +20,10 @@ class DetailViewController: PFQueryTableViewController {
     var questionImageHeaderView: QuestionImageHeaderView?
     let colorPicker = CategoryHelper()
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.reloadData()

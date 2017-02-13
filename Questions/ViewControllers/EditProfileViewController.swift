@@ -23,6 +23,10 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     var imagePickerController: UIImagePickerController?
     var chosenProfilePic: UIImage?
     
+    override func prefersStatusBarHidden() -> Bool {
+        return false
+    }
+    
     override func viewDidLoad() {
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
         profileImageView.clipsToBounds = true

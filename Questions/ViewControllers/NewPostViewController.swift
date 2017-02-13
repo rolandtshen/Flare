@@ -30,6 +30,10 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     var imagePickerController: UIImagePickerController?
     var toolbar: UIToolbar!
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         profilePicView.layer.cornerRadius = profilePicView.frame.width/2

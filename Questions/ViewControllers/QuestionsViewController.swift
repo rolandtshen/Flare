@@ -211,12 +211,16 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             })
             
             getNumReplies(object!, completionHandler: { (numReplies) in
-                if(numReplies == 1) {
+                if(numReplies == 0) {
+                    imageCell.repliesLabel.text = ""
+                }
+                else if (numReplies == 1) {
                     imageCell.repliesLabel.text = "1 reply"
                 }
                 else {
                     imageCell.repliesLabel.text = "\(numReplies) replies"
                 }
+
             })
             
             getImage(object!, completionHandler: { (image) in
@@ -230,9 +234,10 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             cell.profilePicView.layer.cornerRadius = cell.profilePicView.frame.width/2
             cell.profilePicView.clipsToBounds = true
             cell.post = question
+            cell.categoryLabel.text = question!.category
             cell.questionLabel.text = question!.question
             cell.timeLabel.text = question!.createdAt?.shortTimeAgoSinceDate(NSDate())
-            cell.usernameLabel.text = question!.user?.username
+            cell.usernameLabel.setTitle(question!.user?.username, forState: .Normal)
             cell.categoryFlag.backgroundColor = colorPicker.colorChooser(question!.category!)
             
             question?.fetchLikes()
@@ -243,7 +248,10 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             cell.likesLabel.sizeToFit()
             
             getNumReplies(object!, completionHandler: { (numReplies) in
-                if(numReplies == 1) {
+                if(numReplies == 0) {
+                    cell.repliesLabel.text = ""
+                }
+                else if (numReplies == 1) {
                     cell.repliesLabel.text = "1 reply"
                 }
                 else {

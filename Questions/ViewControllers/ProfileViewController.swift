@@ -22,6 +22,10 @@ class ProfileViewController: PFQueryTableViewController {
     
     let colorPicker = CategoryHelper()
     
+    override func prefersStatusBarHidden() -> Bool {
+        return false
+    }
+    
     override func viewDidAppear(animated: Bool) {
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.whiteColor()]

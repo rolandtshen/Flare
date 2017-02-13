@@ -8,7 +8,7 @@ import Mixpanel
 class ChatViewController: JSQMessagesViewController {
 
     let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor.flatWhiteColor())
-    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor(hexString: "1ED4A5"))
+    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.flatWatermelonColor())
     
     var avatars = Dictionary<String, JSQMessagesAvatarImage>()
     var messages = [JSQMessage]()
@@ -280,6 +280,10 @@ extension ChatViewController {
 
 //MARK: Parse
 extension ChatViewController {
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
     
     func sendMessage(message: JSQMessage) {
         let messageToSend = Message()

@@ -8,6 +8,10 @@ import DZNEmptyDataSet
 
 class MessagesViewController: PFQueryTableViewController {
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
     }
