@@ -199,8 +199,9 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             imageCell.post = question
             imageCell.questionLabel.text = question!.question
             imageCell.timeLabel.text = question!.createdAt?.shortTimeAgoSinceDate(NSDate())
-            imageCell.usernameLabel.text = question!.user?.username
+            imageCell.usernameLabel.setTitle(question!.user?.username, forState: .Normal)
             imageCell.categoryFlag.backgroundColor = colorPicker.colorChooser(question!.category!)
+            imageCell.categoryLabel.text = question!.category
             imageCell.postImage.clipsToBounds = true
             imageCell.imageView?.image = nil
             
@@ -220,7 +221,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
                 else {
                     imageCell.repliesLabel.text = "\(numReplies) replies"
                 }
-
             })
             
             getImage(object!, completionHandler: { (image) in
