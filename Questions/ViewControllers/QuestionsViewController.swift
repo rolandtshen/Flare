@@ -18,6 +18,10 @@ import DZNEmptyDataSet
 
 class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    override func prefersStatusBarHidden() -> Bool {
+        return false
+    }
+    
     var image: UIImage?
     var selectedCategory: String?
     var currLocation: CLLocationCoordinate2D?
@@ -25,10 +29,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     let locationManager = CLLocationManager()
     
     var imagePickerController: UIImagePickerController?
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return false
-    }
     
     override func viewDidAppear(animated: Bool) {
         tableView.reloadData()
