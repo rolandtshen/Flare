@@ -14,6 +14,11 @@ import Bond
 
 class Question: PFObject, PFSubclassing {
    
+    private lazy var __once: () = {
+            // inform Parse about this subclass
+            self.registerSubclass()
+        }()
+   
     @NSManaged var user: PFUser?
     @NSManaged var location: PFGeoPoint?
     @NSManaged var category: String?
@@ -28,7 +33,7 @@ class Question: PFObject, PFSubclassing {
         return "Post"
     }
     
-    func toggleLikePost(user: PFUser) {
+    func toggleLikePost(_ user: PFUser) {
         if (doesUserLikePost(user)) {
             // if post is liked, unlike it now
             likes.value = likes.value?.filter { $0 != user }
@@ -40,7 +45,7 @@ class Question: PFObject, PFSubclassing {
         }
     }
     
-    func doesUserLikePost(user: PFUser) -> Bool {
+    func doesUserLikePost(_ user: PFUser) -> Bool {
         if let likes = likes.value {
             return likes.contains(user)
         } else {
@@ -65,10 +70,7 @@ class Question: PFObject, PFSubclassing {
     }
     
     override class func initialize() {
-        var onceToken: dispatch_once_t = 0;
-        dispatch_once(&onceToken) {
-            // inform Parse about this subclass
-            self.registerSubclass()
-        }
+        var onceToken: Int = 0;
+        _ = self.__once
     }
 }

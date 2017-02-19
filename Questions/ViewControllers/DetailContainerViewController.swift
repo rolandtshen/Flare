@@ -20,16 +20,16 @@ class DetailContainerViewController: UIViewController {
     @IBOutlet weak var flagButton: UIBarButtonItem!
     @IBOutlet weak var replyTextField: UITextField!
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
     override func viewDidLoad() {
-        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.white]
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
-        if(question?.user == PFUser.currentUser()) {
+        if(question?.user == PFUser.current()) {
             flagButton = nil
         }
     }
@@ -39,52 +39,52 @@ class DetailContainerViewController: UIViewController {
         view.endEditing(true)
     }
     
-    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField!) -> Bool {
         textField.resignFirstResponder()
         textField.text = ""
         return true;
     }
 
     func showFlagActionSheetForPost() {
-        let alertController = UIAlertController(title: nil, message: "Choose an action", preferredStyle: .ActionSheet)
+        let alertController = UIAlertController(title: nil, message: "Choose an action", preferredStyle: .actionSheet)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         
-        let blockAction = UIAlertAction(title: "Block", style: .Destructive) { (action) in
+        let blockAction = UIAlertAction(title: "Block", style: .destructive) { (action) in
             let block = Block()
-            block.fromUser = PFUser.currentUser()
+            block.fromUser = PFUser.current()
             block.toUser = self.question?.user
             SVProgressHUD.show()
-            block.saveInBackgroundWithBlock({(success, error) in
+            block.saveInBackground(block: {(success, error) in
                 SVProgressHUD.dismiss()
             })
         }
         
         alertController.addAction(blockAction)
         
-        let flagAction = UIAlertAction(title: "Flag", style: .Destructive) { (action) in
+        let flagAction = UIAlertAction(title: "Flag", style: .destructive) { (action) in
             let flag = Flag()
-            flag.fromUser = PFUser.currentUser()
+            flag.fromUser = PFUser.current()
             flag.toPost = self.question
             SVProgressHUD.show()
-            flag.saveInBackgroundWithBlock({ (success, error) in
+            flag.saveInBackground(block: { (success, error) in
                 SVProgressHUD.dismiss()
             })
         }
         
         alertController.addAction(flagAction)
         
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
-    @IBAction func sendPressed(sender: AnyObject) {
+    @IBAction func sendPressed(_ sender: AnyObject) {
         let reply = Reply()
         if(replyTextField.text != "") {
             reply.reply = replyTextField.text
-            reply.fromUser = PFUser.currentUser()
+            reply.fromUser = PFUser.current()
             reply.toPost = question!
-            reply.saveInBackgroundWithBlock{ (success, error) -> Void in
+            reply.saveInBackground{ (success, error) -> Void in
                 if(error == nil) {
                     self.tableView?.loadObjects()
                 }
@@ -96,14 +96,14 @@ class DetailContainerViewController: UIViewController {
         textFieldShouldReturn(replyTextField)
     }
 
-    @IBAction func flagPressed(sender: AnyObject) {
+    @IBAction func flagPressed(_ sender: AnyObject) {
         showFlagActionSheetForPost()
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             if identifier == "repliesTableView" {
-            let detail = segue.destinationViewController as! DetailViewController
+            let detail = segue.destination as! DetailViewController
                 detail.question = question
                 tableView = detail
             }

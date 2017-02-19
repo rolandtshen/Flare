@@ -25,7 +25,7 @@ class SignUpViewController: UIViewController {
             UIColor(hexString: "dd2c00"),
             UIColor(hexString: "ffc107")
         ]
-        signUpButton.backgroundColor = UIColor.init(gradientStyle: .LeftToRight, withFrame: view.frame, andColors: colors)
+        signUpButton.backgroundColor = UIColor.init(gradientStyle: .leftToRight, withFrame: view.frame, andColors: colors)
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -36,11 +36,11 @@ class SignUpViewController: UIViewController {
         view.endEditing(true)
     }
     
-    @IBAction func tosButton(sender: AnyObject) {
-        UIApplication.sharedApplication().openURL(NSURL(string: "http://www.rolandshen.com/orca/eula.html")!)
+    @IBAction func tosButton(_ sender: AnyObject) {
+        UIApplication.shared.openURL(URL(string: "http://www.rolandshen.com/orca/eula.html")!)
     }
     
-    @IBAction func signUpPressed(sender: AnyObject) {
+    @IBAction func signUpPressed(_ sender: AnyObject) {
         let username = self.fullNameField.text
         let password = self.passwordField.text
         let email = self.emailField.text
@@ -74,14 +74,14 @@ class SignUpViewController: UIViewController {
             SVProgressHUD.show()
             
             // Sign up the user asynchronously
-            newUser.signUpInBackgroundWithBlock({ (succeed, error) -> Void in
+            newUser.signUpInBackground(block: { (succeed, error) -> Void in
                 if (error == nil) {
                     Mixpanel.sharedInstance().track("Signed up successfully")
                     SVProgressHUD.dismiss()
-                    SVProgressHUD.showSuccessWithStatus("Welcome to Questions!")
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        let viewController: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TabBarController")
-                        self.presentViewController(viewController, animated: true, completion: nil)
+                    SVProgressHUD.showSuccess(withStatus: "Welcome to Questions!")
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        let viewController: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarController")
+                        self.present(viewController, animated: true, completion: nil)
                     })
                 }
                 else {

@@ -7,8 +7,8 @@ import Mixpanel
 
 class ChatViewController: JSQMessagesViewController {
 
-    let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor.flatWhiteColor())
-    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.flatWatermelonColor())
+    let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor.flatWhite())
+    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor.flatWatermelon())
     
     var avatars = Dictionary<String, JSQMessagesAvatarImage>()
     var messages = [JSQMessage]()
@@ -20,13 +20,13 @@ class ChatViewController: JSQMessagesViewController {
         super.viewDidLoad()
         
         Mixpanel.sharedInstance().track("Chat opened")
-        if(conversation?.toUser!.username == PFUser.currentUser()!.username) {
+        if(conversation?.toUser!.username == PFUser.current()!.username) {
             title = conversation!.fromUser?.username
         }
-        else if(conversation?.fromUser!.username == PFUser.currentUser()?.username) {
+        else if(conversation?.fromUser!.username == PFUser.current()?.username) {
             title = conversation!.toUser!.username
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadMessagesView), name: "new_message", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadMessagesView), name: NSNotification.Name(rawValue: "new_message"), object: nil)
         self.setup()
     }
     
@@ -36,7 +36,7 @@ class ChatViewController: JSQMessagesViewController {
     }
     
     func reloadMessagesView() {
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             self.downloadLatestMessage()
             self.collectionView.reloadData()
         }
@@ -47,19 +47,19 @@ class ChatViewController: JSQMessagesViewController {
 //MARK: Setup
 extension ChatViewController {
     func setup() {
-        self.senderId = PFUser.currentUser()?.objectId
-        self.senderDisplayName = PFUser.currentUser()?.username
+        self.senderId = PFUser.current()?.objectId
+        self.senderDisplayName = PFUser.current()?.username
         self.downloadMessages()
     }
     
     //Not using this yet
-    func setupAvatarImage(name: String, imageUrl: String?, incoming: Bool) {
+    func setupAvatarImage(_ name: String, imageUrl: String?, incoming: Bool) {
         if let stringUrl = imageUrl {
-            if let url = NSURL(string: stringUrl) {
-                if let data = NSData(contentsOfURL: url) {
+            if let url = URL(string: stringUrl) {
+                if let data = try? Data(contentsOf: url) {
                     let image = UIImage(data: data)
                     let diameter = incoming ? UInt(collectionView.collectionViewLayout.incomingAvatarViewSize.width) : UInt(collectionView.collectionViewLayout.outgoingAvatarViewSize.width)
-                    let avatarImage = JSQMessagesAvatarImageFactory.avatarImageWithImage(image, diameter: diameter)
+                    let avatarImage = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: diameter)
                     avatars[name] = avatarImage
                     return
                 }
@@ -70,7 +70,7 @@ extension ChatViewController {
         setupAvatarColor(name, incoming: incoming)
     }
     
-    func setupAvatarColor(name: String, incoming: Bool) {
+    func setupAvatarColor(_ name: String, incoming: Bool) {
         let diameter = incoming ? UInt(collectionView.collectionViewLayout.incomingAvatarViewSize.width) : UInt(collectionView.collectionViewLayout.outgoingAvatarViewSize.width)
         
         let rgbValue = name.hash
@@ -80,8 +80,8 @@ extension ChatViewController {
         let color = UIColor(red: r, green: g, blue: b, alpha: 0.5)
         
         let nameLength = name.characters.count
-        let initials : String? = name.substringToIndex(senderDisplayName.startIndex.advancedBy(min(3, nameLength)))
-        let userImage = JSQMessagesAvatarImageFactory.avatarImageWithUserInitials(initials, backgroundColor: color, textColor: UIColor.blackColor(), font: UIFont.systemFontOfSize(CGFloat(13)), diameter: diameter)
+        let initials : String? = name.substring(to: senderDisplayName.index(senderDisplayName.startIndex, offsetBy: min(3, nameLength)))
+        let userImage = JSQMessagesAvatarImageFactory.avatarImage(withUserInitials: initials, backgroundColor: color, textColor: UIColor.black, font: UIFont.systemFont(ofSize: CGFloat(13)), diameter: diameter)
         
         avatars[name] = userImage
     }
@@ -90,20 +90,20 @@ extension ChatViewController {
 //MARK - Data Source
 extension ChatViewController {
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.messages.count
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
         let data = self.messages[indexPath.row]
         return data
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, didDeleteMessageAtIndexPath indexPath: NSIndexPath!) {
-        self.messages.removeAtIndex(indexPath.row)
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, didDeleteMessageAt indexPath: IndexPath!) {
+        self.messages.remove(at: indexPath.row)
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
         let data = messages[indexPath.row]
         switch(data.senderId) {
         case self.senderId:
@@ -113,28 +113,28 @@ extension ChatViewController {
         }
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = super.collectionView(collectionView, cellForItemAt: indexPath)
             as! JSQMessagesCollectionViewCell
         
         let message = messages[indexPath.item]
         
         if message.senderId == senderId {
-            cell.textView!.textColor = UIColor.whiteColor()
+            cell.textView!.textColor = UIColor.white
         } else {
-            cell.textView!.textColor = UIColor.blackColor()
+            cell.textView!.textColor = UIColor.black
         }
         cell.textView!.text = message.text
         
         return cell
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
         return nil
     }
     
     // View  usernames above bubbles
-    override func collectionView(collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> NSAttributedString! {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
         let message = messages[indexPath.item];
         
         // Sent by me, skip
@@ -153,7 +153,7 @@ extension ChatViewController {
         return NSAttributedString(string: message.senderDisplayName)
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat {
         let message = messages[indexPath.item]
         
         // Sent by me, skip
@@ -176,15 +176,15 @@ extension ChatViewController {
 //MARK - Toolbar
 extension ChatViewController {
     
-    override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         let message = JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
-        self.sendMessage(message)
-        self.messages.append(message)
+        self.sendMessage(message!)
+        self.messages.append(message!)
         Mixpanel.sharedInstance().track("Message sent")
         self.finishSendingMessage()
     }
     
-    override func didPressAccessoryButton(sender: UIButton!) {
+    override func didPressAccessoryButton(_ sender: UIButton!) {
         self.inputToolbar.contentView!.textView!.resignFirstResponder()
         
 //        let sheet = UIAlertController(title: "Media messages", message: nil, preferredStyle: .ActionSheet)
@@ -241,16 +241,16 @@ extension ChatViewController {
 //MARK: Accessories
 extension ChatViewController {
     func buildVideoItem() -> JSQVideoMediaItem {
-        let videoURL = NSURL(fileURLWithPath: "file://")
+        let videoURL = URL(fileURLWithPath: "file://")
         
         let videoItem = JSQVideoMediaItem(fileURL: videoURL, isReadyToPlay: true)
         
-        return videoItem
+        return videoItem!
     }
     
     func buildAudioItem() -> JSQAudioMediaItem {
-        let sample = NSBundle.mainBundle().pathForResource("jsq_messages_sample", ofType: "m4a")
-        let audioData = NSData(contentsOfFile: sample!)
+        let sample = Bundle.main.path(forResource: "jsq_messages_sample", ofType: "m4a")
+        let audioData = try? Data(contentsOf: URL(fileURLWithPath: sample!))
         
         let audioItem = JSQAudioMediaItem(data: audioData)
         
@@ -268,28 +268,28 @@ extension ChatViewController {
         return locationItem
     }
     
-    func addMedia(media:JSQMediaItem) {
+    func addMedia(_ media:JSQMediaItem) {
         let message = JSQMessage(senderId: self.senderId, displayName: self.senderDisplayName, media: media)
-        self.messages.append(message)
+        self.messages.append(message!)
         
         //Optional: play sent sound
         
-        self.finishSendingMessageAnimated(true)
+        self.finishSendingMessage(animated: true)
     }
 }
 
 //MARK: Parse
 extension ChatViewController {
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
-    func sendMessage(message: JSQMessage) {
+    func sendMessage(_ message: JSQMessage) {
         let messageToSend = Message()
         messageToSend.messageText = message.text
-        messageToSend.fromUser = PFUser.currentUser()
-        if(conversation!.toUser != PFUser.currentUser()) {
+        messageToSend.fromUser = PFUser.current()
+        if(conversation!.toUser != PFUser.current()) {
             messageToSend.toUser = conversation?.toUser
             messageToSend.senderName = conversation?.fromUser?.username
         }
@@ -308,7 +308,7 @@ extension ChatViewController {
         query.includeKey("toUser")
         query.includeKey("fromUser")
         query.whereKey("convo", equalTo: conversation!)
-        query.findObjectsInBackgroundWithBlock {(objects: [PFObject]?, error: NSError?) -> Void in
+        query.findObjectsInBackground {(objects: [PFObject]?, error: NSError?) -> Void in
             let parseMessages = objects as! [Message]
             let messages: [JSQMessage] = parseMessages.map({ return self.jsqMessageFromParse($0) }) as [JSQMessage]
             self.messages = messages
@@ -322,8 +322,8 @@ extension ChatViewController {
         query.includeKey("toUser")
         query.includeKey("fromUser")
         query.whereKey("convo", equalTo: conversation!)
-        query.orderByDescending("createdAt")
-        query.getFirstObjectInBackgroundWithBlock {(object: PFObject?, error: NSError?) -> Void in
+        query.order(byDescending: "createdAt")
+        query.getFirstObjectInBackground {(object: PFObject?, error: NSError?) -> Void in
             let parseMessage = object as! Message
             print(parseMessage.fromUser)
             self.messages.append(self.jsqMessageFromParse(parseMessage))
@@ -331,7 +331,7 @@ extension ChatViewController {
         }
     }
     
-    func jsqMessageFromParse(message: Message) -> JSQMessage {
-        return JSQMessage(senderId: message.senderId(), senderDisplayName: message.senderDisplayName(), date: message.date(), text: message.text())
+    func jsqMessageFromParse(_ message: Message) -> JSQMessage {
+        return JSQMessage(senderId: message.senderId(), senderDisplayName: message.senderDisplayName(), date: message.date() as Date!, text: message.text())
     }
 }

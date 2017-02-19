@@ -18,9 +18,9 @@ class QuestionImageHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var categoryView: UIView!
     var poster: PFUser?
     
-    @IBAction func messagePressed(sender: AnyObject) {
+    @IBAction func messagePressed(_ sender: AnyObject) {
         let newConvo = Conversation()
-        newConvo.fromUser = PFUser.currentUser()
+        newConvo.fromUser = PFUser.current()
         newConvo.toUser = poster
         newConvo.saveInBackground()
     }

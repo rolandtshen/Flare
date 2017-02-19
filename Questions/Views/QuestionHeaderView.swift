@@ -18,8 +18,8 @@ class QuestionHeaderView: UITableViewHeaderFooterView {
     var poster: PFUser?
     let newConvo = Conversation()
     
-    @IBAction func messagePressed(sender: AnyObject) {
-        newConvo.fromUser = PFUser.currentUser()
+    @IBAction func messagePressed(_ sender: AnyObject) {
+        newConvo.fromUser = PFUser.current()
         newConvo.toUser = poster
         newConvo.saveInBackground()
     }

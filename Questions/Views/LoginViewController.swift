@@ -31,12 +31,12 @@ class LoginViewController: UIViewController {
             UIColor(hexString: "dd2c00"),
             UIColor(hexString: "ffc107")
         ]
-        signInButton.backgroundColor = UIColor.init(gradientStyle: .LeftToRight, withFrame: view.frame, andColors: colors)
+        signInButton.backgroundColor = UIColor.init(gradientStyle: .leftToRight, withFrame: view.frame, andColors: colors)
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
@@ -63,10 +63,10 @@ class LoginViewController: UIViewController {
         view.endEditing(true)
     }
     
-    @IBAction func unwindToLogin(segue: UIStoryboardSegue) {
+    @IBAction func unwindToLogin(_ segue: UIStoryboardSegue) {
     }
     
-    @IBAction func signInPressed(sender: AnyObject) {
+    @IBAction func signInPressed(_ sender: AnyObject) {
         let username = self.usernameField.text
         let password = self.passwordField.text
         var hasError = false
@@ -87,16 +87,16 @@ class LoginViewController: UIViewController {
         if(hasError == false) {
             SVProgressHUD.show()
             // Send a request to login
-            PFUser.logInWithUsernameInBackground(username!, password: password!, block: { (user, error) -> Void in
+            PFUser.logInWithUsername(inBackground: username!, password: password!, block: { (user, error) -> Void in
                 if ((user) != nil) {
                     SVProgressHUD.dismiss()
-                    let installation = PFInstallation.currentInstallation()
-                    installation.setObject(PFUser.currentUser()!, forKey: "user")
+                    let installation = PFInstallation.current()
+                    installation.setObject(PFUser.current()!, forKey: "user")
                     installation.saveInBackground()
                     Mixpanel.sharedInstance().track("Logged in successfully")
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TabBarController")
-                        self.presentViewController(viewController, animated: true, completion: nil)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarController")
+                        self.present(viewController, animated: true, completion: nil)
                     })
                     
                 } else {
@@ -108,7 +108,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    @IBAction func facebookPressed(sender: AnyObject) {
+    @IBAction func facebookPressed(_ sender: AnyObject) {
         let alert = SCLAlertView()
         alert.showError("Error", subTitle: "Facebook login isn't ready yet.")
 //        let permissions = ["public_profile", "email", "user_friends"]
@@ -131,15 +131,15 @@ class LoginViewController: UIViewController {
 class borderlessTextField: UITextField {
     let padding = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10);
     
-    override func textRectForBounds(bounds: CGRect) -> CGRect {
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
         return UIEdgeInsetsInsetRect(bounds, padding)
     }
     
-    override func placeholderRectForBounds(bounds: CGRect) -> CGRect {
+    override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
         return UIEdgeInsetsInsetRect(bounds, padding)
     }
     
-    override func editingRectForBounds(bounds: CGRect) -> CGRect {
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
         return UIEdgeInsetsInsetRect(bounds, padding)
     }
 }

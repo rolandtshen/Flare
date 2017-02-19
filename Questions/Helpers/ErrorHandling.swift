@@ -20,18 +20,18 @@ class ErrorHandling: UIViewController {
     /**
      This default error handler presents an Alert View on the topmost View Controller
      */
-    static func defaultErrorHandler(error: NSError) {
-        let alert = UIAlertController(title: ErrorTitle, message: ErrorDefaultMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: ErrorOKButtonTitle, style: UIAlertActionStyle.Default, handler: nil))
+    static func defaultErrorHandler(_ error: NSError) {
+        let alert = UIAlertController(title: ErrorTitle, message: ErrorDefaultMessage, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: ErrorOKButtonTitle, style: UIAlertActionStyle.default, handler: nil))
         
-        let window = UIApplication.sharedApplication().windows[0]
-        window.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+        let window = UIApplication.shared.windows[0]
+        window.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
     /**
      A PFBooleanResult callback block that only handles error cases. You can pass this to completion blocks of Parse Requests
      */
-    static func errorHandlingCallback(success: Bool, error: NSError?) -> Void {
+    static func errorHandlingCallback(_ success: Bool, error: NSError?) -> Void {
         if let error = error {
             ErrorHandling.defaultErrorHandler(error)
         }

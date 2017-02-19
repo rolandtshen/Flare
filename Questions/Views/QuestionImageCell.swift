@@ -50,13 +50,13 @@ class QuestionImageCell: PFTableViewCell {
         }
     }
     
-    func numLikes(userList: [PFUser]) -> String {
+    func numLikes(_ userList: [PFUser]) -> String {
         let likes = userList.count
         let stringLikes = String(likes)
         return stringLikes
     }
     
-    @IBAction func likePressed(sender: AnyObject) {
-        post!.toggleLikePost(PFUser.currentUser()!)
+    @IBAction func likePressed(_ sender: AnyObject) {
+        post!.toggleLikePost(PFUser.current()!)
     }
 }

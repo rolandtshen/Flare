@@ -9,29 +9,29 @@
 import Foundation
 
 struct CategoryHelper {
-    func colorChooser(category: String) -> UIColor {
+    func colorChooser(_ category: String) -> UIColor {
         var color: UIColor?
         switch(category) {
         case "Travel":
-            color = UIColor.flatRedColor()
+            color = UIColor.flatRed()
             break
         case "Entertainment":
-            color = UIColor.flatOrangeColor()
+            color = UIColor.flatOrange()
             break
         case "Meetup":
-            color = UIColor.flatYellowColor()
+            color = UIColor.flatYellow()
             break
         case "Listings":
-            color = UIColor.flatGreenColor()
+            color = UIColor.flatGreen()
             break
         case "Recommendations":
-            color = UIColor.flatSkyBlueColor()
+            color = UIColor.flatSkyBlue()
             break
         case "Other":
-            color = UIColor.flatMagentaColor()
+            color = UIColor.flatMagenta()
             break
         default:
-            color = UIColor.flatBlackColor()
+            color = UIColor.flatBlack()
         }
         return color!
     }

@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     override init() {
         super.init()
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        UIApplication.shared.statusBarStyle = .lightContent
         
         parseLoginHelper = ParseLoginHelper {[unowned self] user, error in
             // Initialize the ParseLoginHelper with a callback
@@ -30,100 +30,100 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else  if let _ = user {
                 // if login was successful, display the TabBarController
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let tabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarController")
-                self.window?.rootViewController!.presentViewController(tabBarController, animated: true, completion: nil)
+                let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController")
+                self.window?.rootViewController!.present(tabBarController, animated: true, completion: nil)
             }
         }
     }
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        application.statusBarStyle = .LightContent
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        application.statusBarStyle = .lightContent
+        UIApplication.shared.statusBarStyle = .lightContent
         
         //initialize Parse
         let configuration = ParseClientConfiguration {
             $0.applicationId = "questionsapp"
             $0.server = "https://questionsapp.herokuapp.com/parse"
         }
-        Parse.initializeWithConfiguration(configuration)
+        Parse.initialize(with: configuration)
         
-        let userNotificationTypes: UIUserNotificationType = [.Alert, .Badge, .Sound]
-        let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
+        let userNotificationTypes: UIUserNotificationType = [.alert, .badge, .sound]
+        let settings = UIUserNotificationSettings(types: userNotificationTypes, categories: nil)
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
         
         //initialize Facebook
-        PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
+        PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
         
         //initialize Mixpanel
-        Mixpanel.sharedInstanceWithToken("8393fb097d75410d96bf238e12397daf")
+        Mixpanel.sharedInstance(withToken: "8393fb097d75410d96bf238e12397daf")
         let mixpanel: Mixpanel = Mixpanel.sharedInstance()
         mixpanel.track("App launched")
         
         //determine whether or not to show login screen
-        let user = PFUser.currentUser()
+        let user = PFUser.current()
         
         var startViewController: UIViewController
         
         if (user != nil) {
             // if we have a user, set the TabBarController to be the initial view controller
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            startViewController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
+            startViewController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
         } else {
             // Otherwise set the LoginViewController to be the first
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            startViewController = storyboard.instantiateViewControllerWithIdentifier("Login")
+            startViewController = storyboard.instantiateViewController(withIdentifier: "Login")
         }
         
-        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = startViewController;
         self.window?.makeKeyAndVisible()
         
         Message.registerSubclass()
         Conversation.registerSubclass()
         
-        application.statusBarHidden = true
+        application.isStatusBarHidden = true
         
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
 
-    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        let installation = PFInstallation.currentInstallation()
-        installation.setDeviceTokenFromData(deviceToken)
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let installation = PFInstallation.current()
+        installation.setDeviceTokenFrom(deviceToken)
         installation.channels = ["global"]
         installation.saveInBackground()
     }
     
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        NSNotificationCenter.defaultCenter().postNotificationName("new_message", object: nil)
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "new_message"), object: nil)
         print("push received")
     }
     
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     }
 
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         FBSDKAppEvents.activateApp()
     }
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
     }
     
 }

@@ -11,7 +11,7 @@ import Parse
 
 extension PFObject {
     
-    public override func isEqual(object: AnyObject?) -> Bool {
+    open override func isEqual(_ object: Any?) -> Bool {
         if (object as? PFObject)?.objectId == self.objectId {
             return true
         } else {

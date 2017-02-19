@@ -23,7 +23,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     var imagePickerController: UIImagePickerController?
     var chosenProfilePic: UIImage?
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return false
     }
     
@@ -39,7 +39,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             self.emailTextView.text = email
         }
         
-        getProfilePic(PFUser.currentUser()!) { (profilePic) in
+        getProfilePic(PFUser.current()!) { (profilePic) in
             self.profileImageView.image = profilePic
         }
         
@@ -55,8 +55,8 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         view.endEditing(true)
     }
     
-    @IBAction func savePressed(sender: AnyObject) {
-        let user = PFUser.currentUser()
+    @IBAction func savePressed(_ sender: AnyObject) {
+        let user = PFUser.current()
         user!.username = nameTextView.text
         user!.email = emailTextView.text
         user!["bio"] = bioTextView.text
@@ -64,62 +64,62 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             user!["profilePic"] = PFFile(name: "image.jpg", data: UIImageJPEGRepresentation(image, 0.6)!)
         }
         SVProgressHUD.show()
-        user?.saveInBackgroundWithBlock({ (success, error) in
+        user?.saveInBackground(block: { (success, error) in
             if(error == nil) {
                 SVProgressHUD.dismiss()
-                self.navigationController?.popViewControllerAnimated(true)
+                self.navigationController?.popViewController(animated: true)
             }
         })
     }
     
     func chooseImageSource() {
         // Allow user to choose between photo library and camera
-        let alertController = UIAlertController(title: nil, message: "Where do you want to get your picture from?", preferredStyle: .ActionSheet)
+        let alertController = UIAlertController(title: nil, message: "Where do you want to get your picture from?", preferredStyle: .actionSheet)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         alertController.addAction(cancelAction)
         
-        let photoLibraryAction = UIAlertAction(title: "Photo from Library", style: .Default) { (action) in
-            self.showImagePickerController(.PhotoLibrary)
+        let photoLibraryAction = UIAlertAction(title: "Photo from Library", style: .default) { (action) in
+            self.showImagePickerController(.photoLibrary)
         }
         
         alertController.addAction(photoLibraryAction)
         
         // Only show camera option if rear camera is available
-        if (UIImagePickerController.isCameraDeviceAvailable(.Rear)) {
-            let cameraAction = UIAlertAction(title: "Photo from Camera", style: .Default) { (action) in
-                self.showImagePickerController(.Camera)
+        if (UIImagePickerController.isCameraDeviceAvailable(.rear)) {
+            let cameraAction = UIAlertAction(title: "Photo from Camera", style: .default) { (action) in
+                self.showImagePickerController(.camera)
             }
             alertController.addAction(cameraAction)
         }
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
     
-    func showImagePickerController(sourceType: UIImagePickerControllerSourceType) {
+    func showImagePickerController(_ sourceType: UIImagePickerControllerSourceType) {
         imagePickerController = UIImagePickerController()
         imagePickerController!.sourceType = sourceType
         imagePickerController!.delegate = self
         
-        presentViewController(imagePickerController!, animated: true, completion: nil)
+        present(imagePickerController!, animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             profileImageView.image = pickedImage
             chosenProfilePic = pickedImage
         }
         
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     //MARK: Downloads
     
-    func getProfilePic(object: PFObject, completionHandler: (UIImage) -> Void) {
+    func getProfilePic(_ object: PFObject, completionHandler: @escaping (UIImage) -> Void) {
         let profile = object as! PFUser
-        if let picture = profile.objectForKey("profilePic") {
-            picture.getDataInBackgroundWithBlock({
-                (imageData: NSData?, error: NSError?) -> Void in
+        if let picture = profile.object(forKey: "profilePic") {
+            (picture as AnyObject).getDataInBackground(block: {
+                (imageData: Data?, error: NSError?) -> Void in
                 if (error == nil) {
                     completionHandler(UIImage(data: imageData!)!)
                 }
@@ -127,20 +127,20 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    func getUsername(completionHandler: (String) -> Void) {
-        PFUser.currentUser()?.fetchInBackgroundWithBlock { user, error in
-            completionHandler((PFUser.currentUser()?.username)!)
+    func getUsername(_ completionHandler: @escaping (String) -> Void) {
+        PFUser.current()?.fetchInBackground { user, error in
+            completionHandler((PFUser.current()?.username)!)
         }
     }
     
-    func getEmail(completionHandler: (String) -> Void) {
-        PFUser.currentUser()?.fetchInBackgroundWithBlock { user, error in
-            completionHandler((PFUser.currentUser()?.email)!)
+    func getEmail(_ completionHandler: @escaping (String) -> Void) {
+        PFUser.current()?.fetchInBackground { user, error in
+            completionHandler((PFUser.current()?.email)!)
         }
     }
     
-    func getBio(completionHandler: (String) -> Void) {
-        PFUser.currentUser()?.fetchInBackgroundWithBlock { user, error in
+    func getBio(_ completionHandler: @escaping (String) -> Void) {
+        PFUser.current()?.fetchInBackground { user, error in
             if(user!["bio"] != nil) {
                 completionHandler(user!["bio"] as! String)
             }
@@ -150,7 +150,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    @IBAction func changePhoto(sender: AnyObject) {
+    @IBAction func changePhoto(_ sender: AnyObject) {
         chooseImageSource()
     }
 }

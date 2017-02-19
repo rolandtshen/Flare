@@ -10,10 +10,10 @@ import Foundation
 
 class TabViewController: UITabBarController{
     override func viewDidLoad() {
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        UIApplication.shared.statusBarStyle = .lightContent
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle{
-        return UIStatusBarStyle.LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle{
+        return UIStatusBarStyle.lightContent
     }
 }

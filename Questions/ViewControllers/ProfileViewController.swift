@@ -22,13 +22,13 @@ class ProfileViewController: PFQueryTableViewController {
     
     let colorPicker = CategoryHelper()
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return false
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         
-        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.white]
         
         profilePicView.layer.cornerRadius = profilePicView.frame.width / 2
         profilePicView.clipsToBounds = true
@@ -36,14 +36,14 @@ class ProfileViewController: PFQueryTableViewController {
         tableView.estimatedRowHeight = 80.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        fullNameLabel.textAlignment = .Center
-        bioLabel.textAlignment = .Center
+        fullNameLabel.textAlignment = .center
+        bioLabel.textAlignment = .center
         
         getUsername { (username) in
             self.fullNameLabel.text = username
         }
         
-        getProfilePic(PFUser.currentUser()!, completionHandler: { (image) in
+        getProfilePic(PFUser.current()!, completionHandler: { (image) in
             self.profilePicView.image = image
         })
         
@@ -59,7 +59,7 @@ class ProfileViewController: PFQueryTableViewController {
             self.questionsLabel.text = "\(numQuestions)"
         }
         
-        getBio(PFUser.currentUser()!) { (bio) in
+        getBio(PFUser.current()!) { (bio) in
             self.bioLabel.sizeToFit()
             self.bioLabel.text = bio
         }
@@ -69,32 +69,32 @@ class ProfileViewController: PFQueryTableViewController {
     }
     
     // get posts made by current user
-    override func queryForTable() -> PFQuery {
+    override func queryForTable() -> PFQuery<PFObject> {
         let query = PFQuery(className: "Post")
         query.includeKey("user")
-        query.whereKey("user", equalTo: PFUser.currentUser()!)
-        query.orderByDescending("createdAt")
+        query.whereKey("user", equalTo: PFUser.current()!)
+        query.order(byDescending: "createdAt")
         query.limit = 100
         return query
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
-        let cell = tableView.dequeueReusableCellWithIdentifier("profilePostCell") as! ProfileCellView
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath, object: PFObject?) -> PFTableViewCell? {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "profilePostCell") as! ProfileCellView
         let question = object as! Question
         cell.categoryLabel.text = question.category
         cell.categoryBox.backgroundColor = colorPicker.colorChooser(question.category!)
         cell.questionLabel.text = question.question
-        cell.timeLabel.text = question.createdAt?.shortTimeAgoSinceDate(NSDate())
+        cell.timeLabel.text = (question.createdAt as NSDate?)?.shortTimeAgo(since: Date())
         return cell
     }
     
     //MARK: Downloads
     
-    func getProfilePic(object: PFUser, completionHandler: (UIImage) -> Void) {
+    func getProfilePic(_ object: PFUser, completionHandler: @escaping (UIImage) -> Void) {
         let profile = object
-        if let picture = profile.objectForKey("profilePic") {
-            picture.getDataInBackgroundWithBlock({
-                (imageData: NSData?, error: NSError?) -> Void in
+        if let picture = profile.object(forKey: "profilePic") {
+            (picture as AnyObject).getDataInBackground(block: {
+                (imageData: Data?, error: NSError?) -> Void in
                 if (error == nil) {
                     completionHandler(UIImage(data: imageData!)!)
                 }
@@ -102,8 +102,8 @@ class ProfileViewController: PFQueryTableViewController {
         }
     }
     
-    func getBio(object: PFObject, completionHandler: (String) -> Void) {
-        PFUser.currentUser()?.fetchInBackgroundWithBlock { user, error in
+    func getBio(_ object: PFObject, completionHandler: @escaping (String) -> Void) {
+        PFUser.current()?.fetchInBackground { user, error in
             if(user!["bio"] != nil) {
                 completionHandler(user!["bio"] as! String)
             }
@@ -113,36 +113,36 @@ class ProfileViewController: PFQueryTableViewController {
         }
     }
     
-    func getUsername(completionHandler: (String) -> Void) {
-        PFUser.currentUser()?.fetchInBackgroundWithBlock { user, error in
-            completionHandler((PFUser.currentUser()?.username)!)
+    func getUsername(_ completionHandler: @escaping (String) -> Void) {
+        PFUser.current()?.fetchInBackground { user, error in
+            completionHandler((PFUser.current()?.username)!)
         }
     }
     
-    func getNumLikes(completionHandler: (Int) -> Void) {
+    func getNumLikes(_ completionHandler: @escaping (Int) -> Void) {
         let query = PFQuery(className: "Like")
-        query.whereKey("fromUser", equalTo: PFUser.currentUser()!)
-        query.findObjectsInBackgroundWithBlock {(objects: [PFObject]?, error: NSError?) -> Void in
+        query.whereKey("fromUser", equalTo: PFUser.current()!)
+        query.findObjectsInBackground {(objects: [PFObject]?, error: NSError?) -> Void in
             if error == nil {
                 completionHandler(objects!.count)
             }
         }
     }
     
-    func getNumQuestions(completionHandler: (Int) -> Void) {
+    func getNumQuestions(_ completionHandler: @escaping (Int) -> Void) {
         let query = PFQuery(className: "Post")
-        query.whereKey("user", equalTo: PFUser.currentUser()!)
-        query.findObjectsInBackgroundWithBlock {(objects: [PFObject]?, error: NSError?) -> Void in
+        query.whereKey("user", equalTo: PFUser.current()!)
+        query.findObjectsInBackground {(objects: [PFObject]?, error: NSError?) -> Void in
             if error == nil {
                 completionHandler(objects!.count)
             }
         }
     }
     
-    func getNumAnswers(completionHandler: (Int) -> Void) {
+    func getNumAnswers(_ completionHandler: @escaping (Int) -> Void) {
         let query = PFQuery(className: "Reply")
-        query.whereKey("fromUser", equalTo: PFUser.currentUser()!)
-        query.findObjectsInBackgroundWithBlock {(objects: [PFObject]?, error: NSError?) -> Void in
+        query.whereKey("fromUser", equalTo: PFUser.current()!)
+        query.findObjectsInBackground {(objects: [PFObject]?, error: NSError?) -> Void in
             if error == nil {
                 completionHandler(objects!.count)
             }
@@ -151,15 +151,15 @@ class ProfileViewController: PFQueryTableViewController {
     
     //MARK: Segue Methods
     
-    @IBAction func unwindToProfileViewController(segue: UIStoryboardSegue) {
+    @IBAction func unwindToProfileViewController(_ segue: UIStoryboardSegue) {
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             if identifier == "showDetail" {
                 let indexPath = self.tableView.indexPathForSelectedRow
                 let obj = self.objects![indexPath!.row] as? Question
-                let detail = segue.destinationViewController as! DetailContainerViewController
+                let detail = segue.destination as! DetailContainerViewController
                 detail.question = obj
             }
         }

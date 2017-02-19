@@ -7,17 +7,17 @@ target 'Questions' do
 
   # Pods for Questions
 
-pod 'IQKeyboardManagerSwift'
 pod 'Parse'
 pod 'ParseUI'
 pod 'DateTools'
-pod 'SCLAlertView'
 pod 'JSQMessagesViewController'
 pod 'SVProgressHUD'
 pod 'ParseFacebookUtilsV4'
 pod 'ChameleonFramework'
 pod 'DZNEmptyDataSet'
 pod 'Mixpanel'
+pod 'SCLAlertView'
 pod 'Bond'
+pod 'IQKeyboardManagerSwift'
 
 end

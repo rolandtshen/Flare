@@ -41,9 +41,9 @@ extension Optional: OptionalType {
   
   public init(optional: Wrapped?) {
     if let some = optional {
-      self = .Some(some)
+      self = .some(some)
     } else {
-      self = .None
+      self = .none
     }
   }
 }
