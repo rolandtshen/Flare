@@ -29,6 +29,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Diff.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FBSDKCoreKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -79,6 +84,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ReactiveKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SCLAlertView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -92,7 +102,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0EB19C1377A747F81110D44E2D5FCF78</key>
+		<key>11B1ECE8AA101C5ED613195D0D7720F7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,6 +122,16 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>25EC10786AD0BB459E8292197CA2118F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>26E0EB9C39788C43955C2EACC01D1D0D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2C8AA1BAF35413BDB954A1DF93576ED1</key>
 		<dict>
 			<key>primary</key>
@@ -122,12 +142,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6EDC37F3FA92533C6AC3562458AA91F1</key>
+		<key>61AF977C23DFB1506EEC7FDC5AACAB7E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>80076C510C29F960587E43C0597ECBD5</key>
+		<key>6EDC37F3FA92533C6AC3562458AA91F1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -137,17 +157,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8B82CDACD13B54AE78F275BB76AE1528</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8DED6BA74D1914B120938343456A7976</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8EFE724FDDAA2478F44F082C05BA272C</key>
+		<key>93EAD7744216230EEF67D5B39917C8F0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -157,17 +167,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>9BE20C1293F60598B26803D4CE71C5DD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9D0F2E5EA1B46A5D72FFD42B0B39DBBC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9DB897EC0CAECC3EC0BB3FD838EF3A16</key>
+		<key>AFEDA8059B169E4068B6DCC4D2F0B0E9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AFEDA8059B169E4068B6DCC4D2F0B0E9</key>
+		<key>BDCB802BDCAED0923D37EC928F83EEF9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D2749666883F37A57278402EA564385B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

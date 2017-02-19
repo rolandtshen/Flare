@@ -5,25 +5,28 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
-  - Bond (4.3.1)
+  - Bond (6.0.3):
+    - Diff (~> 0.4)
+    - ReactiveKit (~> 3.3)
   - ChameleonFramework (2.1.0):
     - ChameleonFramework/Default (= 2.1.0)
   - ChameleonFramework/Default (2.1.0)
-  - DateTools (1.7.0)
+  - DateTools (2.0.0)
+  - Diff (0.5.0)
   - DZNEmptyDataSet (1.8.1)
-  - FBSDKCoreKit (4.14.0):
+  - FBSDKCoreKit (4.19.0):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.14.0):
+  - FBSDKLoginKit (4.19.0):
     - FBSDKCoreKit
-  - IQKeyboardManagerSwift (4.0.4)
+  - IQKeyboardManagerSwift (4.0.8)
   - JSQMessagesViewController (7.3.4):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
-  - Mixpanel (3.0.2):
-    - Mixpanel/Mixpanel (= 3.0.2)
-  - Mixpanel/Mixpanel (3.0.2)
-  - Parse (1.13.0):
-    - Bolts/Tasks (~> 1.6)
+  - Mixpanel (3.1.0):
+    - Mixpanel/Mixpanel (= 3.1.0)
+  - Mixpanel/Mixpanel (3.1.0)
+  - Parse (1.14.2):
+    - Bolts/Tasks (~> 1.8)
   - ParseFacebookUtilsV4 (1.11.1):
     - Bolts/Tasks (>= 1.6)
     - FBSDKCoreKit (~> 4.10)
@@ -33,8 +36,9 @@ PODS:
   - ParseUI (1.2.0):
     - Bolts/Tasks (~> 1.3)
     - Parse (~> 1.9)
-  - SCLAlertView (0.5.9)
-  - SVProgressHUD (2.0.3)
+  - ReactiveKit (3.3.1)
+  - SCLAlertView (0.7.0)
+  - SVProgressHUD (2.1.2)
 
 DEPENDENCIES:
   - Bond
@@ -52,21 +56,23 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
-  Bond: 55903fc67f09e8e49791a657163cabba1d6fb29d
+  Bond: d186b6353d926ffc84caac7a698297669d532009
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
-  DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
+  DateTools: 933ac9c490f21f92127cf690ccd8c397e0126caf
+  Diff: eceb93a3adf508574ba9b8560da185ace83de055
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  FBSDKCoreKit: 6e020b5db0b5bd1e01f5fb0902131befd129a502
-  FBSDKLoginKit: da563567a108050ef83739c8c8c001ee9e25fa13
-  IQKeyboardManagerSwift: e0964d04d6a29b71016fd346dca13ecb80a2823a
+  FBSDKCoreKit: 894b2b6eda6a4c8c4204e92e59cc355709ef045c
+  FBSDKLoginKit: 83ca4d8f12a2022570af9fd6aacf27f6b425b99f
+  IQKeyboardManagerSwift: c04bc9f68473823f825eb44d958fce98d921bead
   JSQMessagesViewController: 39fed975e3c9f8eba7292071e29eeb541d105e66
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
-  Mixpanel: 0e4f1f9a2ac612b589b2894830038418c2587428
-  Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
+  Mixpanel: a53bb9faaf64a4ed85a837ea4897293351e98a85
+  Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
   ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
   ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e
-  SCLAlertView: d7c6a48c7d340e60206d4ed0e8ebcbff3b9d2a44
-  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+  ReactiveKit: 27df79c2e2f0771aef1061551fcd7e82b92066e9
+  SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
+  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
 
 PODFILE CHECKSUM: f1f30f27ee3038520250022348d63982193b3152
 

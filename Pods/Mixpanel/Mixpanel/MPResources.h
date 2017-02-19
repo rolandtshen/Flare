@@ -9,10 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "Mixpanel.h"
+
 @interface MPResources : NSObject
 
-+ (UIStoryboard *)notificationStoryboard;
-+ (UIStoryboard *)surveyStoryboard;
++ (UIStoryboard *)surveyStoryboard MIXPANEL_SURVEYS_DEPRECATED;
++ (NSBundle *)frameworkBundle;
++ (NSString *)notificationXibName;
 + (UIImage *)imageNamed:(NSString *)name;
 
 @end
