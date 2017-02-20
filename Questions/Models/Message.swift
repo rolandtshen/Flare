@@ -47,8 +47,4 @@ class Message: PFObject, PFSubclassing, JSQMessageData {
     class func parseClassName() -> String {
         return "Message"
     }
-    
-    override class func initialize() {
-        self.registerSubclass()
-    }
 }

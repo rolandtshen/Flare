@@ -18,8 +18,4 @@ class Conversation: PFObject, PFSubclassing {
     class func parseClassName() -> String {
         return "Conversation"
     }
-    
-    override class func initialize() {
-        self.registerSubclass()
-    }
 }

@@ -19,8 +19,4 @@ class Block: PFObject, PFSubclassing {
     class func parseClassName() -> String {
         return "Block"
     }
-    
-    override class func initialize() {
-        self.registerSubclass()
-    }
 }

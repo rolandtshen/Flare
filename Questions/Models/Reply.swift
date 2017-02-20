@@ -21,8 +21,4 @@ class Reply: PFObject, PFSubclassing {
     class func parseClassName() -> String {
         return "Reply"
     }
-    
-    override class func initialize() {
-        self.registerSubclass()
-    }
 }

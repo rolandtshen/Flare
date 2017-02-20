@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="ProximaNova-Bold.otf">
+        <array key="ProximaNova-Bold.otf">
             <string>ProximaNova-Bold</string>
-        </mutableArray>
-        <mutableArray key="ProximaNova-Semibold.otf">
+        </array>
+        <array key="ProximaNova-Semibold.otf">
             <string>ProximaNova-Semibold</string>
-            <string>ProximaNova-Semibold</string>
-        </mutableArray>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -32,11 +35,11 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QUESTION TEXT HERE" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o8U-vd-rjf">
                                             <rect key="frame" x="20" y="12" width="560" height="18"/>
                                             <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="18"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstItem="o8U-vd-rjf" firstAttribute="top" secondItem="WnJ-Cz-zPo" secondAttribute="top" constant="12" id="3BO-wJ-WPc"/>
                                         <constraint firstAttribute="bottom" secondItem="o8U-vd-rjf" secondAttribute="bottom" constant="16" id="FIz-F2-SbK"/>
@@ -54,20 +57,6 @@
                                     <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="14"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="zcK-hf-XBC">
-                                    <rect key="frame" x="0.0" y="78" width="600" height="190"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="220" id="Fsl-fa-ki3"/>
-                                        <constraint firstAttribute="height" constant="190" id="QWV-uW-oRi"/>
-                                        <constraint firstAttribute="height" constant="220" id="l9i-8n-ly1"/>
-                                    </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="Fsl-fa-ki3"/>
-                                            <exclude reference="l9i-8n-ly1"/>
-                                        </mask>
-                                    </variation>
-                                </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEu-bJ-L1w">
                                     <rect key="frame" x="568" y="275" width="24" height="24"/>
                                     <constraints>
@@ -87,9 +76,23 @@
                                         <action selector="messagePressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="a9G-DP-hgx"/>
                                     </connections>
                                 </button>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="zcK-hf-XBC">
+                                    <rect key="frame" x="0.0" y="78" width="600" height="190"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="220" id="Fsl-fa-ki3"/>
+                                        <constraint firstAttribute="height" constant="190" id="QWV-uW-oRi"/>
+                                        <constraint firstAttribute="height" constant="220" id="l9i-8n-ly1"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="Fsl-fa-ki3"/>
+                                            <exclude reference="l9i-8n-ly1"/>
+                                        </mask>
+                                    </variation>
+                                </imageView>
                             </subviews>
-                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstItem="zEu-bJ-L1w" firstAttribute="top" secondItem="zcK-hf-XBC" secondAttribute="bottom" constant="6" id="6Mi-XT-t5O"/>
                                 <constraint firstAttribute="trailing" secondItem="WnJ-Cz-zPo" secondAttribute="trailing" id="7F2-di-P3z"/>
@@ -119,7 +122,7 @@
                             </variation>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="5Of-X0-3B7" secondAttribute="trailing" id="2rH-4q-we1"/>
                         <constraint firstItem="5Of-X0-3B7" firstAttribute="top" secondItem="jiQ-23-PVt" secondAttribute="top" id="IH6-gG-Zp2"/>
@@ -128,7 +131,7 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="jiQ-23-PVt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="EsT-wB-Omq"/>
                 <constraint firstAttribute="bottom" secondItem="jiQ-23-PVt" secondAttribute="bottom" id="No3-zQ-BNS"/>
@@ -148,6 +151,6 @@
     </objects>
     <resources>
         <image name="chat_filled" width="25" height="25"/>
-        <image name="default" width="1290" height="1290"/>
+        <image name="default" width="645" height="645"/>
     </resources>
 </document>

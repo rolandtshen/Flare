@@ -16,4 +16,7 @@ pod 'ChameleonFramework'
 pod 'DZNEmptyDataSet'
 pod 'Mixpanel'
 pod 'Bond', '~> 5.0'
+pod 'AlertOnboarding'
+pod 'Eureka'
+
 end

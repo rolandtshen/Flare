@@ -63,8 +63,4 @@ class Question: PFObject, PFSubclassing {
             }
         }
     }
-    
-    override class func initialize() {
-        self.registerSubclass()
-    }
 }

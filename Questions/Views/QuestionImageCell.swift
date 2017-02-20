@@ -33,22 +33,21 @@ class QuestionImageCell: PFTableViewCell {
         didSet {
             likeDisposable?.dispose()
             if let post = post {
-                likeDisposable = post.likes.observe { (value) in
-                    print(value)
-//                    if let value = value {
-//                        self.likesLabel.text = self.numLikes(value)
-//                        self.likeButton.selected = value.contains(PFUser.currentUser()!)
-//                        if value.count == 0 {
-//                            self.likeButton.setImage(UIImage(named: "like"), for: .normal)
-//                        } else {
-//                            self.likeButton.setImage(UIImage(named: "liked"), for: .normal)
-//                        }
-//                    } else {
-//                        self.likesLabel.text = "\(LikeHelper.getNumLikes(post))"
-//                        self.likeButton.isSelected = false
-//                        self.likeButton.setImage(UIImage(named: "like"), for: .normal)
-//                    }
-                }
+                likeDisposable = post.likes.observeNext(with: { (value) in
+                    if let value = value {
+                        self.likesLabel.text = self.numLikes(value)
+                        self.likeButton.isSelected = value.contains(PFUser.current()!)
+                        if value.count == 0 {
+                            self.likeButton.setImage(UIImage(named: "like"), for: .normal)
+                        } else {
+                            self.likeButton.setImage(UIImage(named: "liked"), for: .normal)
+                        }
+                    } else {
+                        self.likesLabel.text = "\(LikeHelper.getNumLikes(post))"
+                        self.likeButton.isSelected = false
+                        self.likeButton.setImage(UIImage(named: "like"), for: .normal)
+                    }
+                })
             }
         }
     }

@@ -19,8 +19,4 @@ class Like: PFObject, PFSubclassing {
     class func parseClassName() -> String {
         return "Like"
     }
-    
-    override class func initialize() {
-        self.registerSubclass()
-    }
 }

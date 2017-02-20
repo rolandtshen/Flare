@@ -33,9 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         application.statusBarStyle = .lightContent
         UIApplication.shared.statusBarStyle = .lightContent
         
@@ -51,6 +49,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
         
+        //register subclasses
+        Message.registerSubclass()
+        Conversation.registerSubclass()
+        Question.registerSubclass()
+        Reply.registerSubclass()
+        Flag.registerSubclass()
+        Like.registerSubclass()
+        
         //initialize Mixpanel
         Mixpanel.sharedInstance(withToken: "8393fb097d75410d96bf238e12397daf")
         let mixpanel: Mixpanel = Mixpanel.sharedInstance()
@@ -58,8 +64,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //determine whether or not to show login screen
         let user = PFUser.current()
-        
-        var startViewController: UIViewController
+        //broke here
+        var startViewController: UIViewController?
         
         if (user != nil) {
             // if we have a user, set the TabBarController to be the initial view controller
@@ -75,10 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = startViewController;
         self.window?.makeKeyAndVisible()
         
-        Message.registerSubclass()
-        Conversation.registerSubclass()
-        
-        application.isStatusBarHidden = true
+        application.isStatusBarHidden = false
         
         return true
     }

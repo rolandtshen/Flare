@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import ParseUI
+import ChameleonFramework
 import Parse
 
 class ProfileViewController: PFQueryTableViewController {
@@ -19,6 +20,7 @@ class ProfileViewController: PFQueryTableViewController {
     @IBOutlet weak var questionsLabel: UILabel!
     @IBOutlet weak var answersLabel: UILabel!
     @IBOutlet weak var profilePicView: UIImageView!
+    @IBOutlet weak var editProfileButton: UIButton!
     
     let colorPicker = CategoryHelper()
     
@@ -29,6 +31,10 @@ class ProfileViewController: PFQueryTableViewController {
     override func viewDidAppear(_ animated: Bool) {
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.white]
+        
+        editProfileButton.layer.borderWidth = 1.0
+        editProfileButton.layer.borderColor = UIColor.init(hexString: "00ADCC").cgColor
+        editProfileButton.backgroundColor = UIColor.white
         
         profilePicView.layer.cornerRadius = profilePicView.frame.width / 2
         profilePicView.clipsToBounds = true

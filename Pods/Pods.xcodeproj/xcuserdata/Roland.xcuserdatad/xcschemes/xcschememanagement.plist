@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AlertOnboarding-AlertOnboardingXib.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>AlertOnboarding.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Bolts.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -30,6 +40,11 @@
 			<false/>
 		</dict>
 		<key>Diff.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Eureka.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -77,7 +92,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>037E186C39FCBD6DAC893F300256D79D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>16FB872D0D2D4BA0F378AB34D47CF95F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1CD314AE1A72E3B32CF0F16DC36DA426</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,12 +122,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>367775726ABA7003552CA455107C1627</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>48328EBCD6DC676A9804A01B870AE80E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>59CDDB315DD2B098E0CD9ED56B026F4B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>629A862E9D65CE4BD1AE3F21B238E552</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -122,12 +157,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C6E2B575182B20E34E91E0D1BD1427C1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C7ED9EB4C8B060AEE3B9E02CCA4F7B73</key>
+		<key>CE6339F20CBCF47898603918C15FEE43</key>
 		<dict>
 			<key>primary</key>
 			<true/>

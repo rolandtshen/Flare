@@ -1,4 +1,5 @@
 PODS:
+  - AlertOnboarding (1.9)
   - Bolts/Tasks (1.8.4)
   - Bond (5.4.6):
     - Diff (~> 0.4)
@@ -9,6 +10,7 @@ PODS:
   - DateTools (2.0.0)
   - Diff (0.5.0)
   - DZNEmptyDataSet (1.8.1)
+  - Eureka (2.0.1)
   - JSQMessagesViewController (7.3.4):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
@@ -24,10 +26,12 @@ PODS:
   - SVProgressHUD (2.1.2)
 
 DEPENDENCIES:
+  - AlertOnboarding
   - Bond (~> 5.0)
   - ChameleonFramework
   - DateTools
   - DZNEmptyDataSet
+  - Eureka
   - JSQMessagesViewController
   - Mixpanel
   - Parse
@@ -35,12 +39,14 @@ DEPENDENCIES:
   - SVProgressHUD
 
 SPEC CHECKSUMS:
+  AlertOnboarding: 0c97f5c4feac0a4e914bae5d530f66b4dbc6b771
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Bond: 7cc794569520e611e46d7d77c35d568a6b5ded00
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   DateTools: 933ac9c490f21f92127cf690ccd8c397e0126caf
   Diff: eceb93a3adf508574ba9b8560da185ace83de055
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  Eureka: ae837bb1dfae0c07bc1bda7aeef87876eeb537c2
   JSQMessagesViewController: 39fed975e3c9f8eba7292071e29eeb541d105e66
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   Mixpanel: a53bb9faaf64a4ed85a837ea4897293351e98a85
@@ -49,6 +55,6 @@ SPEC CHECKSUMS:
   ReactiveKit: 27df79c2e2f0771aef1061551fcd7e82b92066e9
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
 
-PODFILE CHECKSUM: ec3fde1c40b5a29bafd22bebff8b84a5fa15d96e
+PODFILE CHECKSUM: f35a18cb6f28267029cbafc5ce97b00a0d6840e9
 
 COCOAPODS: 1.0.1
