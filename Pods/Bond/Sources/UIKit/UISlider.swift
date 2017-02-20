@@ -27,11 +27,12 @@ import ReactiveKit
 
 #if os(iOS)
 
-public extension ReactiveExtensions where Base: UISlider {
+extension UISlider {
 
-  public var value: DynamicSubject<Float> {
-    return dynamicSubject(
-      signal: controlEvents(.valueChanged).eraseType(),
+  public var bnd_value: DynamicSubject<UISlider, Float> {
+    return DynamicSubject(
+      target: self,
+      signal: bnd_controlEvents(.valueChanged).eraseType(),
       get: { $0.value },
       set: { $0.value = $1 }
     )
@@ -41,7 +42,7 @@ public extension ReactiveExtensions where Base: UISlider {
 extension UISlider: BindableProtocol {
 
   public func bind(signal: Signal<Float, NoError>) -> Disposable {
-    return reactive.value.bind(signal: signal)
+    return bnd_value.bind(signal: signal)
   }
 }
 

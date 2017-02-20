@@ -9,16 +9,14 @@
 import Foundation
 import UIKit
 import Parse
-import SCLAlertView
-import IQKeyboardManagerSwift
 import SVProgressHUD
 
 class EditProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var bioTextView: IQTextView!
-    @IBOutlet weak var nameTextView: IQTextView!
-    @IBOutlet weak var emailTextView: IQTextView!
+    @IBOutlet weak var bioTextView: UITextView!
+    @IBOutlet weak var nameTextView: UITextView!
+    @IBOutlet weak var emailTextView: UITextView!
     
     var imagePickerController: UIImagePickerController?
     var chosenProfilePic: UIImage?
@@ -115,12 +113,12 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     //MARK: Downloads
     
-    func getProfilePic(_ object: PFObject, completionHandler: @escaping (UIImage) -> Void) {
-        let profile = object as! PFUser
+    func getProfilePic(_ user: PFUser, completionHandler: @escaping (UIImage) -> Void) {
+        let profile = user
         if let picture = profile.object(forKey: "profilePic") {
             (picture as AnyObject).getDataInBackground(block: {
-                (imageData: Data?, error: NSError?) -> Void in
-                if (error == nil) {
+                (imageData, error) -> Void in
+                if (imageData != nil) {
                     completionHandler(UIImage(data: imageData!)!)
                 }
             })

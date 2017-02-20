@@ -25,11 +25,12 @@
 import UIKit
 import ReactiveKit
 
-public extension ReactiveExtensions where Base: UISegmentedControl {
+extension UISegmentedControl {
 
-  public var selectedSegmentIndex: DynamicSubject<Int> {
-    return dynamicSubject(
-      signal: controlEvents(.valueChanged).eraseType(),
+  public var bnd_selectedSegmentIndex: DynamicSubject<UISegmentedControl, Int> {
+    return DynamicSubject(
+      target: self,
+      signal: bnd_controlEvents(.valueChanged).eraseType(),
       get: { $0.selectedSegmentIndex },
       set: { $0.selectedSegmentIndex = $1 }
     )
@@ -39,6 +40,6 @@ public extension ReactiveExtensions where Base: UISegmentedControl {
 extension UISegmentedControl: BindableProtocol {
 
   public func bind(signal: Signal<Int, NoError>) -> Disposable {
-    return reactive.selectedSegmentIndex.bind(signal: signal)
+    return bnd_selectedSegmentIndex.bind(signal: signal)
   }
 }

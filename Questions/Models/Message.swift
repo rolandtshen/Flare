@@ -13,11 +13,6 @@ import JSQMessagesViewController
 
 class Message: PFObject, PFSubclassing, JSQMessageData {
     
-    private lazy var __once: () = {
-            // inform Parse about this subclass
-            self.registerSubclass()
-        }()
-    
     @NSManaged var fromUser: PFUser?
     @NSManaged var toUser: PFUser?
     @NSManaged var convo: Conversation
@@ -54,7 +49,6 @@ class Message: PFObject, PFSubclassing, JSQMessageData {
     }
     
     override class func initialize() {
-        var onceToken: Int = 0;
-        _ = self.__once
+        self.registerSubclass()
     }
 }

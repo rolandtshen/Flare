@@ -90,9 +90,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let installation = PFInstallation.current()
-        installation.setDeviceTokenFrom(deviceToken)
-        installation.channels = ["global"]
-        installation.saveInBackground()
+        installation?.setDeviceTokenFrom(deviceToken)
+        installation?.channels = ["global"]
+        installation?.saveInBackground()
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {

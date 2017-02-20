@@ -18,7 +18,7 @@ class LikeHelper {
         let query = PFQuery(className: "Like")
         query.includeKey("toPost")
         query.whereKey("toPost", equalTo: question)
-        query.findObjectsInBackground {(objects: [PFObject]?, error: NSError?) -> Void in
+        query.findObjectsInBackground {(objects: [PFObject]?, error: Error?) -> Void in
             if error == nil {
                 count = (objects?.count)!
             }
@@ -32,14 +32,14 @@ class LikeHelper {
         let query = PFQuery(className: "Like")
         query.includeKey("toPost")
         query.whereKey("toPost", equalTo: question)
-        query.findObjectsInBackground {(objects: [PFObject]?, error: NSError?) -> Void in
+        query.findObjectsInBackground {(objects: [PFObject]?, error: Error?) -> Void in
             if error == nil {
                 completionHandler(objects!.count)
             }
         }
     }
     
-    static func likesForPost(_ post: Question, completionBlock: @escaping PFQueryArrayResultBlock) {
+    static func likesForPost(_ post: Question, completionBlock: @escaping ([PFObject]?, Error?) -> Void) {
         let query = PFQuery(className: "Like")
         query.whereKey("toPost", equalTo: post)
         query.includeKey("toPost")
@@ -58,7 +58,7 @@ class LikeHelper {
         query.whereKey("fromUser", equalTo: user)
         query.whereKey("toPost", equalTo: question)
         
-        query.findObjectsInBackground { (results: [PFObject]?, error: NSError?) -> Void in
+        query.findObjectsInBackground { (results: [PFObject]?, error: Error?) -> Void in
             if let results = results {
                 for like in results {
                     like.deleteInBackground(block: nil)

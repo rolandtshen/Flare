@@ -24,14 +24,16 @@
 
 import UIKit
 import ReactiveKit
+import Foundation
 
 #if os(iOS)
 
-public extension ReactiveExtensions where Base: UIDatePicker {
+public extension UIDatePicker {
 
-  public var date: DynamicSubject<Date> {
-    return dynamicSubject(
-      signal: controlEvents(.valueChanged).eraseType(),
+  public var bnd_date: DynamicSubject<UIDatePicker, Date> {
+    return DynamicSubject(
+      target: self,
+      signal: bnd_controlEvents(.valueChanged).eraseType(),
       get: { $0.date },
       set: { $0.date = $1 }
     )
@@ -41,7 +43,7 @@ public extension ReactiveExtensions where Base: UIDatePicker {
 extension UIDatePicker: BindableProtocol {
 
   public func bind(signal: Signal<Date, NoError>) -> Disposable {
-    return reactive.date.bind(signal: signal)
+    return bnd_date.bind(signal: signal)
   }
 }
 

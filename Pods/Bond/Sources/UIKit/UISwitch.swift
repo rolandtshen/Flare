@@ -27,11 +27,12 @@ import ReactiveKit
 
 #if os(iOS)
 
-public extension ReactiveExtensions where Base: UISwitch {
+extension UISwitch {
   
-  public var isOn: DynamicSubject<Bool> {
-    return dynamicSubject(
-      signal: controlEvents(.valueChanged).eraseType(),
+  public var bnd_isOn: DynamicSubject<UISwitch, Bool> {
+    return DynamicSubject(
+      target: self,
+      signal: bnd_controlEvents(.valueChanged).eraseType(),
       get: { $0.isOn },
       set: { $0.isOn = $1 }
     )
@@ -41,7 +42,7 @@ public extension ReactiveExtensions where Base: UISwitch {
 extension UISwitch: BindableProtocol {
   
   public func bind(signal: Signal<Bool, NoError>) -> Disposable {
-    return reactive.isOn.bind(signal: signal)
+    return bnd_isOn.bind(signal: signal)
   }
 }
 

@@ -90,13 +90,12 @@ class ProfileViewController: PFQueryTableViewController {
     
     //MARK: Downloads
     
-    func getProfilePic(_ object: PFUser, completionHandler: @escaping (UIImage) -> Void) {
-        let profile = object
-        if let picture = profile.object(forKey: "profilePic") {
-            (picture as AnyObject).getDataInBackground(block: {
-                (imageData: Data?, error: NSError?) -> Void in
-                if (error == nil) {
-                    completionHandler(UIImage(data: imageData!)!)
+    func getProfilePic(_ user: PFUser, completionHandler: @escaping (UIImage) -> Void) {
+        let profile = user
+        if let picture = profile.object(forKey: "profilePic") as? PFFile {
+            picture.getDataInBackground(block: { (data, error) in
+                if (data != nil) {
+                    completionHandler(UIImage(data: data!)!)
                 }
             })
         }
@@ -122,7 +121,7 @@ class ProfileViewController: PFQueryTableViewController {
     func getNumLikes(_ completionHandler: @escaping (Int) -> Void) {
         let query = PFQuery(className: "Like")
         query.whereKey("fromUser", equalTo: PFUser.current()!)
-        query.findObjectsInBackground {(objects: [PFObject]?, error: NSError?) -> Void in
+        query.findObjectsInBackground { (objects, error) in
             if error == nil {
                 completionHandler(objects!.count)
             }
@@ -132,7 +131,7 @@ class ProfileViewController: PFQueryTableViewController {
     func getNumQuestions(_ completionHandler: @escaping (Int) -> Void) {
         let query = PFQuery(className: "Post")
         query.whereKey("user", equalTo: PFUser.current()!)
-        query.findObjectsInBackground {(objects: [PFObject]?, error: NSError?) -> Void in
+        query.findObjectsInBackground { (objects, error) in
             if error == nil {
                 completionHandler(objects!.count)
             }
@@ -142,7 +141,7 @@ class ProfileViewController: PFQueryTableViewController {
     func getNumAnswers(_ completionHandler: @escaping (Int) -> Void) {
         let query = PFQuery(className: "Reply")
         query.whereKey("fromUser", equalTo: PFUser.current()!)
-        query.findObjectsInBackground {(objects: [PFObject]?, error: NSError?) -> Void in
+        query.findObjectsInBackground { (objects, error) in
             if error == nil {
                 completionHandler(objects!.count)
             }

@@ -9,14 +9,8 @@
 import Foundation
 import UIKit
 import Parse
-import CoreLocation
 
 class Reply: PFObject, PFSubclassing {
-    
-    private lazy var __once: () = {
-            // inform Parse about this subclass
-            self.registerSubclass()
-        }()
     
     @NSManaged var fromUser: PFUser?
     @NSManaged var reply: String?
@@ -29,7 +23,6 @@ class Reply: PFObject, PFSubclassing {
     }
     
     override class func initialize() {
-        var onceToken: Int = 0;
-        _ = self.__once
+        self.registerSubclass()
     }
 }

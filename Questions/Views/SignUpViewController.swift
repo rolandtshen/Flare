@@ -8,7 +8,6 @@
 
 import Foundation
 import Parse
-import SCLAlertView
 import SVProgressHUD
 import Mixpanel
 
@@ -48,23 +47,23 @@ class SignUpViewController: UIViewController {
         
         // Validate the text fields
         
-        if username == "" {
-            let alert = SCLAlertView()
-            alert.showError("Error", subTitle: "You haven't entered a username!")
-            hasError = true
-        }
-        
-        if email == "" {
-            let alert = SCLAlertView()
-            alert.showError("Error", subTitle: "You haven't entered an email!")
-            hasError = true
-        }
-        
-        if password == "" {
-            let alert = SCLAlertView()
-            alert.showError("Error", subTitle: "You haven't entered a password!")
-            hasError = true
-        }
+//        if username == "" {
+//            let alert = SCLAlertView()
+//            alert.showError("Error", subTitle: "You haven't entered a username!")
+//            hasError = true
+//        }
+//        
+//        if email == "" {
+//            let alert = SCLAlertView()
+//            alert.showError("Error", subTitle: "You haven't entered an email!")
+//            hasError = true
+//        }
+//        
+//        if password == "" {
+//            let alert = SCLAlertView()
+//            alert.showError("Error", subTitle: "You haven't entered a password!")
+//            hasError = true
+//        }
      
         if(hasError == false) {
             let newUser = PFUser()
@@ -86,8 +85,8 @@ class SignUpViewController: UIViewController {
                 }
                 else {
                     SVProgressHUD.dismiss()
-                    let alert = SCLAlertView()
-                    alert.showError("Error", subTitle: "Username or email are already taken")
+//                    let alert = SCLAlertView()
+//                    alert.showError("Error", subTitle: "Username or email are already taken")
                 }
             })
         }

@@ -8,7 +8,6 @@
 
 import Foundation
 import ChameleonFramework
-import SCLAlertView
 import Parse
 import ParseUI
 import SVProgressHUD
@@ -83,26 +82,26 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     func uploadPost() {
         let question = Question()
         var hasError = false
-        let alert = SCLAlertView()
-        if(selectedCategory != nil) {
-            question.category = selectedCategory
-        } else {
-            alert.showError("Error", subTitle: "Please select a category")
-            hasError = true
-        }
-        
-        if(postTextView.text != "") {
-            question.question = postTextView.text
-        } else {
-            alert.showError("Error", subTitle: "You haven't written a question!")
-            hasError = true
-        }
-        
-        if(locationExists == true) {
-            question.location = PFGeoPoint(latitude: currLocation!.latitude, longitude: currLocation!.longitude)
-        } else {
-            alert.showError("Error", subTitle: "Couldn't get location!")
-        }
+//        let alert = SCLAlertView()
+//        if(selectedCategory != nil) {
+//            question.category = selectedCategory
+//        } else {
+//            alert.showError("Error", subTitle: "Please select a category")
+//            hasError = true
+//        }
+//        
+//        if(postTextView.text != "") {
+//            question.question = postTextView.text
+//        } else {
+//            alert.showError("Error", subTitle: "You haven't written a question!")
+//            hasError = true
+//        }
+//        
+//        if(locationExists == true) {
+//            question.location = PFGeoPoint(latitude: currLocation!.latitude, longitude: currLocation!.longitude)
+//        } else {
+//            alert.showError("Error", subTitle: "Couldn't get location!")
+//        }
         
         question.user = PFUser.current()
         if let image = image {
@@ -132,68 +131,68 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func pressCategoryButton(_ sender: AnyObject) {
-        let alertView = SCLAlertView()
-        
-        if(postTextView.isFirstResponder) {
-            postTextView.resignFirstResponder()
-        }
-        
-        alertView.addButton("Travel", backgroundColor: UIColor.flatRedColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
-            self.selectedCategory = "Travel"
-            
-            self.categoryButton.backgroundColor = UIColor.flatRedColor()
-            self.categoryButton.titleLabel?.text = "Travel"
-        }
-        
-        alertView.addButton("Entertainment", backgroundColor: UIColor.flatOrangeColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
-            self.selectedCategory = "Entertainment"
-            
-            self.categoryButton.backgroundColor = UIColor.flatYellowColor()
-            self.categoryButton.titleLabel?.text = "Entertainment"
-        }
-        
-        alertView.addButton("Meetup", backgroundColor: UIColor.flatYellowColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
-            self.selectedCategory = "Meetup"
-            
-            self.categoryButton.backgroundColor = UIColor.flatYellowColor()
-            self.categoryButton.titleLabel?.text = "Meetup"
-        }
-        
-        alertView.addButton("Listings", backgroundColor: UIColor.flatGreenColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
-            self.selectedCategory = "Listings"
-            
-            self.categoryButton.backgroundColor = UIColor.flatGreenColor()
-            self.categoryButton.titleLabel?.text = "Listings"
-        }
-        
-        alertView.addButton("Recommendations", backgroundColor: UIColor.flatSkyBlueColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
-            self.selectedCategory = "Recommendations"
-            
-            self.categoryButton.backgroundColor = UIColor.flatSkyBlueColor()
-            self.categoryButton.titleLabel?.text = "Recommendations"
-        }
-        alertView.addButton("Other", backgroundColor: UIColor.flatMagentaColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
-            self.selectedCategory = "Other"
-            
-            self.categoryButton.backgroundColor = UIColor.flatMagentaColor()
-            self.categoryButton.titleLabel?.text = "Other"
-        }
-        
-        alertView.showNotice("Categories", subTitle: "")
+//        let alertView = SCLAlertView()
+//        
+//        if(postTextView.isFirstResponder) {
+//            postTextView.resignFirstResponder()
+//        }
+//        
+//        alertView.addButton("Travel", backgroundColor: UIColor.flatRedColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+//            self.selectedCategory = "Travel"
+//            
+//            self.categoryButton.backgroundColor = UIColor.flatRedColor()
+//            self.categoryButton.titleLabel?.text = "Travel"
+//        }
+//        
+//        alertView.addButton("Entertainment", backgroundColor: UIColor.flatOrangeColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+//            self.selectedCategory = "Entertainment"
+//            
+//            self.categoryButton.backgroundColor = UIColor.flatYellowColor()
+//            self.categoryButton.titleLabel?.text = "Entertainment"
+//        }
+//        
+//        alertView.addButton("Meetup", backgroundColor: UIColor.flatYellowColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+//            self.selectedCategory = "Meetup"
+//            
+//            self.categoryButton.backgroundColor = UIColor.flatYellowColor()
+//            self.categoryButton.titleLabel?.text = "Meetup"
+//        }
+//        
+//        alertView.addButton("Listings", backgroundColor: UIColor.flatGreenColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+//            self.selectedCategory = "Listings"
+//            
+//            self.categoryButton.backgroundColor = UIColor.flatGreenColor()
+//            self.categoryButton.titleLabel?.text = "Listings"
+//        }
+//        
+//        alertView.addButton("Recommendations", backgroundColor: UIColor.flatSkyBlueColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+//            self.selectedCategory = "Recommendations"
+//            
+//            self.categoryButton.backgroundColor = UIColor.flatSkyBlueColor()
+//            self.categoryButton.titleLabel?.text = "Recommendations"
+//        }
+//        alertView.addButton("Other", backgroundColor: UIColor.flatMagentaColor(), textColor: UIColor.whiteColor(), showDurationStatus: true) {
+//            self.selectedCategory = "Other"
+//            
+//            self.categoryButton.backgroundColor = UIColor.flatMagentaColor()
+//            self.categoryButton.titleLabel?.text = "Other"
+//        }
+//        
+//        alertView.showNotice("Categories", subTitle: "")
     }
     
     func getProfilePic(_ user: PFUser, completionHandler: @escaping (UIImage) -> Void) {
         let profile = user
         if let picture = profile.object(forKey: "profilePic") {
             (picture as AnyObject).getDataInBackground(block: {
-                (imageData: Data?, error: NSError?) -> Void in
+                (imageData, error) -> Void in
                 if (imageData != nil) {
                     completionHandler(UIImage(data: imageData!)!)
                 }
             })
         }
     }
-
+    
     //MARK: Image Picker Methods
     func chooseImageSource() {
         // Allow user to choose between photo library and camera

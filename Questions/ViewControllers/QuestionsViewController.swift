@@ -12,7 +12,6 @@ import CoreLocation
 import Parse
 import ParseUI
 import DateTools
-import SCLAlertView
 import ChameleonFramework
 import DZNEmptyDataSet
 
@@ -89,11 +88,10 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
     
     func getProfilePic(_ user: PFUser, completionHandler: @escaping (UIImage) -> Void) {
         let profile = user
-        if let picture = profile.object(forKey: "profilePic") {
-            (picture as AnyObject).getDataInBackground(block: {
-                (imageData: Data?, error: NSError?) -> Void in
-                if (imageData != nil) {
-                    completionHandler(UIImage(data: imageData!)!)
+        if let picture = profile.object(forKey: "profilePic") as? PFFile {
+            picture.getDataInBackground(block: { (data, error) in
+                if (data != nil) {
+                    completionHandler(UIImage(data: data!)!)
                 }
             })
         }
@@ -117,23 +115,22 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         let query = PFQuery(className: "Reply")
         query.includeKey("toPost")
         query.whereKey("toPost", equalTo: question)
-        query.findObjectsInBackground {(objects: [PFObject]?, error: NSError?) -> Void in
+        query.findObjectsInBackground { (objects, error) in
             completionHandler(objects!.count)
         }
     }
     
-    func getImage(_ object: PFObject, completionHandler: @escaping (UIImage) -> Void) {
+    func getImage(object: PFObject, completionHandler: @escaping (UIImage) -> Void) {
         let question = object as! Question
         if let picture = question.imageFile {
-            picture.getDataInBackground(block: {
-                (imageData: Data?, error: NSError?) -> Void in
-                if (error == nil) {
-                    completionHandler(UIImage(data: imageData!)!)
+            picture.getDataInBackground(block: { (data, error) in
+                if(error == nil) {
+                    completionHandler(UIImage(data: data!)!)
                 }
             })
         }
     }
-
+    
     //MARK: Image Picker Methods
     func imageTapped(_ gesture: UIGestureRecognizer) {
         if (gesture.view as? UIImageView) != nil {
@@ -223,7 +220,7 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
                 }
             })
             
-            getImage(object!, completionHandler: { (image) in
+            getImage(object: object!, completionHandler: { (image) in
                 imageCell.postImage.image = image
             })
             
@@ -267,20 +264,19 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         locationManager.stopUpdatingLocation()
-        let alert = SCLAlertView()
         if(locations.count > 0) {
             let location = locations[locations.count - 1]
             currLocation = location.coordinate
             self.loadObjects()
         }
         else {
-            alert.showError("Error", subTitle: "Please enable location services in settings!")
+           // alert.showError("Error", subTitle: "Please enable location services in settings!")
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        let alert = SCLAlertView()
-        alert.showError("Error", subTitle: "Please enable location services in settings!")
+//        let alert = SCLAlertView()
+//        alert.showError("Error", subTitle: "Please enable location services in settings!")
     }
     
     override func object(at indexPath: IndexPath!) -> PFObject? {

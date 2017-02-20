@@ -25,16 +25,16 @@
 import ReactiveKit
 import UIKit
 
-public extension ReactiveExtensions where Base: UIProgressView {
+public extension UIProgressView {
 
-  public var progress: Bond<Float> {
-    return bond { $0.progress = $1 }
+  public var bnd_progress: Bond<UIProgressView, Float> {
+    return Bond(target: self) { $0.progress = $1 }
   }
 }
 
 extension UIProgressView: BindableProtocol {
 
   public func bind(signal: Signal<Float, NoError>) -> Disposable {
-    return reactive.progress.bind(signal: signal)
+    return bnd_progress.bind(signal: signal)
   }
 }

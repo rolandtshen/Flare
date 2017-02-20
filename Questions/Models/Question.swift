@@ -14,11 +14,6 @@ import Bond
 
 class Question: PFObject, PFSubclassing {
    
-    private lazy var __once: () = {
-            // inform Parse about this subclass
-            self.registerSubclass()
-        }()
-   
     @NSManaged var user: PFUser?
     @NSManaged var location: PFGeoPoint?
     @NSManaged var category: String?
@@ -58,7 +53,7 @@ class Question: PFObject, PFSubclassing {
             return
         }
         
-        LikeHelper.likesForPost(self, completionBlock: { (likes: [PFObject]?, error: NSError?) -> Void in
+        LikeHelper.likesForPost(self) { (likes, error) in
             let validLikes = likes?.filter { like in like["fromUser"] != nil }
             
             self.likes.value = validLikes?.map { like in
@@ -66,11 +61,10 @@ class Question: PFObject, PFSubclassing {
                 
                 return fromUser
             }
-        })
+        }
     }
     
     override class func initialize() {
-        var onceToken: Int = 0;
-        _ = self.__once
+        self.registerSubclass()
     }
 }

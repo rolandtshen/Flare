@@ -53,21 +53,11 @@ public protocol DataSourceEventProtocol {
   var dataSource: DataSource { get }
 }
 
-extension DataSourceEventProtocol {
-
-  public var _unbox: DataSourceEvent<DataSource> {
-    if let event = self as? DataSourceEvent<DataSource> {
-      return event
-    } else {
-      return DataSourceEvent(kind: self.kind, dataSource: self.dataSource)
-    }
-  }
-}
-
 public struct DataSourceEvent<DataSource: DataSourceProtocol>: DataSourceEventProtocol {
   public let kind: DataSourceEventKind
   public let dataSource: DataSource
 }
+
 
 extension Array: DataSourceProtocol {
 
@@ -80,20 +70,9 @@ extension Array: DataSourceProtocol {
   }
 }
 
-extension Array: DataSourceEventProtocol {
-
-  public var kind: DataSourceEventKind {
-    return .reload
-  }
-
-  public var dataSource: Array<Element> {
-    return self
-  }
-}
-
 extension SignalProtocol where Element: DataSourceProtocol, Error == NoError {
 
-  public func mapToDataSourceEvent() -> SafeSignal<DataSourceEvent<Element>> {
+  public func mapToDataSourceEvent() -> Signal1<DataSourceEvent<Element>> {
     return map { collection in DataSourceEvent(kind: .reload, dataSource: collection) }
   }
 }

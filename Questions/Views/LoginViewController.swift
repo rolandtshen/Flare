@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import ChameleonFramework
 import Parse
-import SCLAlertView
 import ParseFacebookUtilsV4
 import FBSDKLoginKit
 import FBSDKCoreKit
@@ -73,14 +72,14 @@ class LoginViewController: UIViewController {
         
         // Validate the text fields
         if username == "" {
-            let alert = SCLAlertView()
-            alert.showError("Error", subTitle: "You haven't entered a username!")
+//            let alert = SCLAlertView()
+//            alert.showError("Error", subTitle: "You haven't entered a username!")
             hasError = true
             
         }
         if password == "" {
-            let alert = SCLAlertView()
-            alert.showError("Error", subTitle: "You haven't entered a password!")
+//            let alert = SCLAlertView()
+//            alert.showError("Error", subTitle: "You haven't entered a password!")
             hasError = true
         }
         
@@ -91,8 +90,8 @@ class LoginViewController: UIViewController {
                 if ((user) != nil) {
                     SVProgressHUD.dismiss()
                     let installation = PFInstallation.current()
-                    installation.setObject(PFUser.current()!, forKey: "user")
-                    installation.saveInBackground()
+                    installation?.setObject(PFUser.current()!, forKey: "user")
+                    installation?.saveInBackground()
                     Mixpanel.sharedInstance().track("Logged in successfully")
                     DispatchQueue.main.async(execute: { () -> Void in
                         let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarController")
@@ -100,31 +99,12 @@ class LoginViewController: UIViewController {
                     })
                     
                 } else {
-                    let alert = SCLAlertView()
-                    alert.showError("Error", subTitle: "\(error)")
+//                    let alert = SCLAlertView()
+//                    alert.showError("Error", subTitle: "\(error)")
                     SVProgressHUD.dismiss()
                 }
             })
         }
-    }
-    
-    @IBAction func facebookPressed(_ sender: AnyObject) {
-        let alert = SCLAlertView()
-        alert.showError("Error", subTitle: "Facebook login isn't ready yet.")
-//        let permissions = ["public_profile", "email", "user_friends"]
-//        
-//        PFFacebookUtils.logInInBackgroundWithReadPermissions(permissions,  block: {  (user: PFUser?, error: NSError?) -> Void in
-//            if ((user) != nil) {
-//                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                    let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TabBarController")
-//                    self.presentViewController(viewController, animated: true, completion: nil)
-//                })
-//                
-//            } else {
-//                let alert = SCLAlertView()
-//                alert.showError("Error", subTitle: "\(error)")
-//            }
-//        })
     }
 }
 

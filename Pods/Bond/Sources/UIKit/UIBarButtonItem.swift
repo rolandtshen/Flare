@@ -27,44 +27,41 @@ import ReactiveKit
 
 extension UIBarButtonItem {
 
-  fileprivate struct AssociatedKeys {
+  private struct AssociatedKeys {
     static var BarButtonItemHelperKey = "bnd_BarButtonItemHelperKey"
   }
 
-  @objc fileprivate class BondTarget: NSObject
-  {
-    weak var barButtonItem: UIBarButtonItem?
-    let subject = PublishSubject<Void, NoError>()
-
-    init(barButtonItem: UIBarButtonItem) {
-      self.barButtonItem = barButtonItem
-      super.init()
-
-      barButtonItem.target = self
-      barButtonItem.action = #selector(eventHandler)
-    }
-
-    func eventHandler() {
-      subject.next()
-    }
-
-    deinit {
-      barButtonItem?.target = nil
-      barButtonItem?.action = nil
-      subject.completed()
+  public var bnd_tap: Signal1<Void> {
+    if let target = objc_getAssociatedObject(self, &AssociatedKeys.BarButtonItemHelperKey) as AnyObject? {
+      return (target as! BNDBarButtonItemTarget).subject.toSignal()
+    } else {
+      let target = BNDBarButtonItemTarget(barButtonItem: self)
+      objc_setAssociatedObject(self, &AssociatedKeys.BarButtonItemHelperKey, target, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+      return target.subject.toSignal()
     }
   }
 }
 
-public extension ReactiveExtensions where Base: UIBarButtonItem {
+@objc fileprivate class BNDBarButtonItemTarget: NSObject
+{
+  weak var barButtonItem: UIBarButtonItem?
+  let subject = PublishSubject<Void, NoError>()
 
-  public var tap: SafeSignal<Void> {
-    if let target = objc_getAssociatedObject(base, &UIBarButtonItem.AssociatedKeys.BarButtonItemHelperKey) as AnyObject? {
-      return (target as! UIBarButtonItem.BondTarget).subject.toSignal()
-    } else {
-      let target = UIBarButtonItem.BondTarget(barButtonItem: base)
-      objc_setAssociatedObject(base, &UIBarButtonItem.AssociatedKeys.BarButtonItemHelperKey, target, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-      return target.subject.toSignal()
-    }
+  init(barButtonItem: UIBarButtonItem) {
+    self.barButtonItem = barButtonItem
+    super.init()
+
+    barButtonItem.target = self
+    barButtonItem.action = #selector(eventHandler)
+  }
+
+  func eventHandler() {
+    subject.next()
+  }
+
+  deinit {
+    barButtonItem?.target = nil
+    barButtonItem?.action = nil
+    subject.completed()
   }
 }

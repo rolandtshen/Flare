@@ -12,6 +12,7 @@ import ParseUI
 import Parse
 import ChameleonFramework
 import Bond
+import ReactiveKit
 
 class QuestionCell: PFTableViewCell {
     
@@ -25,27 +26,27 @@ class QuestionCell: PFTableViewCell {
     @IBOutlet weak var likesLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
     
-    var postDisposable: DisposableType?
-    var likeDisposable: DisposableType?
+    var likeDisposable: Disposable?
     
     var post: Question? {
         didSet {
             likeDisposable?.dispose()
             if let post = post {
-                likeDisposable = post.likes.observe { (value: [PFUser]?) -> () in
-                    if let value = value {
-                        self.likesLabel.text = self.numLikes(value)
-                        self.likeButton.selected = value.contains(PFUser.currentUser()!)
-                        if value.count == 0 {
-                            self.likeButton.setImage(UIImage(named: "like"), forState: .Normal)
-                        } else {
-                            self.likeButton.setImage(UIImage(named: "liked"), forState: .Normal)
-                        }
-                    } else {
-                        self.likesLabel.text = "\(LikeHelper.getNumLikes(post))"
-                        self.likeButton.selected = false
-                        self.likeButton.setImage(UIImage(named: "like"), forState: .Normal)
-                    }
+                likeDisposable = post.likes.observe { (value) in
+                    print(value)
+                    //                    if let value = value {
+                    //                        self.likesLabel.text = self.numLikes(value)
+                    //                        self.likeButton.selected = value.contains(PFUser.currentUser()!)
+                    //                        if value.count == 0 {
+                    //                            self.likeButton.setImage(UIImage(named: "like"), for: .normal)
+                    //                        } else {
+                    //                            self.likeButton.setImage(UIImage(named: "liked"), for: .normal)
+                    //                        }
+                    //                    } else {
+                    //                        self.likesLabel.text = "\(LikeHelper.getNumLikes(post))"
+                    //                        self.likeButton.isSelected = false
+                    //                        self.likeButton.setImage(UIImage(named: "like"), for: .normal)
+                    //                    }
                 }
             }
         }

@@ -34,21 +34,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>FBSDKCoreKit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>FBSDKLoginKit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>IQKeyboardManagerSwift.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>JSQMessagesViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -69,11 +54,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ParseFacebookUtilsV4.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>ParseUI.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -89,11 +69,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SCLAlertView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>SVProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -102,27 +77,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>11B1ECE8AA101C5ED613195D0D7720F7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1520003FEBEC114D6C84F832AFEDB994</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>16FB872D0D2D4BA0F378AB34D47CF95F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>1ED4DFAAD25E1999D0244868457A351E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>25EC10786AD0BB459E8292197CA2118F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -137,27 +97,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>48328EBCD6DC676A9804A01B870AE80E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>59CDDB315DD2B098E0CD9ED56B026F4B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>61AF977C23DFB1506EEC7FDC5AACAB7E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6EDC37F3FA92533C6AC3562458AA91F1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8978C7FB7007A28B676AB1EA004C3923</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>93EAD7744216230EEF67D5B39917C8F0</key>
+		<key>7129FAB61478FA70223DADF4921468CD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -167,32 +117,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9BE20C1293F60598B26803D4CE71C5DD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9D0F2E5EA1B46A5D72FFD42B0B39DBBC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>AFEDA8059B169E4068B6DCC4D2F0B0E9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BDCB802BDCAED0923D37EC928F83EEF9</key>
+		<key>C6E2B575182B20E34E91E0D1BD1427C1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D2749666883F37A57278402EA564385B</key>
+		<key>C7ED9EB4C8B060AEE3B9E02CCA4F7B73</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>E1F78B1C5F8F2CCD0E68552EAF2B9B52</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E22A91517B70A6FA4B79CC2EEA8A70FF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E729C52CBE7ADC6D7B6BF3F4FEF33548</key>
 		<dict>
 			<key>primary</key>
 			<true/>

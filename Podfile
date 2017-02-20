@@ -12,12 +12,8 @@ pod 'ParseUI'
 pod 'DateTools'
 pod 'JSQMessagesViewController'
 pod 'SVProgressHUD'
-pod 'ParseFacebookUtilsV4'
 pod 'ChameleonFramework'
 pod 'DZNEmptyDataSet'
 pod 'Mixpanel'
-pod 'SCLAlertView'
-pod 'Bond'
-pod 'IQKeyboardManagerSwift'
-
+pod 'Bond', '~> 5.0'
 end

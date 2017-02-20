@@ -2,7 +2,6 @@
 import JSQMessagesViewController
 import Parse
 import ChameleonFramework
-import SCLAlertView
 import Mixpanel
 
 class ChatViewController: JSQMessagesViewController {
@@ -233,8 +232,8 @@ extension ChatViewController {
 //        sheet.addAction(cancelAction)
         
         //self.presentViewController(sheet, animated: true, completion: nil)
-        let alert = SCLAlertView()
-        alert.showError("Sorry!", subTitle: "This feature isn't ready yet!")
+//        let alert = SCLAlertView()
+//        alert.showError("Sorry!", subTitle: "This feature isn't ready yet!")
     }
 }
 
@@ -308,7 +307,7 @@ extension ChatViewController {
         query.includeKey("toUser")
         query.includeKey("fromUser")
         query.whereKey("convo", equalTo: conversation!)
-        query.findObjectsInBackground {(objects: [PFObject]?, error: NSError?) -> Void in
+        query.findObjectsInBackground {(objects: [PFObject]?, error: Error?) -> Void in
             let parseMessages = objects as! [Message]
             let messages: [JSQMessage] = parseMessages.map({ return self.jsqMessageFromParse($0) }) as [JSQMessage]
             self.messages = messages
@@ -323,9 +322,8 @@ extension ChatViewController {
         query.includeKey("fromUser")
         query.whereKey("convo", equalTo: conversation!)
         query.order(byDescending: "createdAt")
-        query.getFirstObjectInBackground {(object: PFObject?, error: NSError?) -> Void in
+        query.getFirstObjectInBackground { (object, error) in
             let parseMessage = object as! Message
-            print(parseMessage.fromUser)
             self.messages.append(self.jsqMessageFromParse(parseMessage))
             self.finishReceivingMessage()
         }

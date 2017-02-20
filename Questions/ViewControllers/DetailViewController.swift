@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import Parse
 import ParseUI
-import SCLAlertView
 
 class DetailViewController: PFQueryTableViewController {
    
@@ -60,7 +59,7 @@ class DetailViewController: PFQueryTableViewController {
         let question = object as! Question
         if let picture = question.imageFile {
             picture.getDataInBackground(block: {
-                (imageData: Data?, error: NSError?) -> Void in
+                (imageData, error) -> Void in
                 if (error == nil) {
                     completionHandler(UIImage(data: imageData!)!)
                 }
@@ -72,7 +71,7 @@ class DetailViewController: PFQueryTableViewController {
         let profile = user
         if let picture = profile.object(forKey: "profilePic") {
             (picture as AnyObject).getDataInBackground(block: {
-                (imageData: Data?, error: NSError?) -> Void in
+                (imageData, error) -> Void in
                 if (imageData != nil) {
                     completionHandler(UIImage(data: imageData!)!)
                 }
