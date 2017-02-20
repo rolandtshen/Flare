@@ -10,9 +10,6 @@ import Foundation
 import UIKit
 import ChameleonFramework
 import Parse
-import ParseFacebookUtilsV4
-import FBSDKLoginKit
-import FBSDKCoreKit
 import Mixpanel
 import SVProgressHUD
 

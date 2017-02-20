@@ -8,8 +8,6 @@
 
 import UIKit
 import Parse
-import FBSDKCoreKit
-import ParseFacebookUtilsV4
 import Mixpanel
 
 @UIApplicationMain
@@ -53,9 +51,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
         
-        //initialize Facebook
-        PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
-        
         //initialize Mixpanel
         Mixpanel.sharedInstance(withToken: "8393fb097d75410d96bf238e12397daf")
         let mixpanel: Mixpanel = Mixpanel.sharedInstance()
@@ -85,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.isStatusBarHidden = true
         
-        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        return true
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -117,13 +112,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        FBSDKAppEvents.activateApp()
-    }
-    
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
-    }
-    
 }

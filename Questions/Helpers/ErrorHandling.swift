@@ -20,7 +20,7 @@ class ErrorHandling: UIViewController {
     /**
      This default error handler presents an Alert View on the topmost View Controller
      */
-    static func defaultErrorHandler(_ error: NSError) {
+    static func defaultErrorHandler(_ error: Error) {
         let alert = UIAlertController(title: ErrorTitle, message: ErrorDefaultMessage, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: ErrorOKButtonTitle, style: UIAlertActionStyle.default, handler: nil))
         
