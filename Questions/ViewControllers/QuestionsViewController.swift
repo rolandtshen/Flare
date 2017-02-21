@@ -97,19 +97,6 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         }
     }
     
-//    func getNumLikes(object: PFObject, completionHandler: (Int) -> Void) {
-//        let question = object as! Question
-//        
-//        let query = PFQuery(className: "Like")
-//        query.includeKey("toPost")
-//        query.whereKey("toPost", equalTo: question)
-//        query.findObjectsInBackgroundWithBlock {(objects: [PFObject]?, error: NSError?) -> Void in
-//            if error == nil {
-//                completionHandler(objects!.count)
-//            }
-//        }
-//    }
-    
     func getNumReplies(_ object: PFObject, completionHandler: @escaping (Int) -> Void) {
         let question = object as! Question
         let query = PFQuery(className: "Reply")
@@ -310,7 +297,8 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
                 let obj = self.objects![indexPath!.row] as? Question
                 let detail = segue.destination as! DetailContainerViewController
                 detail.question = obj
-            } else if identifier == "questionImageDetail" {
+            }
+            if identifier == "questionImageDetail" {
                 let indexPath = self.tableView.indexPathForSelectedRow
                 let obj = self.objects![indexPath!.row] as? Question
                 let detail = segue.destination as! DetailContainerViewController

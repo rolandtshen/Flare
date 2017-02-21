@@ -16,6 +16,10 @@ class QuestionImageHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var categoryView: UIView!
+    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var profPic: UIImageView!
+    @IBOutlet weak var repliesLabel: UILabel!
+    
     var poster: PFUser?
     
     @IBAction func messagePressed(_ sender: AnyObject) {

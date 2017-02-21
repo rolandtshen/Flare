@@ -1,3 +1,5 @@
+
+
 //
 //  DetailViewController.swift
 //  Questions
@@ -27,11 +29,13 @@ class DetailViewController: PFQueryTableViewController {
         super.viewDidLoad()
         tableView.reloadData()
         
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        self.tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 80.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
         if question!.hasImage == true {
+            //ImageCell detail
+            
             questionImageHeaderView = UINib(nibName: "QuestionHeaderImageView", bundle: Bundle.main).instantiate(withOwner: nil, options: nil).first as? QuestionImageHeaderView
             questionImageHeaderView?.poster = question?.user
             questionImageHeaderView?.questionLabel.text = question?.question
@@ -39,16 +43,45 @@ class DetailViewController: PFQueryTableViewController {
             questionImageHeaderView?.usernameLabel.text = question!.user?.username
             questionImageHeaderView?.imageView.clipsToBounds = true
             questionImageHeaderView?.categoryView.backgroundColor = colorPicker.colorChooser(question!.category!)
+            questionImageHeaderView?.categoryLabel.text = question!.category!
+//            getProfilePic((question?.user)!, completionHandler: { (profilePic) in
+//                self.questionImageHeaderView?.profPic.image = profilePic
+//            })
+            getNumReplies(question!, completionHandler: { (numReplies) in
+                if(numReplies == 0) {
+                    self.questionImageHeaderView?.repliesLabel.text = ""
+                }
+                else if (numReplies == 1) {
+                    self.questionImageHeaderView?.repliesLabel.text = "1 reply"
+                }
+                else {
+                    self.questionImageHeaderView?.repliesLabel.text = "\(numReplies) replies"
+                }
+            })
+            
             getImage(question!, completionHandler: {(image) in
                 self.questionImageHeaderView?.imageView.image = image
             })
         } else {
+            //Normal Cell Detail
             questionHeaderView = UINib(nibName: "QuestionHeaderView", bundle: Bundle.main).instantiate(withOwner: nil, options: nil).first as? QuestionHeaderView
             questionHeaderView?.poster = question?.user
             questionHeaderView?.questionLabel.text = question?.question
             questionHeaderView?.timeLabel.text = (question?.createdAt as NSDate?)?.shortTimeAgo(since: Date())
             questionHeaderView?.usernameLabel.text = question!.user?.username
             questionHeaderView?.categoryView.backgroundColor = colorPicker.colorChooser(question!.category!)
+            questionHeaderView?.categoryLabel.text = question!.category!
+            getNumReplies(question!, completionHandler: { (numReplies) in
+                if(numReplies == 0) {
+                    self.questionHeaderView?.repliesLabel.text = ""
+                }
+                else if (numReplies == 1) {
+                    self.questionHeaderView?.repliesLabel.text = "1 reply"
+                }
+                else {
+                    self.questionHeaderView?.repliesLabel.text = "\(numReplies) replies"
+                }
+            })
         }
         
         //self.tableView.tableHeaderView = questionHeaderView ?? questionImageHeaderView
@@ -76,6 +109,16 @@ class DetailViewController: PFQueryTableViewController {
                     completionHandler(UIImage(data: imageData!)!)
                 }
             })
+        }
+    }
+    
+    func getNumReplies(_ object: PFObject, completionHandler: @escaping (Int) -> Void) {
+        let question = object as! Question
+        let query = PFQuery(className: "Reply")
+        query.includeKey("toPost")
+        query.whereKey("toPost", equalTo: question)
+        query.findObjectsInBackground { (objects, error) in
+            completionHandler(objects!.count)
         }
     }
     
