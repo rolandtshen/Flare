@@ -14,6 +14,7 @@ import ParseUI
 import DateTools
 import ChameleonFramework
 import DZNEmptyDataSet
+import SCLAlertView
 
 class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -257,13 +258,14 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
             self.loadObjects()
         }
         else {
-           // alert.showError("Error", subTitle: "Please enable location services in settings!")
+            let alert = SCLAlertView()
+            alert.showError("Error", subTitle: "Please enable location services in settings!")
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-//        let alert = SCLAlertView()
-//        alert.showError("Error", subTitle: "Please enable location services in settings!")
+        let alert = SCLAlertView()
+        alert.showError("Error", subTitle: "Please enable location services in settings!")
     }
     
     override func object(at indexPath: IndexPath!) -> PFObject? {

@@ -18,5 +18,7 @@ pod 'Mixpanel'
 pod 'Bond', '~> 5.0'
 pod 'AlertOnboarding'
 pod 'Eureka'
+pod 'ImageRow'
+pod 'SCLAlertView'
 
 end

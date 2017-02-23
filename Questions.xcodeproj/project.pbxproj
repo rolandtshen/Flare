@@ -19,6 +19,8 @@
 		2A364C931D3D44E1004F59EC /* Reply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A364C921D3D44E1004F59EC /* Reply.swift */; };
 		2A3822D61D356CFD00BC6D02 /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3822D51D356CFD00BC6D02 /* ErrorHandling.swift */; };
 		2A46FE561D697B0D00DF6820 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A46FE551D697B0D00DF6820 /* Block.swift */; };
+		2A60BDA31E5BF01800F5D3F7 /* ChangeProfilePicView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A60BDA21E5BF01800F5D3F7 /* ChangeProfilePicView.xib */; };
+		2A60BDA51E5BF14500F5D3F7 /* ChangeProfilePicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A60BDA41E5BF14500F5D3F7 /* ChangeProfilePicView.swift */; };
 		2A643A9B1D8E2806005A751A /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A643A9A1D8E2806005A751A /* Like.swift */; };
 		2A6546FC1D3853CC00A234A1 /* PhotoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6546FB1D3853CC00A234A1 /* PhotoHelper.swift */; };
 		2A88B1F21D47CEDF00359EAB /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88B1F01D47CEDF00359EAB /* ChatViewController.swift */; };
@@ -70,6 +72,8 @@
 		2A364C921D3D44E1004F59EC /* Reply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reply.swift; sourceTree = "<group>"; };
 		2A3822D51D356CFD00BC6D02 /* ErrorHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		2A46FE551D697B0D00DF6820 /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
+		2A60BDA21E5BF01800F5D3F7 /* ChangeProfilePicView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeProfilePicView.xib; sourceTree = "<group>"; };
+		2A60BDA41E5BF14500F5D3F7 /* ChangeProfilePicView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeProfilePicView.swift; sourceTree = "<group>"; };
 		2A643A9A1D8E2806005A751A /* Like.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
 		2A6546FB1D3853CC00A234A1 /* PhotoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoHelper.swift; sourceTree = "<group>"; };
 		2A88B1F01D47CEDF00359EAB /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -198,6 +202,7 @@
 				2AE71BFE1D341F3E00CB7B62 /* Main.storyboard */,
 				2AC6D81A1D3D9B1D0054BCDC /* QuestionHeaderView.xib */,
 				2AC024221D3E9D0000CDF938 /* QuestionHeaderImageView.xib */,
+				2A60BDA21E5BF01800F5D3F7 /* ChangeProfilePicView.xib */,
 				2AE71C011D341F3E00CB7B62 /* Assets.xcassets */,
 				2AE71C031D341F3E00CB7B62 /* LaunchScreen.storyboard */,
 				2AE71C061D341F3E00CB7B62 /* Info.plist */,
@@ -247,6 +252,7 @@
 				2AE71C211D343BFB00CB7B62 /* ProfileView.swift */,
 				2A163EFA1D4047EC00FC8FE1 /* QuestionHeaderView.swift */,
 				2A34A4031D41981600519B63 /* QuestionImageHeaderView.swift */,
+				2A60BDA41E5BF14500F5D3F7 /* ChangeProfilePicView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -342,6 +348,7 @@
 				2AC6D81B1D3D9B1D0054BCDC /* QuestionHeaderView.xib in Resources */,
 				2A92529E1D514E480051D1B3 /* ProximaNova-BoldIt.otf in Resources */,
 				2AE71C051D341F3E00CB7B62 /* LaunchScreen.storyboard in Resources */,
+				2A60BDA31E5BF01800F5D3F7 /* ChangeProfilePicView.xib in Resources */,
 				2AE71C021D341F3E00CB7B62 /* Assets.xcassets in Resources */,
 				2A9252A11D514E480051D1B3 /* ProximaNova-LightItalic.otf in Resources */,
 				2A9252A01D514E480051D1B3 /* ProximaNova-Light.otf in Resources */,
@@ -400,7 +407,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -417,6 +424,7 @@
 				2A643A9B1D8E2806005A751A /* Like.swift in Sources */,
 				2AE71C241D343C0700CB7B62 /* Question.swift in Sources */,
 				2AE71C201D343B9A00CB7B62 /* QuestionCell.swift in Sources */,
+				2A60BDA51E5BF14500F5D3F7 /* ChangeProfilePicView.swift in Sources */,
 				2A8B4DB61D52695F00DF875B /* SignUpViewController.swift in Sources */,
 				2AA9D2A01DA5BFB60037CA8E /* TabViewController.swift in Sources */,
 				2A34A4041D41981600519B63 /* QuestionImageHeaderView.swift in Sources */,

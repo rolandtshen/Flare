@@ -30,7 +30,7 @@ class DetailViewController: PFQueryTableViewController {
         tableView.reloadData()
         
         self.tableView.separatorStyle = .none
-        tableView.estimatedRowHeight = 80.0
+        tableView.estimatedRowHeight = 100.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
         if question!.hasImage == true {
@@ -44,9 +44,9 @@ class DetailViewController: PFQueryTableViewController {
             questionImageHeaderView?.imageView.clipsToBounds = true
             questionImageHeaderView?.categoryView.backgroundColor = colorPicker.colorChooser(question!.category!)
             questionImageHeaderView?.categoryLabel.text = question!.category!
-//            getProfilePic((question?.user)!, completionHandler: { (profilePic) in
-//                self.questionImageHeaderView?.profPic.image = profilePic
-//            })
+            getProfilePic((question?.user)!, completionHandler: { (profilePic) in
+                self.questionImageHeaderView?.profPic.image = profilePic
+            })
             getNumReplies(question!, completionHandler: { (numReplies) in
                 if(numReplies == 0) {
                     self.questionImageHeaderView?.repliesLabel.text = ""
@@ -82,10 +82,10 @@ class DetailViewController: PFQueryTableViewController {
                     self.questionHeaderView?.repliesLabel.text = "\(numReplies) replies"
                 }
             })
+            getProfilePic((question?.user)!, completionHandler: { (profilePic) in
+                self.questionHeaderView?.profilePicView.image = profilePic
+            })
         }
-        
-        //self.tableView.tableHeaderView = questionHeaderView ?? questionImageHeaderView
-        
     }
     
     func getImage(_ object: PFObject, completionHandler: @escaping (UIImage) -> Void) {
@@ -140,13 +140,15 @@ class DetailViewController: PFQueryTableViewController {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if(questionHeaderView != nil) {
-            return 200.0
+            return 224.0
         }
-        return 315.0
+        return 360.0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath, object: PFObject?) -> PFTableViewCell? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "replyCell", for: indexPath) as! ReplyCell
+        cell.replyProfilePic.layer.cornerRadius = cell.replyProfilePic.frame.height/2
+        cell.replyProfilePic.clipsToBounds = true
         cell.postTime.text = (object!.createdAt as NSDate?)?.shortTimeAgo(since: Date())
         cell.replyText.text = object!.value(forKey: "reply") as? String
         let user = object!.value(forKey: "fromUser") as? PFUser

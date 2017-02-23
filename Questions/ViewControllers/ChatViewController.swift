@@ -7,7 +7,7 @@ import Mixpanel
 class ChatViewController: JSQMessagesViewController {
 
     let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor.flatWhite())
-    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor.flatWatermelon())
+    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor.init(hexString: "27cde6"))
     
     var avatars = Dictionary<String, JSQMessagesAvatarImage>()
     var messages = [JSQMessage]()

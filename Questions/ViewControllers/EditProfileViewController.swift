@@ -10,57 +10,90 @@ import Foundation
 import UIKit
 import Parse
 import SVProgressHUD
+import Eureka
+import ImageRow
 
-class EditProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var bioTextView: UITextView!
-    @IBOutlet weak var nameTextView: UITextView!
-    @IBOutlet weak var emailTextView: UITextView!
+class MyFormViewController: FormViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var imagePickerController: UIImagePickerController?
     var chosenProfilePic: UIImage?
     
-    override var prefersStatusBarHidden : Bool {
-        return false
-    }
-    
     override func viewDidLoad() {
-        profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
-        profileImageView.clipsToBounds = true
+        super.viewDidLoad()
         
-        getUsername { (username) in
-            self.nameTextView.text = username
-        }
-        
-        getEmail { (email) in
-            self.emailTextView.text = email
-        }
-        
-        getProfilePic(PFUser.current()!) { (profilePic) in
-            self.profileImageView.image = profilePic
-        }
-        
-        getBio { (bio) in
-            self.bioTextView.text = bio
-        }
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(EditProfileViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
-    }
-    
-    func dismissKeyboard() {
-        view.endEditing(true)
+        form +++
+        Section("@\((PFUser.current()?.username!)!)") {
+            var header = HeaderFooterView<ChangeProfilePicView>(.nibFile(name: "ChangeProfilePicView", bundle: nil))
+            header.onSetupView = { (view, section) -> () in
+                self.getProfilePic(PFUser.current()!, completionHandler: { (image) in
+                    view.profileView.image = image
+                })
+                view.profileView.layer.cornerRadius = (view.profileView.frame.width)/2
+                view.profileView.clipsToBounds = true
+            }
+            $0.header = header
+            }
+
+            <<< NameRow("nameRow") { row in
+                row.title = "👨‍🏭"
+                row.placeholder = "Name"
+                }
+                .cellSetup { cell, row in
+                    self.getUsername({ (name) in
+                        cell.textField.text = name
+                        row.value = name
+                    })
+                }
+                .cellUpdate { cell, row in
+                    cell.textField.textAlignment = .left
+                    row.value = cell.textField.text
+            }
+            
+            <<< EmailRow("emailRow") { row in
+                row.title = "✉️"
+                row.placeholder = "Email"
+                }
+                .cellSetup { cell, row in
+                    self.getEmail({ (email) in
+                        row.value = email
+                        cell.textField.text = email
+                    })
+                }
+                .cellUpdate { cell, row in
+                    cell.textField.textAlignment = .left
+                    row.value = cell.textField.text
+            }
+            
+            <<< TextRow("textRow") { row in
+                row.title = "📝"
+                row.placeholder = "Biography"
+                }
+                .cellSetup { cell, row in
+                    self.getBio({ (bio) in
+                        row.value = bio
+                        cell.textField.text = bio
+                    })
+                }
+                .cellUpdate { cell, row in
+                    cell.textField.textAlignment = .left
+                    row.value = cell.textField.text
+            }
     }
     
     @IBAction func savePressed(_ sender: AnyObject) {
+        let nameRow: NameRow? = form.rowBy(tag: "nameRow")
+        let nameValue = nameRow?.value
+        let emailRow: EmailRow? = form.rowBy(tag: "emailRow")
+        let emailValue = emailRow?.value
+        let bioRow: TextRow? = form.rowBy(tag: "textRow")
+        let bioValue = bioRow?.value
         let user = PFUser.current()
-        user!.username = nameTextView.text
-        user!.email = emailTextView.text
-        user!["bio"] = bioTextView.text
-        if let image = chosenProfilePic {
-            user!["profilePic"] = PFFile(name: "image.jpg", data: UIImageJPEGRepresentation(image, 0.6)!)
-        }
+        user!.username = nameValue
+        user!.email = emailValue
+        user!["bio"] = bioValue
+//        if let image = chosenProfilePic {
+//            user!["profilePic"] = PFFile(name: "image.jpg", data: UIImageJPEGRepresentation(image, 0.6)!)
+//        }
         SVProgressHUD.show()
         user?.saveInBackground(block: { (success, error) in
             if(error == nil) {
@@ -69,8 +102,8 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             }
         })
     }
-    
-    func chooseImageSource() {
+
+    public func chooseImageSource() {
         // Allow user to choose between photo library and camera
         let alertController = UIAlertController(title: nil, message: "Where do you want to get your picture from?", preferredStyle: .actionSheet)
         
@@ -79,7 +112,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         alertController.addAction(cancelAction)
         
         let photoLibraryAction = UIAlertAction(title: "Photo from Library", style: .default) { (action) in
-            self.showImagePickerController(.photoLibrary)
+            self.showImagePickerController(sourceType: UIImagePickerControllerSourceType.photoLibrary)
         }
         
         alertController.addAction(photoLibraryAction)
@@ -87,14 +120,14 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         // Only show camera option if rear camera is available
         if (UIImagePickerController.isCameraDeviceAvailable(.rear)) {
             let cameraAction = UIAlertAction(title: "Photo from Camera", style: .default) { (action) in
-                self.showImagePickerController(.camera)
+                self.showImagePickerController(sourceType: UIImagePickerControllerSourceType.camera)
             }
             alertController.addAction(cameraAction)
         }
         present(alertController, animated: true, completion: nil)
     }
     
-    func showImagePickerController(_ sourceType: UIImagePickerControllerSourceType) {
+    func showImagePickerController(sourceType: UIImagePickerControllerSourceType) {
         imagePickerController = UIImagePickerController()
         imagePickerController!.sourceType = sourceType
         imagePickerController!.delegate = self
@@ -147,9 +180,4 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             }
         }
     }
-    
-    @IBAction func changePhoto(_ sender: AnyObject) {
-        chooseImageSource()
-    }
 }
-
