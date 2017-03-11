@@ -11,12 +11,8 @@ import UIKit
 import Parse
 import SVProgressHUD
 import Eureka
-import ImageRow
 
-class MyFormViewController: FormViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    var imagePickerController: UIImagePickerController?
-    var chosenProfilePic: UIImage?
+class MyFormViewController: FormViewController, UINavigationControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +21,15 @@ class MyFormViewController: FormViewController, UIImagePickerControllerDelegate,
         Section("@\((PFUser.current()?.username!)!)") {
             var header = HeaderFooterView<ChangeProfilePicView>(.nibFile(name: "ChangeProfilePicView", bundle: nil))
             header.onSetupView = { (view, section) -> () in
+                view.setProfilePic()
                 self.getProfilePic(PFUser.current()!, completionHandler: { (image) in
                     view.profileView.image = image
                 })
+                if let profilePic = view.profilePic {
+                    self.getProfilePic(PFUser.current()!, completionHandler: { (image) in
+                        view.profileView.image = image
+                    })
+                }
                 view.profileView.layer.cornerRadius = (view.profileView.frame.width)/2
                 view.profileView.clipsToBounds = true
             }
@@ -103,47 +105,6 @@ class MyFormViewController: FormViewController, UIImagePickerControllerDelegate,
         })
     }
 
-    public func chooseImageSource() {
-        // Allow user to choose between photo library and camera
-        let alertController = UIAlertController(title: nil, message: "Where do you want to get your picture from?", preferredStyle: .actionSheet)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        alertController.addAction(cancelAction)
-        
-        let photoLibraryAction = UIAlertAction(title: "Photo from Library", style: .default) { (action) in
-            self.showImagePickerController(sourceType: UIImagePickerControllerSourceType.photoLibrary)
-        }
-        
-        alertController.addAction(photoLibraryAction)
-        
-        // Only show camera option if rear camera is available
-        if (UIImagePickerController.isCameraDeviceAvailable(.rear)) {
-            let cameraAction = UIAlertAction(title: "Photo from Camera", style: .default) { (action) in
-                self.showImagePickerController(sourceType: UIImagePickerControllerSourceType.camera)
-            }
-            alertController.addAction(cameraAction)
-        }
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    func showImagePickerController(sourceType: UIImagePickerControllerSourceType) {
-        imagePickerController = UIImagePickerController()
-        imagePickerController!.sourceType = sourceType
-        imagePickerController!.delegate = self
-        
-        present(imagePickerController!, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            profileImageView.image = pickedImage
-            chosenProfilePic = pickedImage
-        }
-        
-        dismiss(animated: true, completion: nil)
-    }
-    
     //MARK: Downloads
     
     func getProfilePic(_ user: PFUser, completionHandler: @escaping (UIImage) -> Void) {

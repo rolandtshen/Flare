@@ -49,17 +49,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ImageRow.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>JSQMessagesViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>JSQSystemSoundPlayer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>KMPlaceholderTextView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -142,11 +142,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7D6A490F17A1BEE8A4FC8B42AFB6C7D6</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>8A267660E1AD4832DE75665F2F87AEA3</key>
 		<dict>
 			<key>primary</key>
@@ -157,12 +152,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9274C0827B72412A4D4D4D21FC357FEC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>970A784677D60ABC33336FF2BCDD7CF7</key>
+		<key>92C7AB081823F5BCB7ECBB3C81762042</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -187,12 +177,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F6A692070B61AA364E4EB7FA2C067C99</key>
+		<key>D53804E34279A83A61915C6ACA3C0D06</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EF6EE4ABDE272ECD393EE69ACC89EF53</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>F957EABCA56BD8F5B626798CC7B344D3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FC314CC391CB6AC62EAB42F550DC5DAA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

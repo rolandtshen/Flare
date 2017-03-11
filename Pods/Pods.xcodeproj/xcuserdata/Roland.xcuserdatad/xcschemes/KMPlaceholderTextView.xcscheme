@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'F6A692070B61AA364E4EB7FA2C067C99'
-               BlueprintName = 'ImageRow'
+               BlueprintIdentifier = 'D53804E34279A83A61915C6ACA3C0D06'
+               BlueprintName = 'KMPlaceholderTextView'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'ImageRow.framework'>
+               BuildableName = 'KMPlaceholderTextView.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
