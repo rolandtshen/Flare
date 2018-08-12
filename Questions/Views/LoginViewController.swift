@@ -12,6 +12,7 @@ import ChameleonFramework
 import Parse
 import Mixpanel
 import SVProgressHUD
+import SCLAlertView
 
 class LoginViewController: UIViewController {
  
@@ -24,8 +25,8 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         let colors:[UIColor] = [
-            UIColor(hexString: "dd2c00"),
-            UIColor(hexString: "ffc107")
+            UIColor(hexString: "0ae7f2"),
+            UIColor(hexString: "0b9de7")
         ]
         signInButton.backgroundColor = UIColor.init(gradientStyle: .leftToRight, withFrame: view.frame, andColors: colors)
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
@@ -69,14 +70,14 @@ class LoginViewController: UIViewController {
         
         // Validate the text fields
         if username == "" {
-//            let alert = SCLAlertView()
-//            alert.showError("Error", subTitle: "You haven't entered a username!")
+            let alert = SCLAlertView()
+            alert.showError("Error", subTitle: "You haven't entered a username!")
             hasError = true
             
         }
         if password == "" {
-//            let alert = SCLAlertView()
-//            alert.showError("Error", subTitle: "You haven't entered a password!")
+            let alert = SCLAlertView()
+            alert.showError("Error", subTitle: "You haven't entered a password!")
             hasError = true
         }
         
@@ -96,8 +97,8 @@ class LoginViewController: UIViewController {
                     })
                     
                 } else {
-//                    let alert = SCLAlertView()
-//                    alert.showError("Error", subTitle: "\(error)")
+                    let alert = SCLAlertView()
+                    alert.showError("Error", subTitle: "Your login credentials were not correct.")
                     SVProgressHUD.dismiss()
                 }
             })

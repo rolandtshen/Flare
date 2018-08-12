@@ -10,6 +10,7 @@ import Foundation
 import Parse
 import SVProgressHUD
 import Mixpanel
+import SCLAlertView
 
 class SignUpViewController: UIViewController {
     
@@ -21,8 +22,8 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         
         let colors:[UIColor] = [
-            UIColor(hexString: "dd2c00"),
-            UIColor(hexString: "ffc107")
+            UIColor(hexString: "0ae7f2"),
+            UIColor(hexString: "0b9de7")
         ]
         signUpButton.backgroundColor = UIColor.init(gradientStyle: .leftToRight, withFrame: view.frame, andColors: colors)
         
@@ -47,23 +48,23 @@ class SignUpViewController: UIViewController {
         
         // Validate the text fields
         
-//        if username == "" {
-//            let alert = SCLAlertView()
-//            alert.showError("Error", subTitle: "You haven't entered a username!")
-//            hasError = true
-//        }
-//        
-//        if email == "" {
-//            let alert = SCLAlertView()
-//            alert.showError("Error", subTitle: "You haven't entered an email!")
-//            hasError = true
-//        }
-//        
-//        if password == "" {
-//            let alert = SCLAlertView()
-//            alert.showError("Error", subTitle: "You haven't entered a password!")
-//            hasError = true
-//        }
+        if username == "" {
+            let alert = SCLAlertView()
+            alert.showError("Error", subTitle: "You haven't entered a username!")
+            hasError = true
+        }
+        
+        if email == "" {
+            let alert = SCLAlertView()
+            alert.showError("Error", subTitle: "You haven't entered an email!")
+            hasError = true
+        }
+        
+        if password == "" {
+            let alert = SCLAlertView()
+            alert.showError("Error", subTitle: "You haven't entered a password!")
+            hasError = true
+        }
      
         if(hasError == false) {
             let newUser = PFUser()
@@ -85,8 +86,8 @@ class SignUpViewController: UIViewController {
                 }
                 else {
                     SVProgressHUD.dismiss()
-//                    let alert = SCLAlertView()
-//                    alert.showError("Error", subTitle: "Username or email are already taken")
+                    let alert = SCLAlertView()
+                    alert.showError("Error", subTitle: "Username or email are already taken")
                 }
             })
         }

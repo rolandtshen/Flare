@@ -25,6 +25,7 @@ PODS:
     - Parse (~> 1.9)
   - ReactiveKit (3.3.1)
   - SCLAlertView (0.7.0)
+  - SendBirdSDK (3.0.44)
   - SVProgressHUD (2.1.2)
 
 DEPENDENCIES:
@@ -40,6 +41,7 @@ DEPENDENCIES:
   - Parse
   - ParseUI
   - SCLAlertView
+  - SendBirdSDK
   - SVProgressHUD
 
 SPEC CHECKSUMS:
@@ -59,8 +61,9 @@ SPEC CHECKSUMS:
   ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e
   ReactiveKit: 27df79c2e2f0771aef1061551fcd7e82b92066e9
   SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
+  SendBirdSDK: 976ced2079ea1fef23f97b51c1d09aaa70ff8182
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
 
-PODFILE CHECKSUM: e66943bd79c4b1383edeab7acea74e3e6fac43d6
+PODFILE CHECKSUM: 987ef2916cdfb629b68ca1286fbd1eb62f1a735c
 
 COCOAPODS: 1.2.0

@@ -40,6 +40,12 @@ class QuestionsViewController: PFQueryTableViewController, CLLocationManagerDele
         UIApplication.shared.statusBarStyle = .lightContent
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.white]
         
+        let colors:[UIColor] = [
+            UIColor(hexString: "0ae7f2"),
+            UIColor(hexString: "0b9de7")
+        ]
+        self.navigationController?.navigationBar.barTintColor = UIColor.init(gradientStyle: .leftToRight, withFrame: view.frame, andColors: colors)
+
         _ = Timer.scheduledTimer(timeInterval: 120.0, target: self, selector: #selector(QuestionsViewController.queryForTable), userInfo: nil, repeats: true)
         self.tableView.backgroundColor = UIColor(hexString: "f2f2f2")
         tableView.estimatedRowHeight = 200

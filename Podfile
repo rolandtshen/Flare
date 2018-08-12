@@ -20,5 +20,6 @@ pod 'AlertOnboarding'
 pod 'Eureka'
 pod 'SCLAlertView'
 pod 'KMPlaceholderTextView'
+pod 'SendBirdSDK'
 
 end

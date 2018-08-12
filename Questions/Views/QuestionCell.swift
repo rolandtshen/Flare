@@ -57,6 +57,14 @@ class QuestionCell: PFTableViewCell {
         return stringLikes
     }
     
+    @IBAction func userPressed(_ sender: Any) {
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let profileViewController = storyboard.instantiateViewController(withIdentifier: "profileViewController") as! ProfileViewController
+        profileViewController.user = post?.user
+//        self.presentViewController(profileViewController, animated:true, completion:nil)
+    }
+    
     @IBAction func likePressed(_ sender: AnyObject) {
         post!.toggleLikePost(PFUser.current()!)
     }

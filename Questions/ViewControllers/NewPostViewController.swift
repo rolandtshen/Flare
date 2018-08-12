@@ -22,6 +22,7 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var profilePicView: UIImageView!
     @IBOutlet weak var categoryButton: UIButton!
+    @IBOutlet weak var imageView: UIImageView!
     
     var image: UIImage?
     var locationExists: Bool = false
@@ -38,6 +39,8 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imageView.layer.cornerRadius = 9
+        imageView.clipsToBounds = true
         profilePicView.layer.cornerRadius = profilePicView.frame.width/2
         profilePicView.clipsToBounds = true
         getProfilePic(PFUser.current()!) { (image) in
@@ -224,6 +227,7 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             image = pickedImage
+            imageView.image = pickedImage
         }
         Mixpanel.sharedInstance().track("Picked image")
         

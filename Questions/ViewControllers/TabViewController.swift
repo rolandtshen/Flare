@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import UIKit
+import Parse
 
-class TabViewController: UITabBarController{
+class TabViewController: UITabBarController {
     override func viewDidLoad() {
         UIApplication.shared.statusBarStyle = .lightContent
     }
@@ -16,4 +18,11 @@ class TabViewController: UITabBarController{
     override var preferredStatusBarStyle : UIStatusBarStyle{
         return UIStatusBarStyle.lightContent
     }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let tabVc = segue.destination as! UITabBarController
+//        let navVc = tabVc.viewControllers!.first as! UINavigationController
+//        let profile = navVc.viewControllers.first as! ProfileViewController
+//        profile.user = PFUser.current()
+//    }
 }

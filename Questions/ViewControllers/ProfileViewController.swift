@@ -23,6 +23,7 @@ class ProfileViewController: PFQueryTableViewController {
     @IBOutlet weak var editProfileButton: UIButton!
     
     let colorPicker = CategoryHelper()
+    var user: PFUser?
     
     override var prefersStatusBarHidden : Bool {
         return false
@@ -33,7 +34,7 @@ class ProfileViewController: PFQueryTableViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "ProximaNova-Bold", size: 20.0)!, NSForegroundColorAttributeName: UIColor.white]
         
         editProfileButton.layer.borderWidth = 1.0
-        editProfileButton.layer.borderColor = UIColor.init(hexString: "00ADCC").cgColor
+        editProfileButton.layer.borderColor = UIColor.flatGray().cgColor
         editProfileButton.backgroundColor = UIColor.white
         
         profilePicView.layer.cornerRadius = profilePicView.frame.width / 2
@@ -42,14 +43,15 @@ class ProfileViewController: PFQueryTableViewController {
         tableView.estimatedRowHeight = 80.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        fullNameLabel.textAlignment = .center
-        bioLabel.textAlignment = .center
+        if(user == nil) {
+            user = PFUser.current()
+        }
         
         getUsername { (username) in
             self.fullNameLabel.text = username
         }
         
-        getProfilePic(PFUser.current()!, completionHandler: { (image) in
+        getProfilePic((user)!, completionHandler: { (image) in
             self.profilePicView.image = image
         })
         
@@ -65,7 +67,7 @@ class ProfileViewController: PFQueryTableViewController {
             self.questionsLabel.text = "\(numQuestions)"
         }
         
-        getBio(PFUser.current()!) { (bio) in
+        getBio(user!) { (bio) in
             self.bioLabel.sizeToFit()
             self.bioLabel.text = bio
         }
@@ -78,7 +80,7 @@ class ProfileViewController: PFQueryTableViewController {
     override func queryForTable() -> PFQuery<PFObject> {
         let query = PFQuery(className: "Post")
         query.includeKey("user")
-        query.whereKey("user", equalTo: PFUser.current()!)
+        query.whereKey("user", equalTo: user)
         query.order(byDescending: "createdAt")
         query.limit = 100
         return query
@@ -108,7 +110,7 @@ class ProfileViewController: PFQueryTableViewController {
     }
     
     func getBio(_ object: PFObject, completionHandler: @escaping (String) -> Void) {
-        PFUser.current()?.fetchInBackground { user, error in
+        user?.fetchInBackground { user, error in
             if(user!["bio"] != nil) {
                 completionHandler(user!["bio"] as! String)
             }
@@ -119,14 +121,14 @@ class ProfileViewController: PFQueryTableViewController {
     }
     
     func getUsername(_ completionHandler: @escaping (String) -> Void) {
-        PFUser.current()?.fetchInBackground { user, error in
-            completionHandler((PFUser.current()?.username)!)
+        user?.fetchInBackground { user, error in
+            completionHandler((self.user?.username)!)
         }
     }
     
     func getNumLikes(_ completionHandler: @escaping (Int) -> Void) {
         let query = PFQuery(className: "Like")
-        query.whereKey("fromUser", equalTo: PFUser.current()!)
+        query.whereKey("fromUser", equalTo: user ?? PFUser.current)
         query.findObjectsInBackground { (objects, error) in
             if error == nil {
                 completionHandler(objects!.count)
@@ -136,7 +138,7 @@ class ProfileViewController: PFQueryTableViewController {
     
     func getNumQuestions(_ completionHandler: @escaping (Int) -> Void) {
         let query = PFQuery(className: "Post")
-        query.whereKey("user", equalTo: PFUser.current()!)
+        query.whereKey("user", equalTo: user ?? PFUser.current)
         query.findObjectsInBackground { (objects, error) in
             if error == nil {
                 completionHandler(objects!.count)
@@ -146,7 +148,7 @@ class ProfileViewController: PFQueryTableViewController {
     
     func getNumAnswers(_ completionHandler: @escaping (Int) -> Void) {
         let query = PFQuery(className: "Reply")
-        query.whereKey("fromUser", equalTo: PFUser.current()!)
+        query.whereKey("fromUser", equalTo: user)
         query.findObjectsInBackground { (objects, error) in
             if error == nil {
                 completionHandler(objects!.count)
